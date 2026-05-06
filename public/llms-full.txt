@@ -1,0 +1,107 @@
+# Alejandro Moreno Martín — Full Profile
+
+Role: Product Designer
+Location: Madrid, Spain
+Status: Open for opportunities
+Website: https://alejandromorenomartin.com
+Contact: alejandromorenomartin1990@gmail.com
+LinkedIn: https://www.linkedin.com/in/alejandromorenoproductdesigner/
+GitHub: https://github.com/AlejandroMorenoMartin
+
+---
+
+## About
+
+Design has always revolved around people — understanding what they need, how they think, what frustrates them. That hasn't changed. What is changing — fast — is who else is on the other side.
+
+AI is no longer just a tool. In many systems it's also the end user. That opens questions we didn't have two years ago: how do you design for something that has no emotions but does have context? Where is the interface when the agent makes decisions alone? We're on new ground, and that's genuinely fascinating. My focus is there — understanding how this change affects the product, the people who use it, and the results we're pursuing.
+
+Working remotely from Madrid. Open to projects and collaborations.
+
+---
+
+## Experience
+
+### Freelance Product Designer — Freelance (2021 – Present)
+End-to-end management of digital projects for a diverse client portfolio. Optimized design systems and conversion funnels through a comprehensive technical process. Achieved reduction in CPL and 18% growth in lead acquisition.
+
+### Co-founder — Dako (2020 – 2021)
+Co-founded and operated a B2C business model through MVP development and direct feedback integration. Managed 4 operational areas simultaneously, consolidating an active client base.
+
+### Marketing Manager — Promam (2017 – 2021)
+Led the commercial area and B2B channel digitalization to modernize acquisition and key account management processes.
+
+### Social Media & Community Manager — Freelance (2021 – Present)
+Managed digital reputation and content strategy to mitigate crises and expand online community.
+
+---
+
+## Education
+
+### Interaction Design Foundation (2021 – 2024)
+- Design Thinking: The Ultimate Guide
+- UI Pattern Design for Successful Software
+- Mobile User Experience (UX)
+- Visual Design: The Ultimate Guide
+- Information Visualization
+- Emotional Design: How to Create Products That Are Loved
+- Design for the 21st Century with Don Norman
+- Human-Computer Interaction
+- Gestalt Psychology and Web Design
+- User Research: Methods and Good Practices
+
+### Coursera & Google (2021)
+- Foundations of User Experience (UX) Design
+
+### Universidad Rey Juan Carlos (2011 – 2016)
+- Degree in Marketing
+
+---
+
+## Skills
+
+### Strategy
+- Hypothesis validation through functional prototypes
+- Funnel architecture and lead optimization
+- AAA accessibility audit and execution
+
+### Design Engineering
+- Scalable architectures (Design Tokens, Storybook)
+- High-performance interface development (React, Swift)
+- High-fidelity sandboxes that eliminate friction with development
+
+### AI Orchestration
+- Non-deterministic flow design and AI state management
+- MCP (Model Context Protocol) integration
+- Design flow automation through LLMs
+
+---
+
+## Languages
+
+- Spanish: Native
+- English: Professional
+
+---
+
+## Projects
+
+### AMM_OS.app
+UX validation framework built as a terminal-style OS interface.
+Impact: -60% design-to-production lead time.
+
+### SENZO.studio
+VFX portfolio platform for a visual effects studio.
+Impact: +25% qualified leads.
+
+### CASA_DEL_AIRE.io
+Direct booking platform for a rural accommodation.
+Impact: +20% direct booking ratio.
+
+### SAZON.app
+Culinary social platform focused on weekly engagement.
+Impact: +30% weekly recurrence.
+
+### FORMA.app
+Biometric monitoring application with focus on cognitive load.
+Impact: +40% cognitive load reduction.

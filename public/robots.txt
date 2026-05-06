@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /sistema
+
+Sitemap: https://alejandromorenomartin.com/sitemap.xml

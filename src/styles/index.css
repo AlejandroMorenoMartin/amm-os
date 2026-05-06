@@ -1,0 +1,348 @@
+@import "tailwindcss";
+
+@theme {
+  --font-mono: "Roboto Mono", monospace;
+
+  --color-background: #010816;
+
+  --color-zinc-50: #FAFAFA;
+  --color-zinc-100: #F4F4F5;
+  --color-zinc-200: #E4E4E7;
+  --color-zinc-300: #D4D4D8;
+  --color-zinc-400: #A1A1AA;
+  --color-zinc-500: #71717A;
+  --color-zinc-600: #52525B;
+  --color-zinc-700: #3F3F46;
+  --color-zinc-800: #27272A;
+  --color-zinc-900: #18181B;
+  --color-zinc-950: #09090B;
+
+  --color-azul-50: #F1F2F1;
+  --color-azul-100: #C3E8F1;
+  --color-azul-200: #67D4F0;
+  --color-azul-300: #0BC0EF;
+  --color-azul-400: #06A3F7;
+  --color-azul-500: #0086FF;
+  --color-azul-600: #1460C6;
+  --color-azul-700: #29398E;
+  --color-azul-800: #182A66;
+  --color-azul-900: #061A3F;
+  --color-azul-950: #000105;
+
+  --color-naranja-50: #FFF7ED;
+  --color-naranja-100: #FFEDD5;
+  --color-naranja-200: #FED7AA;
+  --color-naranja-300: #FDBA74;
+  --color-naranja-400: #FB923C;
+  --color-naranja-500: #F97316;
+  --color-naranja-600: #EA580C;
+  --color-naranja-700: #C2410C;
+  --color-naranja-800: #9A3412;
+  --color-naranja-900: #7C2D12;
+  --color-naranja-950: #431407;
+
+  --color-verde: #4ADE80;
+  --color-amarillo: #FACC15;
+  --color-cyan: #22D3EE;
+
+  --radius: 0;
+  --shadow: none;
+}
+
+/* ── Semantic tokens ────────────────────────────────── */
+:root {
+  --border-default:  0.5px solid var(--color-zinc-800);
+  --photo-bg:        var(--color-zinc-950);
+  --border-strong:   0.5px solid var(--color-zinc-200);
+  --border-dashed:   0.25px dashed var(--color-zinc-800);
+  --focus-border:    0.5px solid var(--color-azul-500);
+  --shell-max-width: 960px;
+  --shell-padding: 1rem;
+  --shell-bar-offset: 48px;
+  --gap-page:    2.5rem;
+  --gap-section: 1.25rem;
+  --gap-block:   0.25rem;  
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-background);
+  font-family: var(--font-mono);
+  color: var(--color-zinc-400);
+}
+
+/* ── Focus global ───────────────────────────────────── */
+:focus-visible {
+  outline: none;
+  border-bottom: var(--focus-border);
+  position: relative;
+}
+
+/* Sin focus visual */
+.btn-no-focus:focus-visible {
+  outline: none;
+  border-bottom: none;
+}
+
+/* Focus en imágenes: outline completo hacia dentro */
+.photo-btn:focus-visible {
+  outline: 0.5px solid var(--color-azul-500);
+  outline-offset: -2px;
+  border-bottom: none;
+}
+
+/* Typography utilities */
+.text-txt-xl   { font-size: 18px; line-height: 1.4; font-weight: 700; color: var(--color-zinc-200); }
+.text-txt-l    { font-size: 16px; line-height: 1.4; font-weight: 500; color: var(--color-zinc-300); }
+.text-txt-base { font-size: 14px; line-height: 1.5; font-weight: 400; color: var(--color-zinc-400); }
+.text-txt-s    { font-size: 12px; line-height: 1.5; font-weight: 300; color: var(--color-zinc-500); }
+.text-txt-xs   { font-size: 10px; line-height: 1.5; font-weight: 300; color: var(--color-zinc-500); }
+
+
+/* SectionTitle */
+.section-title { border-bottom: var(--border-default); width: 100%; padding-bottom: 0.25rem; }
+
+/* Shell */
+.shell-topbar  { background: var(--color-background); }
+.shell-bottombar { background: var(--color-background); }
+.shell-border { border-bottom: var(--border-default); }
+.shell-lang-divider { padding-left: 12px; }
+
+/* Barras top/bottom — compartidas por TopBar, BottomBar y modal */
+.shell-bar-top    { background: var(--color-background); border-bottom: var(--border-default); }
+.shell-bar-bottom { background: var(--color-background); border-top: var(--border-default); }
+
+/* ProjectRow */
+.project-row-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem 0;
+  width: 100%;
+}
+.project-row-btn:hover .project-name { color: var(--color-zinc-50); }
+.project-row-wrap {
+  position: relative;
+  padding-bottom: 0;
+  transition: padding-bottom 150ms ease;
+}
+.project-row-wrap--focused {
+  padding-bottom: var(--gap-section);
+}
+.project-row-expanded-block { border-left: var(--border-strong); padding: 0.5rem 0 var(--gap-section) var(--gap-section); }
+.project-name { text-decoration: underline; }
+.kpi { color: var(--color-naranja-500); }
+.project-divider { border: none; border-top: var(--border-dashed); width: 100%; margin: 0; }
+
+/* StatusChip */
+.status-chip {
+  display: inline-block;
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.5rem;
+  border-width: 0.5px;
+  border-style: solid;
+}
+.status-chip--live        { color: var(--color-verde);    border-color: var(--color-verde);    background: transparent; }
+.status-chip--beta        { color: var(--color-amarillo); border-color: var(--color-amarillo); background: transparent; }
+.status-chip--in-progress { color: var(--color-cyan);     border-color: var(--color-cyan);     background: transparent; }
+.status-chip--paused      { color: var(--color-zinc-500); border-color: var(--color-zinc-500); background: transparent; }
+.status-chip--archived    { color: var(--color-zinc-700); border-color: var(--color-zinc-700); background: transparent; }
+
+/* Photo */
+.photo-border { border: var(--border-default); display: block; padding: 8px; background: var(--photo-bg); }
+.photo-btn:hover .photo-border { opacity: 0.9; }
+
+/* photo-btn--full: 100% en mobile y desktop (proyectos) */
+.photo-btn--full { display: block; width: 100%; }
+
+/* photo-btn--half: 100% en mobile, 192px en desktop (about) */
+.photo-btn--half { display: block; width: 100%; }
+@media (min-width: 768px) and (min-height: 500px) { .photo-btn--half { width: 192px; } }
+.desktop-block  { display: none; }
+.desktop-inline { display: none; }
+@media (min-width: 768px) and (min-height: 500px) { .desktop-block  { display: block; } }
+@media (min-width: 768px) and (min-height: 500px) { .desktop-inline { display: inline; } }
+
+/* Solo visible con puntero preciso (ratón/trackpad — no táctil) */
+.pointer-fine-block { display: none; }
+@media (pointer: fine) { .pointer-fine-block { display: block; } }
+
+/* Nav táctil: botones ocupan 100% del ancho a partes iguales */
+.nav-touch { width: 100%; }
+.nav-touch .btn-nav { flex: 1; text-align: center; }
+@media (pointer: fine) {
+  .nav-touch { width: auto; }
+  .nav-touch .btn-nav { flex: none; }
+}
+
+/* ImageModal */
+.modal-bg { background: var(--color-background); }
+.modal-thumb { border: var(--border-default); }
+.modal-bar-top    { background: var(--color-background); }
+.modal-bar-top    > * { border-bottom: var(--border-default); }
+.modal-bar-bottom { background: var(--color-background); }
+.modal-bar-bottom > * { border-top: var(--border-default); }
+
+/* Links */
+.link-external,
+.link-internal {
+  text-decoration: underline;
+}
+.link-external:hover,
+.link-internal:hover {
+  color: var(--color-zinc-50);
+  text-decoration: underline;
+}
+.link-external:focus-visible {
+  outline: none;
+  border-bottom: var(--focus-border);
+}
+
+/* Link deshabilitado — sin interacción, apariencia muted */
+.link-disabled {
+  color: var(--color-zinc-700);
+  text-decoration: underline;
+  pointer-events: none;
+  cursor: default;
+}
+
+/* btn-nav — NavItem + BtnLang */
+.btn-nav {
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 0.4rem 0.8rem;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  color: var(--color-zinc-400);
+}
+.btn-nav:hover { color: var(--color-zinc-50); }
+.btn-nav:active {
+  background: var(--color-azul-500);
+  color: var(--color-azul-950);
+}
+.btn-nav--active {
+  background: var(--color-azul-500);
+  color: var(--color-azul-950);
+}
+.btn-nav--active:hover { color: var(--color-azul-950); }
+
+/* btn-action — BtnControl + BtnOpen */
+.btn-action {
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 0.4rem 0.8rem;
+  text-transform: uppercase;
+  background: none;
+  border: var(--border-default);
+  color: var(--color-zinc-400);
+}
+.btn-action:hover {  
+  color: var(--color-zinc-50);
+}
+.btn-action:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* btn-action--primary — variante azul (BtnOpen) */
+.btn-action--primary {
+  border-color: var(--color-azul-500);
+  color: var(--color-azul-500);
+  background: var(--color-azul-900);
+}
+.btn-action--primary:hover { 
+  color: var(--color-azul-500);
+  background: var(--color-azul-800);
+}
+
+/* ── Accesibilidad ──────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Vignette periférico ────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+}
+
+/* ── Scanlines CRT ──────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 3px
+  );
+}
+
+/* Nivel medio — cambiar body::after por .scanlines-md::after */
+.scanlines-md::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.07) 2px,
+    rgba(0, 0, 0, 0.07) 3px
+  );
+}
+
+/* Nivel pronunciado — cambiar body::after por .scanlines-lg::after */
+.scanlines-lg::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.13) 2px,
+    rgba(0, 0, 0, 0.13) 4px
+  );
+}
+
+/* ── Mobile breakpoint ─────────────────────────────── */
+@media not ((min-width: 768px) and (min-height: 500px)) {
+  :root {
+    --shell-bar-offset: 40px;
+  }
+}
+
+/* Scrollbar — webkit */
+::-webkit-scrollbar { width: 2px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background-color: var(--color-zinc-800); }
+::-webkit-scrollbar-thumb:hover { background-color: var(--color-zinc-500); }
+
+/* Scrollbar — Firefox */
+* { scrollbar-width: thin; scrollbar-color: var(--color-zinc-800) transparent; }

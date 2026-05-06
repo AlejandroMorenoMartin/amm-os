@@ -1,0 +1,35 @@
+# Alejandro Moreno Martín
+
+Role: Product Designer
+Location: Madrid, Spain
+Status: Open for opportunities
+Contact: alejandromorenomartin1990@gmail.com
+LinkedIn: https://www.linkedin.com/in/alejandromorenoproductdesigner/
+GitHub: https://github.com/AlejandroMorenoMartin
+
+## About
+
+Product Designer specializing in AI systems and design engineering. Focused on understanding how AI changes product design — not just as a tool, but as a user and decision-maker. Working remotely from Madrid, open to projects and collaborations.
+
+## Skills
+
+- Product strategy: hypothesis validation, funnel architecture, AAA accessibility audits
+- Design engineering: design tokens, Storybook, React, Swift, high-fidelity sandboxes
+- AI orchestration: non-deterministic flow design, MCP (Model Context Protocol) integration, LLM-driven design automation
+
+## Languages
+
+- Spanish: Native
+- English: Professional
+
+## Projects
+
+- AMM_OS.app: UX validation framework. Impact: -60% design-to-production lead time.
+- SENZO.studio: VFX portfolio platform. Impact: +25% qualified leads.
+- CASA_DEL_AIRE.io: Direct booking platform. Impact: +20% direct booking ratio.
+- SAZON.app: Culinary social platform. Impact: +30% weekly recurrence.
+- FORMA.app: Biometric monitoring app. Impact: +40% cognitive load reduction.
+
+## Full profile
+
+https://alejandromorenomartin.com/llms-full.txt

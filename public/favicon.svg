@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect width="32" height="32" fill="#010816"/>
+  <!--
+    ASCII "A" geometry (4 rows, each ~8px tall in 32px grid):
+
+    Row 1 (y 0–8):    _          → flat top segment, centered
+    Row 2 (y 8–16):  /_\         → two diagonals meeting at top, arms wide
+    Row 3 (y 16–24): / _ \       → two diagonals open, crossbar in middle
+    Row 4 (y 24–32): /_/ \_\     → base with two feet and gap
+
+    Key points (on a 32×32 grid, 1 unit = ~1.3px per char):
+      apex (top of _):   x=12–20, y=9   (the underscore in row1)
+      crossbar:          x=8–24,  y=19
+      base-left foot:    x=3,     y=28
+      base-right foot:   x=29,    y=28
+      base-gap-left:     x=13,    y=28
+      base-gap-right:    x=19,    y=28
+
+    Stroke weight: 2.8px — thick enough at 16px, not blobby at 32px
+  -->
+
+  <!-- Top flat segment (the "_" in row 1) -->
+  <line x1="12" y1="9" x2="20" y2="9" stroke="#FAFAFA" stroke-width="2.8" stroke-linecap="square"/>
+
+  <!-- Left outer diagonal: apex-left → base-left foot -->
+  <line x1="12" y1="9" x2="3" y2="28" stroke="#FAFAFA" stroke-width="2.8" stroke-linecap="square"/>
+
+  <!-- Right outer diagonal: apex-right → base-right foot -->
+  <line x1="20" y1="9" x2="29" y2="28" stroke="#FAFAFA" stroke-width="2.8" stroke-linecap="square"/>
+
+  <!-- Crossbar (the "_ " in row 3) -->
+  <line x1="9" y1="19" x2="23" y2="19" stroke="#FAFAFA" stroke-width="2.8" stroke-linecap="square"/>
+
+  <!-- Inner left diagonal (the "/" between gap in row 4): crossbar-left → base-gap-left -->
+  <line x1="9" y1="19" x2="13" y2="28" stroke="#FAFAFA" stroke-width="2.8" stroke-linecap="square"/>
+
+  <!-- Inner right diagonal (the "\" between gap in row 4): crossbar-right → base-gap-right -->
+  <line x1="23" y1="19" x2="19" y2="28" stroke="#FAFAFA" stroke-width="2.8" stroke-linecap="square"/>
+
+  <!-- Base left segment -->
+  <line x1="3" y1="28" x2="13" y2="28" stroke="#FAFAFA" stroke-width="2.8" stroke-linecap="square"/>
+
+  <!-- Base right segment -->
+  <line x1="19" y1="28" x2="29" y2="28" stroke="#FAFAFA" stroke-width="2.8" stroke-linecap="square"/>
+</svg>
