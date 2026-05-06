@@ -42,7 +42,6 @@ export const projects: Project[] = [
     resources: {
       github: 'https://github.com/AlejandroMorenoMartin/amm-os',
       live: 'https://alejandromorenomartin.com',
-      disabled: ['github'],
     },
     metrics: [
       {
@@ -103,9 +102,8 @@ export const projects: Project[] = [
     },
     status: 'In Progress',
     resources: {
-      github: 'https://github.com/AlejandroMorenoMartin/senzo-web',
-      live: 'https://www.senzostudio.com',
-      disabled: ['github'],
+      github: 'https://github.com/AlejandroMorenoMartin/senzo-studio',
+      live: 'https://senzo-studio.vercel.app',
     },
     metrics: [
       {
@@ -166,9 +164,8 @@ export const projects: Project[] = [
     },
     status: 'In Progress',
     resources: {
-      github: 'https://github.com/AlejandroMorenoMartin/casa-aire-web',
+      github: 'https://github.com/AlejandroMorenoMartin/casa-del-aire',
       live: 'https://www.casadelaire.es',
-      disabled: ['github'],
     },
     metrics: [
       {
