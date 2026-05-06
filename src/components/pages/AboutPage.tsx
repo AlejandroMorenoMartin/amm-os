@@ -36,6 +36,7 @@ export function AboutPage() {
       <p className="text-txt-base">{t.sobreMi.p1}</p>
       <p className="text-txt-base">{t.sobreMi.p2}</p>
       <p className="text-txt-base">{t.sobreMi.p3}</p>
+      <p className="text-txt-base">{t.sobreMi.p4}</p>
     </article>
   );
 }
