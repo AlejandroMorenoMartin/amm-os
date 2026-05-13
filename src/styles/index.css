@@ -209,6 +209,40 @@ html, body, #root {
   border-bottom: var(--focus-border);
 }
 
+/* Email copy button */
+.email-copy {
+  position: relative;
+  cursor: pointer;
+}
+.email-copy:hover {
+  color: var(--color-zinc-50);
+}
+.email-copy:focus-visible {
+  outline: none;
+  border-bottom: var(--focus-border);
+}
+.email-copy-tooltip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  right: 0;
+  background: var(--color-zinc-900);
+  border: var(--border-default);
+  color: var(--color-zinc-200);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+.email-copy:hover .email-copy-tooltip,
+.email-copy:focus-visible .email-copy-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Link deshabilitado — sin interacción, apariencia muted */
 .link-disabled {
   color: var(--color-zinc-700);

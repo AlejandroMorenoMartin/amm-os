@@ -22,6 +22,7 @@ export function ResumePage() {
       {/* Educación */}
       <section className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
         <SectionLabel>{t.cv.educacion}</SectionLabel>
+        <EduEntry period={t.cv.edu4Period} institution={t.cv.edu4Institution} courses={t.cv.edu4Courses} />
         <EduEntry period={t.cv.edu1Period} institution={t.cv.edu1Institution} courses={t.cv.edu1Courses} />
         <EduEntry period={t.cv.edu2Period} institution={t.cv.edu2Institution} courses={t.cv.edu2Courses} />
         <EduEntry period={t.cv.edu3Period} institution={t.cv.edu3Institution} courses={t.cv.edu3Courses} />

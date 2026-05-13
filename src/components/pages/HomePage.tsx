@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useT } from '../../i18n';
 import { LinkExternal } from '../ui/LinkExternal';
 import { TextBlock } from '../ui/TextBlock';
@@ -9,8 +10,18 @@ const ASCII_ART = [
   '/_/ \\_\\_|  |_|_|  |_|',
 ].join('\n');
 
+const EMAIL = 'alejandromorenomartin1990@gmail.com';
+
 export function HomePage() {
   const { t } = useT();
+  const [copied, setCopied] = useState(false);
+
+  function handleCopyEmail() {
+    navigator.clipboard.writeText(EMAIL).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    });
+  }
 
   return (
     <article className="flex-1 font-mono flex flex-col" style={{ gap: 'var(--gap-page)' }}>
@@ -48,12 +59,16 @@ export function HomePage() {
           <LinkExternal href="https://github.com/AlejandroMorenoMartin">
             {t.home.github}
           </LinkExternal>
-          <a
-            href="mailto:alejandromorenomartin1990@gmail.com"
-            className="link-external text-txt-base font-mono"
+          <button
+            type="button"
+            onClick={handleCopyEmail}
+            className="email-copy text-txt-base font-mono text-left"
           >
-            alejandromorenomartin1990@gmail.com
-          </a>
+            <span className="email-copy-tooltip">
+              {copied ? t.home.emailCopied : t.home.gmail}
+            </span>
+            {EMAIL}
+          </button>
         </div>
       </TextBlock>
     </article>

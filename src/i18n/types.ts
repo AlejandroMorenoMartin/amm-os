@@ -23,6 +23,7 @@ export interface Strings {
     linkedin: string;
     github: string;
     gmail: string;
+    emailCopied: string;
   };
   trabajo: {
     title: string;
@@ -80,6 +81,9 @@ export interface Strings {
     edu3Period: string;
     edu3Institution: string;
     edu3Courses: string[];
+    edu4Period: string;
+    edu4Institution: string;
+    edu4Courses: string[];
     // Skills
     skill1Label: string;
     skill1Items: string[];
