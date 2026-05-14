@@ -14,23 +14,26 @@ interface ProjectRowProps {
   role: string;
   goal: string;
   status: string;
+  expand: string;
+  collapse: string;
 }
 
 export function ProjectRow({
   project, isExpanded, lang, onToggle, onOpen,
-  challenge, role, goal, status,
+  challenge, role, goal, status, expand, collapse,
 }: ProjectRowProps) {
   return (
     <div className={`font-mono project-row-wrap${isExpanded ? ' project-row-wrap--focused' : ''}`} data-slug={project.slug}>
       <button
         onClick={() => onToggle(project.slug)}
-        className="w-full text-left project-row-btn"
+        className="w-full text-left project-row-btn has-tooltip"
         style={{ background: 'none', cursor: 'pointer' }}
         aria-expanded={isExpanded}
       >
         <span className="text-txt-l project-name">{project.name}</span>
         <span className="text-txt-s italic">{project.date}</span>
         <span className="text-txt-base">{project.synopsis[lang]}</span>
+        <span className="tooltip">{isExpanded ? collapse : expand}</span>
       </button>
 
       {isExpanded && (

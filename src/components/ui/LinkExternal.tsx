@@ -3,9 +3,10 @@ import { useFocused } from '../../hooks/useFocused';
 interface LinkExternalProps {
   href: string;
   children: React.ReactNode;
+  tooltip?: string;
 }
 
-export function LinkExternal({ href, children }: LinkExternalProps) {
+export function LinkExternal({ href, children, tooltip }: LinkExternalProps) {
   const { focused, focusProps } = useFocused();
 
   return (
@@ -13,10 +14,11 @@ export function LinkExternal({ href, children }: LinkExternalProps) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="font-mono text-txt-base link-external"
+      className={`font-mono text-txt-base link-external${tooltip ? ' has-tooltip' : ''}`}
       {...focusProps}
     >
       {focused ? '> ' : ''}{children} ↗
+      {tooltip && <span className="tooltip">{tooltip}</span>}
     </a>
   );
 }

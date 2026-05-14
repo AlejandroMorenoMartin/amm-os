@@ -2,8 +2,12 @@ export interface Strings {
   nav: {
     home: string;
     trabajo: string;
-    sobreMi: string;
     cv: string;
+    skills: string;
+    tooltipHome: string;
+    tooltipTrabajo: string;
+    tooltipCv: string;
+    tooltipSkills: string;
   };
   boot: {
     line1: string;
@@ -13,17 +17,19 @@ export interface Strings {
     skip: string;
   };
   home: {
-    sectionNombre: string;
+    title: string;
+    sectionPhoto: string;
     sectionRol: string;
     sectionPerfil: string;
+    sectionOffline: string;
     sectionContacto: string;
-    nombre: string;
-    rol: string;
     perfil: string;
     linkedin: string;
     github: string;
     gmail: string;
     emailCopied: string;
+    tooltipLinkedin: string;
+    tooltipGithub: string;
   };
   trabajo: {
     title: string;
@@ -35,22 +41,18 @@ export interface Strings {
     goal: string;
     status: string;
     open: string;
+    tooltipExpand: string;
+    tooltipCollapse: string;
+    tooltipOpen: string;
   };
   sobreMi: {
-    title: string;
     photoAlt: string;
-    p1: string;
-    p2: string;
-    p3: string;
     p4: string;
   };
   cv: {
     title: string;
     experiencia: string;
     educacion: string;
-    skills: string;
-    idiomas: string;
-    // Experiencia
     exp1Period: string;
     exp1Company: string;
     exp1Role: string;
@@ -71,7 +73,6 @@ export interface Strings {
     exp4Role: string;
     exp4Desc: string;
     exp4Kpis: { value: string; label: string }[];
-    // Educación
     edu1Period: string;
     edu1Institution: string;
     edu1Courses: string[];
@@ -84,14 +85,17 @@ export interface Strings {
     edu4Period: string;
     edu4Institution: string;
     edu4Courses: string[];
-    // Skills
+  };
+  skills: {
+    title: string;
+    tooltipSkills: string;
     skill1Label: string;
     skill1Items: string[];
     skill2Label: string;
     skill2Items: string[];
     skill3Label: string;
     skill3Items: string[];
-    // Idiomas
+    idiomas: string;
     lang1Name: string;
     lang1Level: string;
     lang2Name: string;
@@ -104,12 +108,16 @@ export interface Strings {
     ownership: string;
     manifesto: string;
     openImage: string;
+    tooltipBack: string;
+    tooltipGithub: string;
+    tooltipLive: string;
   };
   modal: {
     zoomOut: string;
     zoomReset: string;
     zoomIn: string;
     close: string;
+    open: string;
   };
   topbar: {
     switchLang: string;
@@ -118,8 +126,9 @@ export interface Strings {
   breadcrumb: {
     home: string;
     trabajo: string;
-    sobreMi: string;
     cv: string;
+    skills: string;
     sistema: string;
+    backToProjects: string;
   };
 }

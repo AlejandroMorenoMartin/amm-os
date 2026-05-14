@@ -96,36 +96,40 @@ export function ImageModal() {
                 ref={firstBtn}
                 onClick={() => setZoom((z) => Math.max(10, z - 10))}
                 disabled={zoom <= 10}
-                className="btn-action"
+                className="btn-action has-tooltip"
                 aria-label={t.modal.zoomOut}
               >
                 [-]
+                <span className="tooltip tooltip--down">{t.modal.zoomOut}</span>
               </button>
               <button
                 onClick={() => setZoom(100)}
                 disabled={zoom === 100}
-                className="btn-action"
+                className="btn-action has-tooltip"
                 aria-label={t.modal.zoomReset}
               >
                 [100%]
+                <span className="tooltip tooltip--down">{t.modal.zoomReset}</span>
               </button>
               <button
                 onClick={() => setZoom((z) => Math.min(200, z + 10))}
                 disabled={zoom >= 200}
-                className="btn-action"
+                className="btn-action has-tooltip"
                 aria-label={t.modal.zoomIn}
               >
                 [+]
+                <span className="tooltip tooltip--down">{t.modal.zoomIn}</span>
               </button>
               <span className="text-txt-s" aria-hidden="true">{zoom}%</span>
               <span className="sr-only">{zoom}%</span>
             </div>
             <button
               onClick={closeImageModal}
-              className="btn-action"
+              className="btn-action has-tooltip"
               aria-label={t.modal.close}
             >
               [X]
+              <span className="tooltip tooltip--down">{t.modal.close}</span>
             </button>
           </header>
 

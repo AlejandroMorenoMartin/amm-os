@@ -4,8 +4,8 @@ import { Shell } from './components/shell/Shell';
 import { BootPage } from './components/pages/BootPage';
 import { HomePage } from './components/pages/HomePage';
 import { ProjectsPage } from './components/pages/ProjectsPage';
-import { AboutPage } from './components/pages/AboutPage';
 import { ResumePage } from './components/pages/ResumePage';
+import { SkillsPage } from './components/pages/SkillsPage';
 import { ProjectPage } from './components/pages/ProjectPage';
 import { ImageModal } from './components/ui/ImageModal';
 import { useAppStore } from './store/useAppStore';
@@ -35,7 +35,7 @@ function AppRoutes() {
         <Route path="/" element={<HomePage />} />
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/projects/:slug" element={<ProjectPage />} />
-        <Route path="/about" element={<AboutPage />} />
+        <Route path="/skills" element={<SkillsPage />} />
         <Route path="/resume" element={<ResumePage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

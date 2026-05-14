@@ -1,16 +1,26 @@
-# AMM-OS — Pendientes
+# Pending — amm-os
 
-## App
+<!-- Formato: - [ ] **Descripción** `[ALTA|MEDIA|BAJA]` — _entrada: YYYY-MM-DD_ -->
+<!-- Contexto opcional:  > descripción ampliada -->
+<!-- Próximo paso:       > next: acción concreta y ejecutable -->
 
-- **React Router — migración de router interno** — habilita URLs reales por página y proyecto (`/trabajo/amm-os`), botón atrás del browser, deep linking y botón de compartir. Prerequisito para shareability real del portfolio.
+- [ ] **Desarrollar caso de estudio AMOS en el portfolio** `[ALTA]` — _entrada: 2026-05-09_
 
-- **Navegación vertical ↑ ↓** entre elementos focusables — hook en `useArcadeControls.ts`, función `getFocusables()` ya existe
-- **SistemaPage** — código completo pero muteado en `App.tsx`. No borrar, se retomará.
-- **Auditoría tipográfica** — CVPage puede usar tokens incorrectos, verificar consistencia al retomar
-- **Contraste zinc-500 a 10px** — decisión pendiente de revisión visual
+- [ ] **Conectar Hotjar** `[ALTA]` — _entrada: 2026-05-09_
 
-## Infraestructura
+- [ ] **Cambiar og-image** `[MEDIA]` — _entrada: 2026-05-12_
 
-- Rama `dev` en Vercel con dominio de preview — pendiente configurar
-- Google Search Console — configurar tras transferencia de dominio
-- Hotjar — conectar en producción
+- [ ] **Cambiar descripción de la página principal y revisar las demás** `[MEDIA]` — _entrada: 2026-05-12_
+
+- [ ] **Onboarding — segunda pantalla de carga tras el boot** `[MEDIA]` — _entrada: 2026-05-14_
+  > Continuación del estilo terminal. Bienvenida + descripción breve + 4 links de nav clicables. Solo primera vez (persistido).
+
+- [ ] **Análisis de ofertas para Skills** `[MEDIA]` — _entrada: 2026-05-14_
+  > Analizar 10-15 ofertas a las que aplicar, extraer skills y responsabilidades recurrentes, completar contenido de /skills en base al análisis.
+
+- [ ] **Reestructuración página de Skills** `[MEDIA]` — _entrada: 2026-05-14_
+  > Pendiente de tener el análisis de ofertas. Definir color especial para skills clave y conexiones entre ellas.
+
+- [ ] **Reestructuración página de Resume** `[MEDIA]` — _entrada: 2026-05-14_
+  > Revisar estructura y contenido de /resume tras los cambios de hoy (sin Skills ni Idiomas).
+

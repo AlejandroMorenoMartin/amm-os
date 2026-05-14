@@ -28,20 +28,6 @@ export function ResumePage() {
         <EduEntry period={t.cv.edu3Period} institution={t.cv.edu3Institution} courses={t.cv.edu3Courses} />
       </section>
 
-      {/* Skills */}
-      <section className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
-        <SectionLabel>{t.cv.skills}</SectionLabel>
-        <SkillGroup label={t.cv.skill1Label} items={t.cv.skill1Items} />
-        <SkillGroup label={t.cv.skill2Label} items={t.cv.skill2Items} />
-        <SkillGroup label={t.cv.skill3Label} items={t.cv.skill3Items} />
-      </section>
-
-      {/* Idiomas */}
-      <section className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
-        <SectionLabel>{t.cv.idiomas}</SectionLabel>
-        <LangEntry lang={t.cv.lang1Name} level={t.cv.lang1Level} />
-        <LangEntry lang={t.cv.lang2Name} level={t.cv.lang2Level} />
-      </section>
     </article>
   );
 }
@@ -92,24 +78,3 @@ function EduEntry({ period, institution, courses }: {
   );
 }
 
-function SkillGroup({ label, items }: { label: string; items: string[] }) {
-  return (
-    <TextBlock>
-      <span className="text-txt-s">{label}</span>
-      <ul className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-        {items.map((item) => (
-          <li key={item} className="text-txt-base">&gt; {item}</li>
-        ))}
-      </ul>
-    </TextBlock>
-  );
-}
-
-function LangEntry({ lang, level }: { lang: string; level: string }) {
-  return (
-    <TextBlock>
-      <span className="text-txt-s">{lang}</span>
-      <span className="text-txt-base">{level}</span>
-    </TextBlock>
-  );
-}
