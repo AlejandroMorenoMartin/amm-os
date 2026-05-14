@@ -71,7 +71,7 @@ export function ProjectPage() {
           <StatusChip status={project.status} />
         </div>
         <button
-          className="photo-btn photo-btn--full btn-no-focus"
+          className="photo-btn photo-btn--full btn-no-focus has-tooltip"
           style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
           aria-label={t.project.openImage}
           onClick={() => {
@@ -91,6 +91,7 @@ export function ProjectPage() {
             className="photo-border w-full"
             style={{ display: 'block' }}
           />
+          <span className="tooltip">{t.modal.open}</span>
         </button>
       </div>
 
@@ -137,7 +138,7 @@ export function ProjectPage() {
                   {project.resources.github.replace('https://', '')}
                 </span>
               ) : (
-                <LinkExternal href={project.resources.github}>
+                <LinkExternal href={project.resources.github} tooltip={t.project.tooltipGithub}>
                   {project.resources.github.replace('https://', '')}
                 </LinkExternal>
               )
@@ -148,7 +149,7 @@ export function ProjectPage() {
                   {project.resources.live.replace('https://', '')}
                 </span>
               ) : (
-                <LinkExternal href={project.resources.live}>
+                <LinkExternal href={project.resources.live} tooltip={t.project.tooltipLive}>
                   {project.resources.live.replace('https://', '')}
                 </LinkExternal>
               )

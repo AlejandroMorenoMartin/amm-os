@@ -31,18 +31,6 @@ Un único breakpoint: **768px**.
 Clases custom: `.desktop-block`, `.desktop-inline`.
 **Nunca usar `sm:`, `md:`, `lg:` de Tailwind** — todo breakpoint va en CSS manual.
 
-## Tipografía
-
-| Clase | Tamaño | Uso |
-|---|---|---|
-| `text-txt-xl` | 18px | Títulos de página |
-| `text-txt-l` | 16px | Títulos de sección |
-| `text-txt-base` | 14px | Cuerpo principal |
-| `text-txt-s` | 12px | Labels, metadata |
-| `text-txt-xs` | 10px | Hints, detalles mínimos |
-
-Los tokens `--font-size-txt-*` en `@theme {}` son inertes — las clases `text-txt-*` están definidas manualmente en `index.css`.
-
 ## Sistema de focus
 
 Dos reglas globales en `index.css`, nunca por componente:
@@ -63,5 +51,7 @@ Primera persona, tranquilo y directo. Nunca declarativo ni grandilocuente.
 - Tono conversacional, resultados y oportunidades, frases cortas
 - Prohibido: "Lo que más me importa", "Mi valor reside en", "donde quiero estar"
 
+@apps/amm-os/docs/typography.md
 @apps/amm-os/docs/design-references/
 @apps/amm-os/docs/pending.md
+@apps/amm-os/docs/done.md
