@@ -53,7 +53,7 @@ export function BootPage({ onComplete }: BootPageProps) {
     <div className="flex-1 flex flex-col font-mono" style={{ height: '100%' }}>
       {/* Top: label + lines */}
       <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-        <p className="text-txt-xs" style={{ color: 'var(--color-zinc-600)' }}>
+        <p className="text-txt-s" style={{ color: 'var(--color-zinc-600)' }}>
           AMM_OS_V5
         </p>
         {lines.slice(0, visibleLines).map((line, i) => {
@@ -83,7 +83,7 @@ export function BootPage({ onComplete }: BootPageProps) {
         {!done && (
           <>
             <p className="text-txt-xs" style={{ color: 'var(--color-zinc-600)' }} aria-hidden="true">
-              PRESS ENTER TO SKIP
+              press enter to skip
             </p>
             <span className="sr-only">{t.boot.skip}</span>
           </>

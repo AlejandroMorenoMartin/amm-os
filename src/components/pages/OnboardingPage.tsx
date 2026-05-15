@@ -39,13 +39,13 @@ export function OnboardingPage({ onComplete }: OnboardingPageProps) {
       {/* Top: fases 1-4 */}
       <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
         {/* Fase 1 */}
-        <p className="text-txt-xs" style={{ color: 'var(--color-zinc-600)' }}>
+        <p className="text-txt-s" style={{ color: 'var(--color-zinc-600)' }}>
           {t.onboarding.sessionLabel}
         </p>
 
         {/* Fase 2 */}
         {phase >= 2 && (
-          <p className="text-txt-s">
+          <p className="text-txt-base">
             {t.onboarding.welcome}
           </p>
         )}
@@ -53,7 +53,7 @@ export function OnboardingPage({ onComplete }: OnboardingPageProps) {
         {/* Fase 3 */}
         {phase >= 3 && (
           <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-            <p className="text-txt-xs" style={{ color: 'var(--color-zinc-600)' }}>
+            <p className="text-txt-s" style={{ color: 'var(--color-zinc-600)' }}>
               {t.onboarding.selectLang}
             </p>
             <div className="flex" style={{ gap: 'var(--gap-block)' }}>
