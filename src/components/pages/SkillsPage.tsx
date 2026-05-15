@@ -35,7 +35,7 @@ function SkillGroup({ label, items, tools }: { label: string; items: string[]; t
         ))}
       </ul>
       <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-        <span className="text-txt-xs">TOOLS</span>
+        <span className="card-label">Tools</span>
         <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
           {tools.map((tool) => (
             <span key={tool} className="chip tool-chip">{tool}</span>

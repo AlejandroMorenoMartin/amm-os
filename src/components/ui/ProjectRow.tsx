@@ -39,22 +39,22 @@ export function ProjectRow({
       {isExpanded && (
         <div className="flex flex-col project-row-expanded-block" style={{ gap: 'var(--gap-section)' }}>
           <TextBlock>
-            <span className="text-txt-s">{challenge}</span>
+            <span className="card-label">{challenge}</span>
             <span className="text-txt-base">{project.challenge[lang]}</span>
           </TextBlock>
 
           <TextBlock>
-            <span className="text-txt-s">{role}</span>
+            <span className="card-label">{role}</span>
             <span className="text-txt-base">{project.role}</span>
           </TextBlock>
 
           <TextBlock>
-            <span className="text-txt-s">{goal}</span>
+            <span className="card-label">{goal}</span>
             <span className="text-txt-base">{project.goal[lang]}</span>
           </TextBlock>
 
           <TextBlock>
-            <span className="text-txt-s">{status}</span>
+            <span className="card-label">{status}</span>
             <StatusChip status={project.status} />
           </TextBlock>
 

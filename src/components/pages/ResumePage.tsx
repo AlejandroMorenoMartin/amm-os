@@ -70,12 +70,13 @@ function CVEntry({ period, company, companyUrl, mode, role, description, skills,
       {isExpanded && (
         <div className="flex flex-col project-row-expanded-block" style={{ gap: 'var(--gap-section)' }}>
           <TextBlock>
+            <span className="card-label">Company</span>
             <LinkExternal href={companyUrl}>{company}</LinkExternal>
           </TextBlock>
 
           {skills.length > 0 && (
             <TextBlock>
-              <span className="text-txt-xs">SKILLS</span>
+              <span className="card-label">Skills</span>
               <ul className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
                 {skills.map((skill) => (
                   <li key={skill} className="text-txt-base">&gt; {skill}</li>
@@ -86,7 +87,7 @@ function CVEntry({ period, company, companyUrl, mode, role, description, skills,
 
           {kpis.length > 0 && (
             <TextBlock>
-              <span className="text-txt-xs">METRICS</span>
+              <span className="card-label">Metrics</span>
               <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
                 {kpis.map((kpi) => (
                   <span key={kpi.value} className="chip metric-chip">{kpi.value} · {kpi.label}</span>
@@ -97,7 +98,7 @@ function CVEntry({ period, company, companyUrl, mode, role, description, skills,
 
           {tools.length > 0 && (
             <TextBlock>
-              <span className="text-txt-xs">TOOLS</span>
+              <span className="card-label">Tools</span>
               <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
                 {tools.map((tool) => (
                   <span key={tool} className="chip tool-chip">{tool}</span>
@@ -107,7 +108,7 @@ function CVEntry({ period, company, companyUrl, mode, role, description, skills,
           )}
 
           <TextBlock>
-            <span className="text-txt-xs">MODALITY</span>
+            <span className="card-label">Modality</span>
             <span className="chip mode-chip">{mode}</span>
           </TextBlock>
         </div>
@@ -126,6 +127,7 @@ function EduEntry({ period, institution, institutionUrl, mode, courses }: {
   return (
     <TextBlock>
       <span className="text-txt-s italic">{period}</span>
+      <span className="card-label">Institution</span>
       <LinkExternal href={institutionUrl}>{institution}</LinkExternal>
       <ul className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
         {courses.map((course) => (
@@ -133,7 +135,7 @@ function EduEntry({ period, institution, institutionUrl, mode, courses }: {
         ))}
       </ul>
       <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-        <span className="text-txt-xs">MODALITY</span>
+        <span className="card-label">Modality</span>
         <span className="chip mode-chip">{mode}</span>
       </div>
     </TextBlock>

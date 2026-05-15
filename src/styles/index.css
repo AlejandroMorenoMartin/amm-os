@@ -160,6 +160,7 @@ html, body, #root {
 .kpi { color: var(--color-naranja-500); }
 .skill-highlight { color: var(--color-naranja-500); }
 .project-divider { border: none; border-top: var(--border-dashed); width: 100%; margin: 0; }
+.card-label { font-size: 12px; line-height: 1.5; font-weight: 300; color: var(--color-zinc-500); }
 
 /* Chip base — compartida por ToolChip y StatusChip */
 .chip {
