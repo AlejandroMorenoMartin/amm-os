@@ -12,7 +12,7 @@ export const es: Strings = {
     tooltipSkills: 'Ver skills',
   },
   boot: {
-    line1: 'CARGANDO AMM_OS_V5... [OK]',
+    line1: 'CARGANDO AMM-OS-V4... [OK]',
     line2: 'INICIALIZANDO SHELL... [OK]',
     line3: 'MONTANDO SISTEMA DE ARCHIVOS... [OK]',
     line4: 'VERIFICANDO IDENTIDAD... [OK]',
@@ -21,7 +21,7 @@ export const es: Strings = {
     skip: 'Pulsa Enter para saltar la animación de inicio',
   },
   onboarding: {
-    sessionLabel: 'AMM_OS_V5 — SESIÓN INICIADA',
+    sessionLabel: 'AMM-OS-V4 — SESIÓN INICIADA',
     welcome: 'Bienvenido al sistema operativo personal de Alejandro Moreno. Aquí encontrarás su trabajo, su perfil y su forma de pensar el diseño.',
     selectLang: 'Selecciona tu idioma',
     navTitle: 'Así funciona la navegación',
