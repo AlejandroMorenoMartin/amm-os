@@ -66,9 +66,27 @@ export function BootPage({ onComplete }: BootPageProps) {
           );
         })}
       </div>
+      <div
+        aria-hidden="true"
+        style={{
+          marginTop: 'auto',
+          height: '2px',
+          background: 'var(--color-zinc-800)',
+          marginBottom: 'var(--gap-block)',
+        }}
+      >
+        <div
+          style={{
+            height: '100%',
+            width: `${(visibleLines / lines.length) * 100}%`,
+            background: 'var(--color-zinc-400)',
+            transition: 'width 300ms ease',
+          }}
+        />
+      </div>
       {!done && (
         <>
-          <p className="text-txt-xs" style={{ marginTop: 'auto', paddingBottom: 'var(--gap-section)', color: 'var(--color-zinc-600)' }} aria-hidden="true">
+          <p className="text-txt-xs" style={{ paddingBottom: 'var(--gap-section)', color: 'var(--color-zinc-600)' }} aria-hidden="true">
             PRESS ENTER TO SKIP
           </p>
           <span className="sr-only">{t.boot.skip}</span>
