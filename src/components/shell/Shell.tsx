@@ -29,7 +29,7 @@ export function Shell({ children, hideBars = false }: ShellProps) {
       <TopBar ref={topRef} style={barsStyle} />
       {hideBars ? (
         <div className="flex-1 flex items-center justify-center">
-          <main className="w-full flex flex-col" style={{ paddingInline: 'var(--shell-padding)' }}>
+          <main className="w-full flex flex-col" style={{ maxWidth: 'var(--shell-max-width)', paddingInline: 'var(--shell-padding)' }}>
             {children}
           </main>
         </div>
