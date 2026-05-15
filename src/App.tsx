@@ -12,7 +12,7 @@ import { ImageModal } from './components/ui/ImageModal';
 import { useAppStore } from './store/useAppStore';
 import { useArcadeControls } from './hooks/useArcadeControls';
 
-const ONBOARDING_KEY = 'amm-os-onboarding-seen';
+// const ONBOARDING_KEY = 'amm-os-onboarding-seen'; // restore when onboarding is approved
 
 function AppRoutes() {
   const { bootDone, completeBoot } = useAppStore();
@@ -27,16 +27,10 @@ function AppRoutes() {
 
   function handleBootComplete() {
     completeBoot();
-    const isFirstVisit = !localStorage.getItem(ONBOARDING_KEY);
-    if (isFirstVisit) {
-      setShowOnboarding(true);
-    } else {
-      navigate('/');
-    }
+    setShowOnboarding(true);
   }
 
   function handleOnboardingComplete(path: string) {
-    localStorage.setItem(ONBOARDING_KEY, '1');
     setShowOnboarding(false);
     navigate(path);
   }
