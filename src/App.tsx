@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Shell } from './components/shell/Shell';
 import { BootPage } from './components/pages/BootPage';
+import { OnboardingPage } from './components/pages/OnboardingPage';
 import { HomePage } from './components/pages/HomePage';
 import { ProjectsPage } from './components/pages/ProjectsPage';
 import { ResumePage } from './components/pages/ResumePage';
@@ -11,8 +12,11 @@ import { ImageModal } from './components/ui/ImageModal';
 import { useAppStore } from './store/useAppStore';
 import { useArcadeControls } from './hooks/useArcadeControls';
 
+const ONBOARDING_KEY = 'amm-os-onboarding-seen';
+
 function AppRoutes() {
   const { bootDone, completeBoot } = useAppStore();
+  const [showOnboarding, setShowOnboarding] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
   useArcadeControls();
@@ -21,10 +25,34 @@ function AppRoutes() {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [pathname]);
 
+  function handleBootComplete() {
+    completeBoot();
+    const isFirstVisit = !localStorage.getItem(ONBOARDING_KEY);
+    if (isFirstVisit) {
+      setShowOnboarding(true);
+    } else {
+      navigate('/');
+    }
+  }
+
+  function handleOnboardingComplete(path: string) {
+    localStorage.setItem(ONBOARDING_KEY, '1');
+    setShowOnboarding(false);
+    navigate(path);
+  }
+
   if (!bootDone) {
     return (
-      <Shell>
-        <BootPage onComplete={() => { completeBoot(); navigate('/'); }} />
+      <Shell hideBars>
+        <BootPage onComplete={handleBootComplete} />
+      </Shell>
+    );
+  }
+
+  if (showOnboarding) {
+    return (
+      <Shell hideBars>
+        <OnboardingPage onComplete={handleOnboardingComplete} />
       </Shell>
     );
   }
