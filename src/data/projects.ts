@@ -84,7 +84,7 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: 'senzo',
+    slug: 'senzo-studio',
     name: 'SENZO.studio',
     date: '01/2026',
     synopsis: {

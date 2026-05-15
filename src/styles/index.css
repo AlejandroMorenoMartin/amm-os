@@ -51,7 +51,7 @@
 
 /* ── Semantic tokens ────────────────────────────────── */
 :root {
-  --border-default:  0.5px solid var(--color-zinc-800);
+  --border-default:  0.25px solid var(--color-zinc-900);
   --photo-bg:        var(--color-zinc-950);
   --border-strong:   0.5px solid var(--color-zinc-200);
   --border-dashed:   0.25px dashed var(--color-zinc-800);
@@ -251,7 +251,15 @@ html, body, #root {
   transition: opacity 120ms ease, transform 120ms ease;
   z-index: 100;
 }
-.has-tooltip:hover .tooltip,
+@media (hover: hover) and (pointer: fine) {
+  .has-tooltip:hover .tooltip {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .has-tooltip:hover .tooltip--down {
+    transform: translateY(0);
+  }
+}
 .has-tooltip:focus-visible .tooltip {
   opacity: 1;
   transform: translateY(0);
@@ -263,7 +271,6 @@ html, body, #root {
   top: calc(100% + 9px);
   transform: translateY(-9px);
 }
-.has-tooltip:hover .tooltip--down,
 .has-tooltip:focus-visible .tooltip--down {
   transform: translateY(0);
 }

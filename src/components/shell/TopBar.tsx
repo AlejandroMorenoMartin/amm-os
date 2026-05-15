@@ -26,7 +26,7 @@ export const TopBar = forwardRef<HTMLElement, TopBarProps>(function TopBar({ sty
       <div className="w-full flex items-center justify-between" style={{ maxWidth: 'var(--shell-max-width)', paddingInline: 'var(--shell-padding)', paddingBlock: 'var(--shell-padding)' }}>
         <span className="flex items-center" style={{ gap: '0.4rem' }}>
           <img src="/favicon.svg" alt="" aria-hidden="true" width={32} height={32} />
-          AMM-OS v4
+          AMM-OS-V4
         </span>
         <div className="flex items-center" style={{ gap: 'var(--gap-block)' }}>
           <button onClick={handleShare} className="btn-action has-tooltip" aria-label={t.topbar.share}>
