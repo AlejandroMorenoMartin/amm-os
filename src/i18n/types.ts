@@ -14,16 +14,33 @@ export interface Strings {
     line2: string;
     line3: string;
     line4: string;
+    line5: string;
+    line6: string;
     skip: string;
+  };
+  onboarding: {
+    sessionLabel: string;
+    welcome: string;
+    selectLang: string;
+    navTitle: string;
+    navKeys: string;
+    navDestination: string;
   };
   home: {
     title: string;
+    sectionName: string;
     sectionPhoto: string;
     sectionRol: string;
     sectionPerfil: string;
     sectionOffline: string;
+    sectionOnline: string;
+    sectionLocation: string;
     sectionContacto: string;
+    name: string;
     perfil: string;
+    location: string;
+    twitter: string;
+    tooltipTwitter: string;
     linkedin: string;
     github: string;
     gmail: string;
