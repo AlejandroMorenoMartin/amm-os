@@ -83,7 +83,7 @@ export function BootPage({ onComplete }: BootPageProps) {
         {!done && (
           <>
             <p className="text-txt-xs" style={{ color: 'var(--color-zinc-600)' }} aria-hidden="true">
-              press enter to skip
+              Press enter to skip
             </p>
             <span className="sr-only">{t.boot.skip}</span>
           </>
