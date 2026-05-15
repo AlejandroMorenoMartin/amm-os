@@ -50,7 +50,7 @@ export function BootPage({ onComplete }: BootPageProps) {
   }, [lang]);
 
   return (
-    <div className="flex-1 flex flex-col font-mono">
+    <div className="flex-1 flex flex-col font-mono" style={{ height: '100%' }}>
       {/* Top: label + lines */}
       <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
         <p className="text-txt-xs" style={{ color: 'var(--color-zinc-600)' }}>
