@@ -35,7 +35,7 @@ export function OnboardingPage({ onComplete }: OnboardingPageProps) {
   ];
 
   return (
-    <div className="flex-1 flex flex-col font-mono" style={{ paddingTop: 'var(--gap-section)', gap: 'var(--gap-section)' }}>
+    <div className="flex-1 flex flex-col font-mono" style={{ gap: 'var(--gap-section)' }}>
       {/* Fase 1 */}
       <p className="text-txt-xs" style={{ color: 'var(--color-zinc-600)' }}>
         {t.onboarding.sessionLabel}

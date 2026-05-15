@@ -50,7 +50,7 @@ export function BootPage({ onComplete }: BootPageProps) {
   }, [lang]);
 
   return (
-    <div className="flex-1 flex flex-col font-mono" style={{ paddingTop: 'var(--gap-section)' }}>
+    <div className="flex-1 flex flex-col font-mono">
       <p className="text-txt-xs" style={{ marginBottom: 'var(--gap-section)', color: 'var(--color-zinc-600)' }}>
         AMM_OS_V5
       </p>

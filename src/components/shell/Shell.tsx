@@ -27,45 +27,53 @@ export function Shell({ children, hideBars = false }: ShellProps) {
   return (
     <div className="flex flex-col min-h-dvh bg-background font-mono">
       <TopBar ref={topRef} style={barsStyle} />
-      <div
-        className="flex-1 flex justify-center relative"
-        style={{
-          paddingTop: `calc(${topH}px + 2rem)`,
-          paddingBottom: `calc(${bottomH}px + 2rem)`,
-        }}
-      >
-        {/* Fade vignette — top */}
+      {hideBars ? (
+        <div className="flex-1 flex items-center justify-center">
+          <main className="w-full flex flex-col" style={{ paddingInline: 'var(--shell-padding)' }}>
+            {children}
+          </main>
+        </div>
+      ) : (
         <div
-          aria-hidden="true"
+          className="flex-1 flex justify-center relative"
           style={{
-            position: 'fixed',
-            top: topH,
-            left: 0,
-            right: 0,
-            height: '3rem',
-            background: 'linear-gradient(to bottom, var(--color-background) 0%, transparent 100%)',
-            pointerEvents: 'none',
-            zIndex: 40,
+            paddingTop: `calc(${topH}px + 2rem)`,
+            paddingBottom: `calc(${bottomH}px + 2rem)`,
           }}
-        />
-        {/* Fade vignette — bottom */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: 'fixed',
-            bottom: bottomH,
-            left: 0,
-            right: 0,
-            height: '3rem',
-            background: 'linear-gradient(to top, var(--color-background) 0%, transparent 100%)',
-            pointerEvents: 'none',
-            zIndex: 40,
-          }}
-        />
-        <main className="w-full flex flex-col overflow-y-auto" style={{ maxWidth: 'var(--shell-max-width)', gap: 'var(--gap-page)', paddingInline: 'var(--shell-padding)' }}>
-          {children}
-        </main>
-      </div>
+        >
+          {/* Fade vignette — top */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'fixed',
+              top: topH,
+              left: 0,
+              right: 0,
+              height: '3rem',
+              background: 'linear-gradient(to bottom, var(--color-background) 0%, transparent 100%)',
+              pointerEvents: 'none',
+              zIndex: 40,
+            }}
+          />
+          {/* Fade vignette — bottom */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'fixed',
+              bottom: bottomH,
+              left: 0,
+              right: 0,
+              height: '3rem',
+              background: 'linear-gradient(to top, var(--color-background) 0%, transparent 100%)',
+              pointerEvents: 'none',
+              zIndex: 40,
+            }}
+          />
+          <main className="w-full flex flex-col overflow-y-auto" style={{ maxWidth: 'var(--shell-max-width)', gap: 'var(--gap-page)', paddingInline: 'var(--shell-padding)' }}>
+            {children}
+          </main>
+        </div>
+      )}
       <BottomBar ref={bottomRef} style={barsStyle} />
     </div>
   );
