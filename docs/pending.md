@@ -8,9 +8,6 @@
 
 - [ ] **Conectar Hotjar** `[ALTA]` — _entrada: 2026-05-09_
 
-- [ ] **Cambiar og-image** `[MEDIA]` — _entrada: 2026-05-12_
-
-- [ ] **Cambiar descripción de la página principal y revisar las demás** `[MEDIA]` — _entrada: 2026-05-12_
 
 - [ ] **Onboarding — segunda pantalla de carga tras el boot** `[MEDIA]` — _entrada: 2026-05-14_
   > Continuación del estilo terminal. Bienvenida + descripción breve + 4 links de nav clicables. Solo primera vez (persistido).
@@ -21,6 +18,5 @@
 - [ ] **Reestructuración página de Skills** `[MEDIA]` — _entrada: 2026-05-14_
   > Pendiente de tener el análisis de ofertas. Definir color especial para skills clave y conexiones entre ellas.
 
-- [ ] **Reestructuración página de Resume** `[MEDIA]` — _entrada: 2026-05-14_
-  > Revisar estructura y contenido de /resume tras los cambios de hoy (sin Skills ni Idiomas).
+
 

@@ -2,7 +2,6 @@ import { useRef, useState } from 'react';
 import { useT } from '../../i18n';
 import { useAppStore } from '../../store/useAppStore';
 import { LinkExternal } from '../ui/LinkExternal';
-import { PageTitle } from '../ui/PageTitle';
 import { SectionLabel } from '../ui/SectionLabel';
 import { TextBlock } from '../ui/TextBlock';
 
@@ -33,7 +32,10 @@ export function HomePage() {
 
   return (
     <article className="flex-1 font-mono flex flex-col" style={{ gap: 'var(--gap-page)' }}>
-      <PageTitle>{t.home.title}</PageTitle>
+      <TextBlock>
+        <SectionLabel>{t.home.sectionName}</SectionLabel>
+        <span className="text-txt-base">{t.home.name}</span>
+      </TextBlock>
 
       <TextBlock>
         <SectionLabel>{t.home.sectionPhoto}</SectionLabel>
@@ -56,9 +58,7 @@ export function HomePage() {
 
       <TextBlock>
         <SectionLabel>{t.home.sectionRol}</SectionLabel>
-        <span className="text-txt-base">
-          <s>UX/UI Designer</s>{' — '}<s>Product Designer</s>{' — '}AI Product Designer
-        </span>
+        <span className="text-txt-base">AI Product Designer</span>
       </TextBlock>
 
       <TextBlock>
@@ -67,12 +67,26 @@ export function HomePage() {
       </TextBlock>
 
       <TextBlock>
-        <SectionLabel>{t.home.sectionOffline}</SectionLabel>
-        <span className="text-txt-base">{t.sobreMi.p4}</span>
+        <SectionLabel>{t.home.sectionLocation}</SectionLabel>
+        <span className="text-txt-base">{t.home.location}</span>
       </TextBlock>
 
       <TextBlock>
         <SectionLabel>{t.home.sectionContacto}</SectionLabel>
+        <button
+          type="button"
+          onClick={handleCopyEmail}
+          className="email-copy has-tooltip text-txt-base font-mono text-left"
+        >
+          {EMAIL}
+          <span className="tooltip">
+            {copied ? t.home.emailCopied : t.home.gmail}
+          </span>
+        </button>
+      </TextBlock>
+
+      <TextBlock>
+        <SectionLabel>{t.home.sectionOnline}</SectionLabel>
         <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
           <LinkExternal href="https://www.linkedin.com/in/alejandromorenoproductdesigner/" tooltip={t.home.tooltipLinkedin}>
             {t.home.linkedin}
@@ -80,17 +94,15 @@ export function HomePage() {
           <LinkExternal href="https://github.com/AlejandroMorenoMartin" tooltip={t.home.tooltipGithub}>
             {t.home.github}
           </LinkExternal>
-          <button
-            type="button"
-            onClick={handleCopyEmail}
-            className="email-copy has-tooltip text-txt-base font-mono text-left"
-          >
-            {EMAIL}
-            <span className="tooltip">
-              {copied ? t.home.emailCopied : t.home.gmail}
-            </span>
-          </button>
+          <LinkExternal href="https://x.com/AMor3noM" tooltip={t.home.tooltipTwitter}>
+            {t.home.twitter}
+          </LinkExternal>
         </div>
+      </TextBlock>
+
+      <TextBlock>
+        <SectionLabel>{t.home.sectionOffline}</SectionLabel>
+        <span className="text-txt-base">{t.sobreMi.p4}</span>
       </TextBlock>
     </article>
   );
