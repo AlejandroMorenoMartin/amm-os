@@ -2,7 +2,11 @@ import { forwardRef } from 'react';
 import { useT } from '../../i18n';
 import { NavItem } from './NavItem';
 
-export const BottomBar = forwardRef<HTMLElement>(function BottomBar(_props, ref) {
+interface BottomBarProps {
+  style?: React.CSSProperties;
+}
+
+export const BottomBar = forwardRef<HTMLElement, BottomBarProps>(function BottomBar({ style }, ref) {
   const { t } = useT();
 
   const navItems = [
@@ -15,6 +19,7 @@ export const BottomBar = forwardRef<HTMLElement>(function BottomBar(_props, ref)
   return (
     <nav
       ref={ref}
+      style={style}
       className="fixed bottom-0 left-0 right-0 z-50 flex justify-center font-mono bg-background"
       aria-label="Main navigation"
     >

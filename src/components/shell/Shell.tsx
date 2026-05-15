@@ -3,9 +3,10 @@ import { TopBar } from './TopBar';
 import { BottomBar } from './BottomBar';
 interface ShellProps {
   children: React.ReactNode;
+  hideBars?: boolean;
 }
 
-export function Shell({ children }: ShellProps) {
+export function Shell({ children, hideBars = false }: ShellProps) {
   const topRef = useRef<HTMLElement>(null);
   const bottomRef = useRef<HTMLElement>(null);
   const [topH, setTopH] = useState(48);
@@ -21,9 +22,11 @@ export function Shell({ children }: ShellProps) {
     return () => obs.disconnect();
   }, []);
 
+  const barsStyle: React.CSSProperties = hideBars ? { visibility: 'hidden' } : {};
+
   return (
     <div className="flex flex-col min-h-dvh bg-background font-mono">
-      <TopBar ref={topRef} />
+      <TopBar ref={topRef} style={barsStyle} />
       <div
         className="flex-1 flex justify-center relative"
         style={{
@@ -63,7 +66,7 @@ export function Shell({ children }: ShellProps) {
           {children}
         </main>
       </div>
-      <BottomBar ref={bottomRef} />
+      <BottomBar ref={bottomRef} style={barsStyle} />
     </div>
   );
 }

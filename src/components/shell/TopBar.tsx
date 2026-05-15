@@ -3,7 +3,11 @@ import { useAppStore } from '../../store/useAppStore';
 import type { Lang } from '../../store/useAppStore';
 import { useT } from '../../i18n';
 
-export const TopBar = forwardRef<HTMLElement>(function TopBar(_props, ref) {
+interface TopBarProps {
+  style?: React.CSSProperties;
+}
+
+export const TopBar = forwardRef<HTMLElement, TopBarProps>(function TopBar({ style }, ref) {
   const { lang, setLang } = useAppStore();
   const { t } = useT();
 
@@ -18,7 +22,7 @@ export const TopBar = forwardRef<HTMLElement>(function TopBar(_props, ref) {
   };
 
   return (
-    <header ref={ref} className="fixed top-0 left-0 right-0 z-50 flex justify-center text-txt-s font-mono shell-bar-top">
+    <header ref={ref} style={style} className="fixed top-0 left-0 right-0 z-50 flex justify-center text-txt-s font-mono shell-bar-top">
       <div className="w-full flex items-center justify-between" style={{ maxWidth: 'var(--shell-max-width)', paddingInline: 'var(--shell-padding)', paddingBlock: 'var(--shell-padding)' }}>
         <span className="flex items-center" style={{ gap: '0.4rem' }}>
           <img src="/favicon.svg" alt="" aria-hidden="true" width={32} height={32} />
