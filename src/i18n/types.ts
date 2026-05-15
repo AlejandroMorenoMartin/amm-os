@@ -106,10 +106,13 @@ export interface Strings {
     tooltipSkills: string;
     skill1Label: string;
     skill1Items: string[];
+    skill1Tools: string[];
     skill2Label: string;
     skill2Items: string[];
+    skill2Tools: string[];
     skill3Label: string;
     skill3Items: string[];
+    skill3Tools: string[];
     idiomas: string;
     lang1Name: string;
     lang1Level: string;
