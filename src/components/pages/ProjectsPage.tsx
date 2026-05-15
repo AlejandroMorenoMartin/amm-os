@@ -33,8 +33,6 @@ export function ProjectsPage() {
               onOpen={(slug) => navigate(`/projects/${slug}`)}
               challenge={t.trabajo.challenge}
               role={t.trabajo.role}
-              goal={t.trabajo.goal}
-              status={t.trabajo.status}
               expand={t.trabajo.tooltipExpand}
               collapse={t.trabajo.tooltipCollapse}
             />

@@ -5,13 +5,13 @@ export interface Project {
   synopsis: { es: string; en: string };
   challenge: { es: string; en: string };
   role: string;
-  goal: { es: string; en: string };
+  responsibilities: string[];
+  tools: string[];
   status: string;
   // Project page data
   resources: { github?: string; live?: string; disabled?: ('github' | 'live')[] };
-  metrics: { value: string; description: { es: string; en: string } }[];
+  metrics: { value: string; label: { es: string; en: string }; description: { es: string; en: string } }[];
   update: string;
-  ownership: string;
   manifesto: { es: string; en: string };
   image: string;
   research: { es: string; en: string };
@@ -34,10 +34,13 @@ export const projects: Project[] = [
       en: 'The inability of static portfolios to validate the technical viability and systemic thinking of a designer.',
     },
     role: 'AI Product Designer.',
-    goal: {
-      es: 'Crear un entorno que demuestre autonomía total, cerrando la brecha entre el concepto visual y el código de producción.',
-      en: 'Create an environment that demonstrates total autonomy, closing the gap between visual concept and production code.',
-    },
+    responsibilities: [
+      'End-to-end product design — from concept to production.',
+      'Design system architecture and component library.',
+      'Frontend development (React, TypeScript, Tailwind).',
+      'Performance optimisation and accessibility.',
+    ],
+    tools: ['Figma', 'React', 'TypeScript', 'Tailwind', 'Vite', 'Claude'],
     status: 'Beta',
     resources: {
       github: 'https://github.com/AlejandroMorenoMartin/amm-os',
@@ -46,13 +49,15 @@ export const projects: Project[] = [
     metrics: [
       {
         value: '100/100',
+        label: { es: 'Lighthouse score', en: 'Lighthouse score' },
         description: {
           es: 'Lighthouse en producción. Assets servidos desde Vercel Edge, cero dependencias innecesarias en el critical path.',
           en: 'Lighthouse in production. Assets served from Vercel Edge, zero unnecessary dependencies in the critical path.',
         },
       },
       {
-        value: '+4min',
+        value: '+4 min',
+        label: { es: 'sesión media', en: 'avg session' },
         description: {
           es: 'Sesión media según Vercel Analytics. El visitante explora en profundidad, no rebota.',
           en: 'Average session via Vercel Analytics. The visitor explores in depth, not bouncing.',
@@ -60,7 +65,6 @@ export const projects: Project[] = [
       },
     ],
     update: '04/26/2026',
-    ownership: 'Arquitectura de información, Diseño de producto, Estrategia de producto, Diseño de interacción, Desarrollo React/Vite.',
     manifesto: {
       es: 'El diseño de producto es la suma de la estrategia visual y la viabilidad técnica.',
       en: 'Product design is the sum of visual strategy and technical viability.',
@@ -96,10 +100,13 @@ export const projects: Project[] = [
       en: 'Conveying the cinematic quality and technical detail of the studio without compromising web performance and load speed.',
     },
     role: 'AI Product Designer.',
-    goal: {
-      es: 'Crear una interfaz minimalista y de alto rendimiento que actúe como un lienzo para el portfolio de VFX, optimizando la narrativa visual.',
-      en: 'Create a minimalist, high-performance interface that acts as a canvas for the VFX portfolio, optimizing the visual narrative.',
-    },
+    responsibilities: [
+      'UX/UI design and creative direction.',
+      'Video pipeline optimisation and performance.',
+      'Frontend development (React, Framer Motion).',
+      'SEO strategy and technical audit.',
+    ],
+    tools: ['Figma', 'React', 'TypeScript', 'Framer Motion', 'Tailwind', 'Claude'],
     status: 'In Progress',
     resources: {
       github: 'https://github.com/AlejandroMorenoMartin/senzo-studio',
@@ -108,6 +115,7 @@ export const projects: Project[] = [
     metrics: [
       {
         value: '95+',
+        label: { es: 'Lighthouse score', en: 'Lighthouse score' },
         description: {
           es: 'Performance Score en Lighthouse. Sitio con carga de vídeo intensiva que mantiene el score gracias a lazy-loading y optimización de codecs.',
           en: 'Performance Score on Lighthouse. A video-heavy site that holds the score through lazy-loading and codec optimisation.',
@@ -115,6 +123,7 @@ export const projects: Project[] = [
       },
       {
         value: '-40%',
+        label: { es: 'tiempo de carga de vídeo', en: 'video load time' },
         description: {
           es: 'Reducción en tiempo de carga de vídeo respecto al baseline inicial, medido en waterfall de DevTools tras optimizar el pipeline.',
           en: 'Reduction in video load time from the initial baseline, measured via DevTools waterfall after optimising the pipeline.',
@@ -122,7 +131,6 @@ export const projects: Project[] = [
       },
     ],
     update: '04/26/2026',
-    ownership: 'UX/UI Design, Creative Development, Video Pipeline Optimization, SEO Strategy.',
     manifesto: {
       es: 'La interfaz debe ser invisible: si el usuario nota el diseño antes que el trabajo de VFX, hemos fallado.',
       en: 'The interface must be invisible: if the user notices the design before the VFX work, we have failed.',
@@ -158,10 +166,13 @@ export const projects: Project[] = [
       en: 'Generate trust and booking desire through detailed property exposure, managing the user\'s exit to an external API without breaking the brand experience.',
     },
     role: 'AI Product Designer.',
-    goal: {
-      es: 'Diseñar una interfaz que combine la calidez de un entorno rural con una arquitectura técnica capaz de sincronizar datos de disponibilidad en tiempo real.',
-      en: 'Design an interface that combines the warmth of a rural setting with a technical architecture capable of synchronizing availability data in real time.',
-    },
+    responsibilities: [
+      'UX strategy and information architecture.',
+      'Third-party API integration (availability and pricing).',
+      'Frontend development (Astro SSG).',
+      'Copywriting and brand voice.',
+    ],
+    tools: ['Figma', 'Astro', 'TypeScript', 'Tailwind', 'Claude'],
     status: 'In Progress',
     resources: {
       github: 'https://github.com/AlejandroMorenoMartin/casa-del-aire',
@@ -170,6 +181,7 @@ export const projects: Project[] = [
     metrics: [
       {
         value: '+18%',
+        label: { es: 'CTR reserva', en: 'booking CTR' },
         description: {
           es: 'CTR al botón de reserva respecto a la web anterior, medido con heatmaps y analytics de conversión.',
           en: 'Booking button CTR compared to the previous site, measured via heatmaps and conversion analytics.',
@@ -177,6 +189,7 @@ export const projects: Project[] = [
       },
       {
         value: '98',
+        label: { es: 'Lighthouse score', en: 'Lighthouse score' },
         description: {
           es: 'Lighthouse en producción. Logrado con imágenes WebP, fuentes locales y cero JS bloqueante en el critical path.',
           en: 'Lighthouse in production. Achieved with WebP images, local fonts, and zero render-blocking JS in the critical path.',
@@ -184,7 +197,6 @@ export const projects: Project[] = [
       },
     ],
     update: '01/26/2025',
-    ownership: 'UX Strategy, API Integration, Frontend Development, Copywriting.',
     manifesto: {
       es: 'La tecnología debe ser el puente, no la barrera, entre el usuario y la tranquilidad del entorno rural.',
       en: 'Technology must be the bridge, not the barrier, between the user and the tranquillity of the rural environment.',
@@ -220,10 +232,13 @@ export const projects: Project[] = [
       en: 'The fragmentation of culinary information and the lack of tools that foster real, organized collaboration among cooks.',
     },
     role: 'AI Product Designer & Founder',
-    goal: {
-      es: 'Centralizar el conocimiento gastronómico en una interfaz social que priorice la utilidad técnica sobre el ruido algorítmico.',
-      en: 'Centralize gastronomic knowledge in a social interface that prioritizes technical utility over algorithmic noise.',
-    },
+    responsibilities: [
+      'Product strategy and UX architecture.',
+      'Design system creation and community design patterns.',
+      'User research and usability testing.',
+      'Full-stack development.',
+    ],
+    tools: ['Figma', 'React', 'TypeScript', 'Tailwind', 'Claude', 'Hotjar'],
     status: 'In Progress',
     resources: {
       github: 'https://github.com/AlejandroMorenoMartin/sazon-app',
@@ -233,13 +248,15 @@ export const projects: Project[] = [
     metrics: [
       {
         value: '65%',
+        label: { es: 'retención semanal', en: 'weekly retention' },
         description: {
           es: 'Retención semanal, el doble del estándar del sector. Medido en dashboard interno.',
           en: 'Weekly retention, double the industry benchmark. Measured in the internal dashboard.',
         },
       },
       {
-        value: '12min',
+        value: '12 min',
+        label: { es: 'sesión media', en: 'avg session' },
         description: {
           es: 'Sesión media. El Modo Cocina engancha al usuario en el flujo real de preparación, no en el browse.',
           en: 'Average session. Cooking Mode keeps users engaged in the actual preparation flow, not just browsing.',
@@ -247,7 +264,6 @@ export const projects: Project[] = [
       },
     ],
     update: '05/01/2026',
-    ownership: 'Product Strategy, UX Architecture, Full-stack Development, Community Design.',
     manifesto: {
       es: 'Cocinar es un acto social; la tecnología debe ser el ingrediente que facilite la conexión, no una distracción.',
       en: 'Cooking is a social act; technology must be the ingredient that facilitates connection, not a distraction.',
@@ -283,10 +299,13 @@ export const projects: Project[] = [
       en: 'The saturation of complex, context-free data that generates information fatigue and lack of clear action for the user.',
     },
     role: 'AI Product Designer & Founder',
-    goal: {
-      es: 'Traducir métricas biométricas avanzadas en recomendaciones accionables para mejorar la recuperación y el desempeño de atletas de todos los niveles.',
-      en: 'Translate advanced biometric metrics into actionable recommendations to improve recovery and performance for athletes of all levels.',
-    },
+    responsibilities: [
+      'Data visualisation design and information hierarchy.',
+      'Mobile UX and biometric interaction patterns.',
+      'User research with athletes and trainers.',
+      'Design system and component library.',
+    ],
+    tools: ['Figma', 'React Native', 'TypeScript', 'Claude', 'Mixpanel'],
     status: 'In Progress',
     resources: {
       github: 'https://github.com/AlejandroMorenoMartin/forma-app',
@@ -296,6 +315,7 @@ export const projects: Project[] = [
     metrics: [
       {
         value: '85%',
+        label: { es: 'daily login rate', en: 'daily login rate' },
         description: {
           es: 'Daily login rate medido en backend. Indicador de adherencia real, no de uso ocasional.',
           en: 'Daily login rate measured in the backend. An indicator of real adherence, not occasional use.',
@@ -303,6 +323,7 @@ export const projects: Project[] = [
       },
       {
         value: '-20%',
+        label: { es: 'carga cognitiva', en: 'cognitive load' },
         description: {
           es: 'Reducción de carga cognitiva en tests de usabilidad con SUS score, tras implementar Smart-Insights.',
           en: 'Reduction in cognitive load in SUS score usability tests, after implementing Smart-Insights.',
@@ -310,7 +331,6 @@ export const projects: Project[] = [
       },
     ],
     update: '05/01/2026',
-    ownership: 'Data Visualization, Mobile UX, Biometric Analysis, Interaction Design.',
     manifesto: {
       es: 'El dato por sí solo es ruido; la interpretación del dato es la verdadera ventaja competitiva.',
       en: 'Data alone is noise; interpreting data is the true competitive advantage.',

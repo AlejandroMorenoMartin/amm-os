@@ -53,8 +53,6 @@ export interface Strings {
     colSinopsis: string;
     challenge: string;
     role: string;
-    goal: string;
-    status: string;
     open: string;
     tooltipExpand: string;
     tooltipCollapse: string;
@@ -108,21 +106,25 @@ export interface Strings {
     edu1Institution: string;
     edu1InstitutionUrl: string;
     edu1Mode: string;
+    edu1Summary: string;
     edu1Courses: string[];
     edu2Period: string;
     edu2Institution: string;
     edu2InstitutionUrl: string;
     edu2Mode: string;
+    edu2Summary: string;
     edu2Courses: string[];
     edu3Period: string;
     edu3Institution: string;
     edu3InstitutionUrl: string;
     edu3Mode: string;
+    edu3Summary: string;
     edu3Courses: string[];
     edu4Period: string;
     edu4Institution: string;
     edu4InstitutionUrl: string;
     edu4Mode: string;
+    edu4Summary: string;
     edu4Courses: string[];
   };
   skills: {
@@ -147,7 +149,6 @@ export interface Strings {
     resources: string;
     metrics: string;
     update: string;
-    ownership: string;
     manifesto: string;
     openImage: string;
     tooltipBack: string;

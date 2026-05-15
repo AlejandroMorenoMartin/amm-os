@@ -9,11 +9,7 @@ import { useT } from '../../i18n';
 import { useRef } from 'react';
 
 function FieldLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="text-txt-s" style={{ display: 'block' }}>
-      {children}
-    </span>
-  );
+  return <span className="card-label" style={{ display: 'block' }}>{children}</span>;
 }
 
 
@@ -41,9 +37,11 @@ export function ProjectPage() {
       {/* Bloque 1 — Identidad */}
       <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
         <h1 className="text-txt-xl">{'> '}{project.name}</h1>
+        <span className="text-txt-s italic">{project.date}</span>
+
         <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-          <FieldLabel>{t.project.manifesto}</FieldLabel>
-          <span className="text-txt-base">{project.manifesto[lang]}</span>
+          <FieldLabel>Overview</FieldLabel>
+          <span className="text-txt-base">{project.synopsis[lang]}</span>
         </div>
 
         <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
@@ -57,17 +55,34 @@ export function ProjectPage() {
         </div>
 
         <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-          <FieldLabel>{t.trabajo.goal}</FieldLabel>
-          <span className="text-txt-base">{project.goal[lang]}</span>
+          <FieldLabel>Responsibilities</FieldLabel>
+          <ul className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+            {project.responsibilities.map((r) => (
+              <li key={r} className="text-txt-base">&gt; {r}</li>
+            ))}
+          </ul>
         </div>
 
         <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-          <FieldLabel>{t.trabajo.colFecha}</FieldLabel>
-          <span className="text-txt-base">{project.date}</span>
+          <FieldLabel>{t.project.metrics}</FieldLabel>
+          <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
+            {project.metrics.map((m) => (
+              <span key={m.value} className="chip metric-chip">{m.value} · {m.label[lang]}</span>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+          <FieldLabel>Tools</FieldLabel>
+          <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
+            {project.tools.map((tool) => (
+              <span key={tool} className="chip tool-chip">{tool}</span>
+            ))}
+          </div>
         </div>
 
         <div className="flex flex-col items-start" style={{ gap: 'var(--gap-block)' }}>
-          <FieldLabel>{t.trabajo.status}</FieldLabel>
+          <FieldLabel>Status</FieldLabel>
           <StatusChip status={project.status} />
         </div>
         <button
@@ -109,26 +124,8 @@ export function ProjectPage() {
 
       <hr className="project-divider" />
 
-      {/* Bloque 3 — Ficha + Recursos */}
+      {/* Bloque 3 — Recursos */}
       <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
-        <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-          <FieldLabel>{t.project.ownership}</FieldLabel>
-          <span className="text-txt-base">{project.ownership}</span>
-        </div>
-
-        <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-          <FieldLabel>{t.project.metrics}</FieldLabel>
-          <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-            {project.metrics.map((m, i) => (
-              <p key={i} className="text-txt-base">
-                <span className="kpi">{m.value}</span>
-                <span style={{ color: 'var(--color-zinc-600)' }}> — </span>
-                {m.description[lang]}
-              </p>
-            ))}
-          </div>
-        </div>
-
         {(project.resources.github || project.resources.live) && (
           <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
             <FieldLabel>{t.project.resources}</FieldLabel>

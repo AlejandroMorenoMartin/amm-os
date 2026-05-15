@@ -2,7 +2,6 @@ import type { Project } from '../../data/projects';
 import type { Lang } from '../../store/useAppStore';
 import { BtnOpen } from './BtnOpen';
 import { TextBlock } from './TextBlock';
-import { StatusChip } from './StatusChip';
 
 interface ProjectRowProps {
   project: Project;
@@ -12,22 +11,20 @@ interface ProjectRowProps {
   onOpen: (slug: string) => void;
   challenge: string;
   role: string;
-  goal: string;
-  status: string;
   expand: string;
   collapse: string;
 }
 
 export function ProjectRow({
   project, isExpanded, lang, onToggle, onOpen,
-  challenge, role, goal, status, expand, collapse,
+  challenge, role, expand, collapse,
 }: ProjectRowProps) {
   return (
     <div className={`font-mono project-row-wrap${isExpanded ? ' project-row-wrap--focused' : ''}`} data-slug={project.slug}>
       <button
         onClick={() => onToggle(project.slug)}
         className="w-full text-left project-row-btn has-tooltip"
-        style={{ background: 'none', cursor: 'pointer' }}
+        style={{ cursor: 'pointer' }}
         aria-expanded={isExpanded}
       >
         <span className="text-txt-l project-name">{project.name}</span>
@@ -49,13 +46,12 @@ export function ProjectRow({
           </TextBlock>
 
           <TextBlock>
-            <span className="card-label">{goal}</span>
-            <span className="text-txt-base">{project.goal[lang]}</span>
-          </TextBlock>
-
-          <TextBlock>
-            <span className="card-label">{status}</span>
-            <StatusChip status={project.status} />
+            <span className="card-label">Responsibilities</span>
+            <ul className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+              {project.responsibilities.map((r) => (
+                <li key={r} className="text-txt-base">&gt; {r}</li>
+              ))}
+            </ul>
           </TextBlock>
 
           <BtnOpen onClick={() => onOpen(project.slug)} />
