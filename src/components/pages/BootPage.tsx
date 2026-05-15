@@ -13,7 +13,7 @@ export function BootPage({ onComplete }: BootPageProps) {
   const [done, setDone] = useState(false);
   const called = useRef(false);
 
-  const lines = [t.boot.line1, t.boot.line2, t.boot.line3, t.boot.line4];
+  const lines = [t.boot.line1, t.boot.line2, t.boot.line3, t.boot.line4, t.boot.line5, t.boot.line6];
   const delay = 1500 / lines.length;
 
   function finish() {
@@ -51,10 +51,11 @@ export function BootPage({ onComplete }: BootPageProps) {
 
   return (
     <div className="flex-1 flex flex-col font-mono">
-      <p className="text-txt-xs" style={{ marginBottom: 'var(--gap-section)', color: 'var(--color-zinc-600)' }}>
-        AMM_OS_V5
-      </p>
+      {/* Top: label + lines */}
       <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+        <p className="text-txt-xs" style={{ color: 'var(--color-zinc-600)' }}>
+          AMM_OS_V5
+        </p>
         {lines.slice(0, visibleLines).map((line, i) => {
           const spaceIdx = line.lastIndexOf(' ');
           const body = spaceIdx !== -1 ? line.slice(0, spaceIdx) : line;
@@ -66,32 +67,28 @@ export function BootPage({ onComplete }: BootPageProps) {
           );
         })}
       </div>
-      <div
-        aria-hidden="true"
-        style={{
-          marginTop: 'auto',
-          height: '2px',
-          background: 'var(--color-zinc-800)',
-          marginBottom: 'var(--gap-block)',
-        }}
-      >
-        <div
-          style={{
-            height: '100%',
-            width: `${(visibleLines / lines.length) * 100}%`,
-            background: 'var(--color-zinc-400)',
-            transition: 'width 300ms ease',
-          }}
-        />
+
+      {/* Bottom: progress bar + skip */}
+      <div className="flex flex-col" style={{ marginTop: 'auto', gap: 'var(--gap-block)' }}>
+        <div aria-hidden="true" style={{ height: '2px', background: 'var(--color-zinc-800)' }}>
+          <div
+            style={{
+              height: '100%',
+              width: `${(visibleLines / lines.length) * 100}%`,
+              background: 'var(--color-zinc-400)',
+              transition: 'width 300ms ease',
+            }}
+          />
+        </div>
+        {!done && (
+          <>
+            <p className="text-txt-xs" style={{ color: 'var(--color-zinc-600)' }} aria-hidden="true">
+              PRESS ENTER TO SKIP
+            </p>
+            <span className="sr-only">{t.boot.skip}</span>
+          </>
+        )}
       </div>
-      {!done && (
-        <>
-          <p className="text-txt-xs" style={{ paddingBottom: 'var(--gap-section)', color: 'var(--color-zinc-600)' }} aria-hidden="true">
-            PRESS ENTER TO SKIP
-          </p>
-          <span className="sr-only">{t.boot.skip}</span>
-        </>
-      )}
     </div>
   );
 }
