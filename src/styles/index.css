@@ -181,6 +181,18 @@ html, body, #root {
   border-color: var(--color-azul-500);
 }
 
+/* MetricChip */
+.metric-chip {
+  color: var(--color-naranja-500);
+  border-color: var(--color-naranja-500);
+}
+
+/* ModeChip */
+.mode-chip {
+  color: var(--color-zinc-500);
+  border-color: var(--color-zinc-500);
+}
+
 /* StatusChip */
 .status-chip--live        { color: var(--color-verde);    border-color: var(--color-verde);    }
 .status-chip--beta        { color: var(--color-amarillo); border-color: var(--color-amarillo); }
