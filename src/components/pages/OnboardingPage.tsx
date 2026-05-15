@@ -35,55 +35,58 @@ export function OnboardingPage({ onComplete }: OnboardingPageProps) {
   ];
 
   return (
-    <div className="flex-1 flex flex-col font-mono" style={{ gap: 'var(--gap-section)' }}>
-      {/* Fase 1 */}
-      <p className="text-txt-xs" style={{ color: 'var(--color-zinc-600)' }}>
-        {t.onboarding.sessionLabel}
-      </p>
-
-      {/* Fase 2 */}
-      {phase >= 2 && (
-        <p className="text-txt-s" style={{ maxWidth: '48ch' }}>
-          {t.onboarding.welcome}
+    <div className="flex-1 flex flex-col font-mono">
+      {/* Top: fases 1-4 */}
+      <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
+        {/* Fase 1 */}
+        <p className="text-txt-xs" style={{ color: 'var(--color-zinc-600)' }}>
+          {t.onboarding.sessionLabel}
         </p>
-      )}
 
-      {/* Fase 3 */}
-      {phase >= 3 && (
-        <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-          <p className="text-txt-xs" style={{ color: 'var(--color-zinc-600)' }}>
-            {t.onboarding.selectLang}
+        {/* Fase 2 */}
+        {phase >= 2 && (
+          <p className="text-txt-s">
+            {t.onboarding.welcome}
           </p>
-          <div className="flex" style={{ gap: 'var(--gap-block)' }}>
-            {(['es', 'en'] as const).map((l) => (
-              <button
-                key={l}
-                type="button"
-                onClick={() => { setLang(l); setPhase(4); }}
-                className="btn-action font-mono"
-              >
-                [{l.toUpperCase()}]
-              </button>
-            ))}
+        )}
+
+        {/* Fase 3 */}
+        {phase >= 3 && (
+          <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+            <p className="text-txt-xs" style={{ color: 'var(--color-zinc-600)' }}>
+              {t.onboarding.selectLang}
+            </p>
+            <div className="flex" style={{ gap: 'var(--gap-block)' }}>
+              {(['es', 'en'] as const).map((l) => (
+                <button
+                  key={l}
+                  type="button"
+                  onClick={() => { setLang(l); setPhase(4); }}
+                  className="btn-action font-mono"
+                >
+                  [{l.toUpperCase()}]
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Fase 4 */}
-      {phase >= 4 && (
-        <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-          <p className="text-txt-xs" style={{ color: 'var(--color-zinc-600)' }}>
-            {t.onboarding.navTitle}
-          </p>
-          <pre className="text-txt-s" style={{ fontFamily: 'inherit', margin: 0 }}>
-            {t.onboarding.navKeys}
-          </pre>
-        </div>
-      )}
+        {/* Fase 4 */}
+        {phase >= 4 && (
+          <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+            <p className="text-txt-xs" style={{ color: 'var(--color-zinc-600)' }}>
+              {t.onboarding.navTitle}
+            </p>
+            <pre className="text-txt-s" style={{ fontFamily: 'inherit', margin: 0 }}>
+              {t.onboarding.navKeys}
+            </pre>
+          </div>
+        )}
+      </div>
 
-      {/* Fase 5 */}
+      {/* Bottom: fase 5 */}
       {phase >= 5 && (
-        <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+        <div className="flex flex-col" style={{ marginTop: 'auto', gap: 'var(--gap-block)' }}>
           <p className="text-txt-xs" style={{ color: 'var(--color-zinc-600)' }}>
             {t.onboarding.navDestination}
           </p>
