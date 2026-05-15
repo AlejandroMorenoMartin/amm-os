@@ -40,7 +40,7 @@ export function OnboardingPage({ onComplete }: OnboardingPageProps) {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center font-mono" style={{ height: '100%', gap: 'var(--gap-section)' }}>
+    <div className="flex-1 flex flex-col font-mono" style={{ height: '100%', gap: 'var(--gap-section)' }}>
       {/* Progress dots */}
       <div className="flex" style={{ gap: 'var(--gap-block)' }}>
         {([1, 2] as const).map((n) => (
@@ -57,13 +57,13 @@ export function OnboardingPage({ onComplete }: OnboardingPageProps) {
       </div>
 
       {/* Header */}
-      <div className="flex flex-col" style={{ gap: 'var(--gap-block)', textAlign: 'center' }}>
+      <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
         <p className="text-txt-s" style={{ color: 'var(--color-zinc-600)' }}>{s.sessionLabel}</p>
         <p className="text-txt-base">{s.welcome}</p>
       </div>
 
       {/* Step content */}
-      <div className="flex flex-col" style={{ gap: 'var(--gap-block)', alignItems: 'center' }}>
+      <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
         <p className="text-txt-s" style={{ color: 'var(--color-zinc-600)' }}>
           {step === 1 ? s.stepLang : s.stepDestination}
         </p>
