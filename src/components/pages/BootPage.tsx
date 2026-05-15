@@ -54,7 +54,7 @@ export function BootPage({ onComplete }: BootPageProps) {
       {/* Top: label + lines */}
       <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
         <p className="text-txt-s" style={{ color: 'var(--color-zinc-600)' }}>
-          AMM_OS_V5
+          AMM-OS-V5
         </p>
         {lines.slice(0, visibleLines).map((line, i) => {
           const spaceIdx = line.lastIndexOf(' ');
