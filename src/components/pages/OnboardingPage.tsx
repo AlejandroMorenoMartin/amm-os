@@ -1,97 +1,91 @@
-import { useEffect, useState } from 'react';
-import { useT } from '../../i18n';
+import { useState } from 'react';
 import { useAppStore } from '../../store/useAppStore';
 
 interface OnboardingPageProps {
   onComplete: (path: string) => void;
 }
 
+const systemLang = navigator.language.startsWith('es') ? 'es' : 'en';
+
+const STRINGS = {
+  es: {
+    sessionLabel: 'AMM-OS-V4 — SESIÓN INICIADA',
+    welcome: 'Bienvenido al sistema operativo personal de Alejandro Moreno. Aquí encontrarás su trabajo, su perfil y su forma de pensar el diseño.',
+    stepLang: 'Language',
+    stepDestination: 'Destination',
+  },
+  en: {
+    sessionLabel: 'AMM-OS-V4 — SESSION STARTED',
+    welcome: "Welcome to Alejandro Moreno's personal operating system. Here you'll find his work, his profile, and his way of thinking about design.",
+    stepLang: 'Language',
+    stepDestination: 'Destination',
+  },
+};
+
+const NAV_LINKS = [
+  { label: '[HOME]',     path: '/',         dest: 'home' },
+  { label: '[PROJECTS]', path: '/projects', dest: 'projects' },
+  { label: '[RESUME]',   path: '/resume',   dest: 'resume' },
+  { label: '[SKILLS]',   path: '/skills',   dest: 'skills' },
+];
+
 export function OnboardingPage({ onComplete }: OnboardingPageProps) {
-  const { t } = useT();
   const { setLang } = useAppStore();
-  const [phase, setPhase] = useState(1);
+  const [step, setStep] = useState<1 | 2>(1);
+  const s = STRINGS[systemLang];
 
-  useEffect(() => {
-    if (phase === 1 || phase === 2 || phase === 4) {
-      const timer = setTimeout(() => setPhase((p) => p + 1), 600);
-      return () => clearTimeout(timer);
-    }
-  }, [phase]);
-
-  useEffect(() => {
-    if (phase < 5) return;
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Enter') onComplete('/');
-    };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
-  }, [phase, onComplete]);
-
-  const navLinks = [
-    { label: t.nav.home,    path: '/',         dest: 'home' },
-    { label: t.nav.trabajo, path: '/projects', dest: 'projects' },
-    { label: t.nav.cv,      path: '/resume',   dest: 'resume' },
-    { label: t.nav.skills,  path: '/skills',   dest: 'skills' },
-  ];
+  function handleLang(l: 'es' | 'en') {
+    setLang(l);
+    setStep(2);
+  }
 
   return (
-    <div className="flex-1 flex flex-col font-mono">
-      {/* Top: fases 1-4 */}
-      <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
-        {/* Fase 1 */}
-        <p className="text-txt-s" style={{ color: 'var(--color-zinc-600)' }}>
-          {t.onboarding.sessionLabel}
-        </p>
-
-        {/* Fase 2 */}
-        {phase >= 2 && (
-          <p className="text-txt-base">
-            {t.onboarding.welcome}
-          </p>
-        )}
-
-        {/* Fase 3 */}
-        {phase >= 3 && (
-          <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-            <p className="text-txt-s" style={{ color: 'var(--color-zinc-600)' }}>
-              {t.onboarding.selectLang}
-            </p>
-            <div className="flex" style={{ gap: 'var(--gap-block)' }}>
-              {(['es', 'en'] as const).map((l) => (
-                <button
-                  key={l}
-                  type="button"
-                  onClick={() => { setLang(l); setPhase(4); }}
-                  className="btn-action font-mono"
-                >
-                  [{l.toUpperCase()}]
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Fase 4 */}
-        {phase >= 4 && (
-          <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-            <p className="text-txt-xs" style={{ color: 'var(--color-zinc-600)' }}>
-              {t.onboarding.navTitle}
-            </p>
-            <pre className="text-txt-s" style={{ fontFamily: 'inherit', margin: 0 }}>
-              {t.onboarding.navKeys}
-            </pre>
-          </div>
-        )}
+    <div className="flex flex-col items-center justify-center font-mono" style={{ height: '100%', gap: 'var(--gap-section)' }}>
+      {/* Progress dots */}
+      <div className="flex" style={{ gap: 'var(--gap-block)' }}>
+        {([1, 2] as const).map((n) => (
+          <div
+            key={n}
+            style={{
+              width: '6px',
+              height: '6px',
+              borderRadius: '50%',
+              background: step === n ? 'var(--color-zinc-400)' : 'var(--color-zinc-700)',
+            }}
+          />
+        ))}
       </div>
 
-      {/* Bottom: fase 5 */}
-      {phase >= 5 && (
-        <div className="flex flex-col" style={{ marginTop: 'auto', gap: 'var(--gap-block)' }}>
-          <p className="text-txt-xs" style={{ color: 'var(--color-zinc-600)' }}>
-            {t.onboarding.navDestination}
-          </p>
+      {/* Header */}
+      <div className="flex flex-col" style={{ gap: 'var(--gap-block)', textAlign: 'center' }}>
+        <p className="text-txt-s" style={{ color: 'var(--color-zinc-600)' }}>{s.sessionLabel}</p>
+        <p className="text-txt-base">{s.welcome}</p>
+      </div>
+
+      {/* Step content */}
+      <div className="flex flex-col" style={{ gap: 'var(--gap-block)', alignItems: 'center' }}>
+        <p className="text-txt-s" style={{ color: 'var(--color-zinc-600)' }}>
+          {step === 1 ? s.stepLang : s.stepDestination}
+        </p>
+
+        {step === 1 && (
           <div className="flex" style={{ gap: 'var(--gap-block)' }}>
-            {navLinks.map(({ label, path, dest }) => (
+            {(['es', 'en'] as const).map((l) => (
+              <button
+                key={l}
+                type="button"
+                onClick={() => handleLang(l)}
+                className="btn-action font-mono"
+              >
+                [{l.toUpperCase()}]
+              </button>
+            ))}
+          </div>
+        )}
+
+        {step === 2 && (
+          <div className="flex" style={{ gap: 'var(--gap-block)' }}>
+            {NAV_LINKS.map(({ label, path, dest }) => (
               <button
                 key={path}
                 type="button"
@@ -103,8 +97,8 @@ export function OnboardingPage({ onComplete }: OnboardingPageProps) {
               </button>
             ))}
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

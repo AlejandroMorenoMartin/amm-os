@@ -23,10 +23,8 @@ export const es: Strings = {
   onboarding: {
     sessionLabel: 'AMM-OS-V4 — SESIÓN INICIADA',
     welcome: 'Bienvenido al sistema operativo personal de Alejandro Moreno. Aquí encontrarás su trabajo, su perfil y su forma de pensar el diseño.',
-    selectLang: 'Selecciona tu idioma',
-    navTitle: 'Así funciona la navegación',
-    navKeys: '← →   Navega entre secciones\n↑ ↓   Desplázate por el contenido\nEnter   Confirma la selección',
-    navDestination: '¿A dónde quieres ir?',
+    stepLang: 'Language',
+    stepDestination: 'Destination',
   },
   home: {
     title: '[HOME]',

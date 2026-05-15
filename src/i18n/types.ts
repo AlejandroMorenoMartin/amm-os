@@ -21,10 +21,8 @@ export interface Strings {
   onboarding: {
     sessionLabel: string;
     welcome: string;
-    selectLang: string;
-    navTitle: string;
-    navKeys: string;
-    navDestination: string;
+    stepLang: string;
+    stepDestination: string;
   };
   home: {
     title: string;
