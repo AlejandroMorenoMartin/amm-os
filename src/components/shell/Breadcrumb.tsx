@@ -25,9 +25,8 @@ export function Breadcrumb() {
 
   return (
     <div className="text-txt-base font-mono flex items-center gap-1">
-      <a href="/projects" onClick={handleBack} className="link-internal text-txt-base has-tooltip" style={{ display: 'inline-block' }}>
+      <a href="/projects" onClick={handleBack} className="link-internal text-txt-base" style={{ display: 'inline-block' }}>
         /projects
-        <span className="tooltip tooltip--down">{t.breadcrumb.backToProjects}</span>
       </a>
       <span> /{project.name}</span>
     </div>

@@ -23,7 +23,7 @@ export function ResumePage() {
       <PageTitle>{t.cv.title}</PageTitle>
 
       {/* Experiencia */}
-      <section className="flex flex-col">
+      <section className="flex flex-col" style={{ gap: 'var(--gap-card)' }}>
         <SectionLabel>{t.cv.experiencia}</SectionLabel>
         <CVEntry period={t.cv.exp1Period} company={t.cv.exp1Company} companyUrl={t.cv.exp1CompanyUrl} mode={t.cv.exp1Mode} role={t.cv.exp1Role} description={t.cv.exp1Desc} skills={t.cv.exp1Skills} tools={t.cv.exp1Tools} kpis={t.cv.exp1Kpis} isExpanded={expandedExp === 0} onToggle={() => toggleExp(0)} />
         <hr className="project-divider" />
@@ -35,7 +35,7 @@ export function ResumePage() {
       </section>
 
       {/* Educación */}
-      <section className="flex flex-col">
+      <section className="flex flex-col" style={{ gap: 'var(--gap-card)' }}>
         <SectionLabel>{t.cv.educacion}</SectionLabel>
         <EduEntry period={t.cv.edu4Period} institution={t.cv.edu4Institution} institutionUrl={t.cv.edu4InstitutionUrl} mode={t.cv.edu4Mode} summary={t.cv.edu4Summary} courses={t.cv.edu4Courses} isExpanded={expandedEdu === 0} onToggle={() => toggleEdu(0)} />
         <hr className="project-divider" />
@@ -67,14 +67,13 @@ function CVEntry({ period, company, companyUrl, mode, role, description, skills,
     <div className={`project-row-wrap${isExpanded ? ' project-row-wrap--focused' : ''}`}>
       <button
         onClick={onToggle}
-        className="w-full text-left project-row-btn has-tooltip"
+        className="w-full text-left project-row-btn"
         style={{ cursor: 'pointer' }}
         aria-expanded={isExpanded}
       >
         <span className="text-txt-l project-name">{role}</span>
         <span className="text-txt-s italic">{period}</span>
         <span className="text-txt-base">{description}</span>
-        <span className="tooltip">{isExpanded ? 'Collapse experience' : 'Expand experience'}</span>
       </button>
 
       {isExpanded && (
@@ -89,7 +88,7 @@ function CVEntry({ period, company, companyUrl, mode, role, description, skills,
               <span className="card-label">Responsibilities</span>
               <ul className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
                 {skills.map((skill) => (
-                  <li key={skill} className="text-txt-base">&gt; {skill}</li>
+                  <li key={skill} className="text-txt-base"><span style={{ color: 'var(--color-azul-600)' }}>&gt;</span> {skill}</li>
                 ))}
               </ul>
             </TextBlock>
@@ -141,14 +140,13 @@ function EduEntry({ period, institution, institutionUrl, mode, summary, courses,
     <div className={`project-row-wrap${isExpanded ? ' project-row-wrap--focused' : ''}`}>
       <button
         onClick={onToggle}
-        className="w-full text-left project-row-btn has-tooltip"
+        className="w-full text-left project-row-btn"
         style={{ cursor: 'pointer' }}
         aria-expanded={isExpanded}
       >
         <span className="text-txt-l project-name">{institution}</span>
         <span className="text-txt-s italic">{period}</span>
         <span className="text-txt-base">{summary}</span>
-        <span className="tooltip">{isExpanded ? 'Collapse education' : 'Expand education'}</span>
       </button>
 
       {isExpanded && (
@@ -162,7 +160,7 @@ function EduEntry({ period, institution, institutionUrl, mode, summary, courses,
             <span className="card-label">Courses</span>
             <ul className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
               {courses.map((course) => (
-                <li key={course} className="text-txt-base">&gt; {course}</li>
+                <li key={course} className="text-txt-base"><span style={{ color: 'var(--color-azul-600)' }}>&gt;</span> {course}</li>
               ))}
             </ul>
           </TextBlock>

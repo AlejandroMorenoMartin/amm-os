@@ -4,8 +4,8 @@ interface PageTitleProps {
 
 export function PageTitle({ children }: PageTitleProps) {
   return (
-    <h2 className="font-mono text-txt-l">
+    <h1 className="font-mono text-txt-xxl">
       {children}
-    </h2>
+    </h1>
   );
 }

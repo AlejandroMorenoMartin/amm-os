@@ -10,11 +10,9 @@ export function SkillsPage() {
     <article className="flex-1 font-mono flex flex-col" style={{ gap: 'var(--gap-page)' }}>
       <PageTitle>{t.skills.title}</PageTitle>
 
-      <section className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
-        <SkillGroup label={t.skills.skill1Label} items={t.skills.skill1Items} tools={t.skills.skill1Tools} />
-        <SkillGroup label={t.skills.skill2Label} items={t.skills.skill2Items} tools={t.skills.skill2Tools} />
-        <SkillGroup label={t.skills.skill3Label} items={t.skills.skill3Items} tools={t.skills.skill3Tools} />
-      </section>
+      <SkillGroup label={t.skills.skill1Label} items={t.skills.skill1Items} tools={t.skills.skill1Tools} />
+      <SkillGroup label={t.skills.skill2Label} items={t.skills.skill2Items} tools={t.skills.skill2Tools} />
+      <SkillGroup label={t.skills.skill3Label} items={t.skills.skill3Items} tools={t.skills.skill3Tools} />
 
       <section className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
         <SectionLabel>{t.skills.idiomas}</SectionLabel>
@@ -27,11 +25,11 @@ export function SkillsPage() {
 
 function SkillGroup({ label, items, tools }: { label: string; items: string[]; tools: string[] }) {
   return (
-    <TextBlock>
+    <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
       <SectionLabel>{label}</SectionLabel>
       <ul className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
         {items.map((item) => (
-          <li key={item} className="text-txt-base">&gt; {item}</li>
+          <li key={item} className="text-txt-base"><span style={{ color: 'var(--color-azul-600)' }}>&gt;</span> {item}</li>
         ))}
       </ul>
       <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
@@ -42,7 +40,7 @@ function SkillGroup({ label, items, tools }: { label: string; items: string[]; t
           ))}
         </div>
       </div>
-    </TextBlock>
+    </div>
   );
 }
 

@@ -10,10 +10,10 @@ export const BottomBar = forwardRef<HTMLElement, BottomBarProps>(function Bottom
   const { t } = useT();
 
   const navItems = [
-    { label: t.nav.home,    to: '/',         tooltip: t.nav.tooltipHome },
-    { label: t.nav.trabajo, to: '/projects', tooltip: t.nav.tooltipTrabajo },
-    { label: t.nav.skills,  to: '/skills',   tooltip: t.nav.tooltipSkills },
-    { label: t.nav.cv,      to: '/resume',   tooltip: t.nav.tooltipCv },
+    { label: t.nav.home,    to: '/' },
+    { label: t.nav.trabajo, to: '/projects' },
+    { label: t.nav.skills,  to: '/skills' },
+    { label: t.nav.cv,      to: '/resume' },
   ];
 
   return (
@@ -26,7 +26,7 @@ export const BottomBar = forwardRef<HTMLElement, BottomBarProps>(function Bottom
       <div className="w-full flex items-center shell-bar-bottom" style={{ maxWidth: 'var(--shell-max-width)', paddingInline: 'var(--shell-padding)', paddingBlock: 'var(--shell-padding)' }}>
         <div className="flex items-center gap-2 nav-touch">
           {navItems.map((item) => (
-            <NavItem key={item.to} label={item.label} to={item.to} tooltip={item.tooltip} />
+            <NavItem key={item.to} label={item.label} to={item.to} />
           ))}
         </div>
         <span className="pointer-fine-block ml-auto text-txt-xs" aria-hidden="true">

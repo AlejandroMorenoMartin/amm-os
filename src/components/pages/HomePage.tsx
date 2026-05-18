@@ -32,6 +32,7 @@ export function HomePage() {
 
   return (
     <article className="flex-1 font-mono flex flex-col" style={{ gap: 'var(--gap-page)' }}>
+      <h1 className="font-mono text-txt-xxl">[HOME]</h1>
       <TextBlock>
         <SectionLabel>{t.home.sectionName}</SectionLabel>
         <span className="text-txt-base">{t.home.name}</span>
@@ -88,13 +89,13 @@ export function HomePage() {
       <TextBlock>
         <SectionLabel>{t.home.sectionOnline}</SectionLabel>
         <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-          <LinkExternal href="https://www.linkedin.com/in/alejandromorenoproductdesigner/" tooltip={t.home.tooltipLinkedin}>
+          <LinkExternal href="https://www.linkedin.com/in/alejandromorenoproductdesigner/">
             {t.home.linkedin}
           </LinkExternal>
-          <LinkExternal href="https://github.com/AlejandroMorenoMartin" tooltip={t.home.tooltipGithub}>
+          <LinkExternal href="https://github.com/AlejandroMorenoMartin">
             {t.home.github}
           </LinkExternal>
-          <LinkExternal href="https://x.com/AMor3noM" tooltip={t.home.tooltipTwitter}>
+          <LinkExternal href="https://x.com/AMor3noM">
             {t.home.twitter}
           </LinkExternal>
         </div>

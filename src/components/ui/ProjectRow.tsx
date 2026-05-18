@@ -11,26 +11,23 @@ interface ProjectRowProps {
   onOpen: (slug: string) => void;
   challenge: string;
   role: string;
-  expand: string;
-  collapse: string;
 }
 
 export function ProjectRow({
   project, isExpanded, lang, onToggle, onOpen,
-  challenge, role, expand, collapse,
+  challenge, role,
 }: ProjectRowProps) {
   return (
     <div className={`font-mono project-row-wrap${isExpanded ? ' project-row-wrap--focused' : ''}`} data-slug={project.slug}>
       <button
         onClick={() => onToggle(project.slug)}
-        className="w-full text-left project-row-btn has-tooltip"
+        className="w-full text-left project-row-btn"
         style={{ cursor: 'pointer' }}
         aria-expanded={isExpanded}
       >
         <span className="text-txt-l project-name">{project.name}</span>
         <span className="text-txt-s italic">{project.date}</span>
         <span className="text-txt-base">{project.synopsis[lang]}</span>
-        <span className="tooltip">{isExpanded ? collapse : expand}</span>
       </button>
 
       {isExpanded && (
@@ -49,7 +46,7 @@ export function ProjectRow({
             <span className="card-label">Responsibilities</span>
             <ul className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
               {project.responsibilities.map((r) => (
-                <li key={r} className="text-txt-base">&gt; {r}</li>
+                <li key={r} className="text-txt-base"><span style={{ color: 'var(--color-azul-600)' }}>&gt;</span> {r}</li>
               ))}
             </ul>
           </TextBlock>

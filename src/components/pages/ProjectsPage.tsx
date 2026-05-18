@@ -21,7 +21,7 @@ export function ProjectsPage() {
     <article className="flex-1 font-mono flex flex-col" style={{ gap: 'var(--gap-page)' }}>
       <PageTitle>{t.trabajo.title}</PageTitle>
 
-      <div className="projects-list flex flex-col">
+      <div className="projects-list flex flex-col" style={{ gap: 'var(--gap-card)' }}>
         {projects.map((project, i) => (
           <React.Fragment key={project.slug}>
             {i > 0 && <hr className="project-divider" />}
@@ -33,8 +33,6 @@ export function ProjectsPage() {
               onOpen={(slug) => navigate(`/projects/${slug}`)}
               challenge={t.trabajo.challenge}
               role={t.trabajo.role}
-              expand={t.trabajo.tooltipExpand}
-              collapse={t.trabajo.tooltipCollapse}
             />
           </React.Fragment>
         ))}

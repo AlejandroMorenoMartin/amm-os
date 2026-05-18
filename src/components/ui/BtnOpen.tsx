@@ -14,11 +14,10 @@ export function BtnOpen({ onClick, disabled = false }: BtnOpenProps) {
     <button
       onClick={onClick}
       disabled={disabled}
-      className="btn-action btn-action--primary w-fit has-tooltip"
+      className="btn-action btn-action--primary w-fit"
       {...focusProps}
     >
       {focused ? '> ' : ''}[OPEN]
-      <span className="tooltip">{t.trabajo.tooltipOpen}</span>
     </button>
   );
 }
