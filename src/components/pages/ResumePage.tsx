@@ -64,7 +64,7 @@ function CVEntry({ period, company, companyUrl, mode, role, description, skills,
   onToggle: () => void;
 }) {
   const [step, setStep] = useState(0);
-  const TOTAL_STEPS = 3;
+  const TOTAL_STEPS = 3; // steps: description+modality | responsibilities | metrics+tools+company
 
   useEffect(() => {
     if (!isExpanded) setStep(0);
