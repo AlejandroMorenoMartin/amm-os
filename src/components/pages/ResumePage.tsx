@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useT } from '../../i18n';
 import { PageTitle } from '../ui/PageTitle';
 import { TextBlock } from '../ui/TextBlock';
@@ -63,12 +63,18 @@ function CVEntry({ period, company, companyUrl, mode, role, description, skills,
   isExpanded: boolean;
   onToggle: () => void;
 }) {
+  const [step, setStep] = useState(0);
+  const TOTAL_STEPS = 3;
+
+  useEffect(() => {
+    if (!isExpanded) setStep(0);
+  }, [isExpanded]);
+
   return (
     <div className={`project-row-wrap${isExpanded ? ' project-row-wrap--focused' : ''}`}>
       <button
         onClick={onToggle}
         className="w-full text-left project-row-btn"
-        style={{ cursor: 'pointer' }}
         aria-expanded={isExpanded}
       >
         <span className="text-txt-l project-name">{role}</span>
@@ -78,48 +84,88 @@ function CVEntry({ period, company, companyUrl, mode, role, description, skills,
 
       {isExpanded && (
         <div className="flex flex-col project-row-expanded-block" style={{ gap: 'var(--gap-section)' }}>
-          <TextBlock>
-            <span className="card-label">Company</span>
-            <LinkExternal href={companyUrl}>{company}</LinkExternal>
-          </TextBlock>
 
-          {skills.length > 0 && (
+          {/* Paso 1 — Descripción + Modalidad */}
+          {step === 0 && (
+            <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
+              <TextBlock>
+                <span className="card-label">Description</span>
+                <span className="text-txt-base">{description}</span>
+              </TextBlock>
+              <TextBlock>
+                <span className="card-label">Modality</span>
+                <span className="chip mode-chip">{mode}</span>
+              </TextBlock>
+            </div>
+          )}
+
+          {/* Paso 2 — Responsabilidades */}
+          {step === 1 && (
             <TextBlock>
               <span className="card-label">Responsibilities</span>
               <ul className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
                 {skills.map((skill) => (
-                  <li key={skill} className="text-txt-base"><span style={{ color: 'var(--color-azul-600)' }}>&gt;</span> {skill}</li>
+                  <li key={skill} className="text-txt-base">
+                    <span style={{ color: 'var(--color-azul-600)' }}>&gt;</span> {skill}
+                  </li>
                 ))}
               </ul>
             </TextBlock>
           )}
 
-          {kpis.length > 0 && (
-            <TextBlock>
-              <span className="card-label">Metrics</span>
-              <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
-                {kpis.map((kpi) => (
-                  <span key={kpi.value} className="chip metric-chip">{kpi.value} · {kpi.label}</span>
-                ))}
-              </div>
-            </TextBlock>
+          {/* Paso 3 — Métricas + Tools + Company */}
+          {step === 2 && (
+            <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
+              {kpis.length > 0 && (
+                <TextBlock>
+                  <span className="card-label">Metrics</span>
+                  <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
+                    {kpis.map((kpi) => (
+                      <span key={kpi.value} className="chip metric-chip">{kpi.value} · {kpi.label}</span>
+                    ))}
+                  </div>
+                </TextBlock>
+              )}
+              {tools.length > 0 && (
+                <TextBlock>
+                  <span className="card-label">Tools</span>
+                  <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
+                    {tools.map((tool) => (
+                      <span key={tool} className="chip tool-chip">{tool}</span>
+                    ))}
+                  </div>
+                </TextBlock>
+              )}
+              <TextBlock>
+                <span className="card-label">Company</span>
+                <LinkExternal href={companyUrl}>{company}</LinkExternal>
+              </TextBlock>
+            </div>
           )}
 
-          {tools.length > 0 && (
-            <TextBlock>
-              <span className="card-label">Tools</span>
-              <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
-                {tools.map((tool) => (
-                  <span key={tool} className="chip tool-chip">{tool}</span>
-                ))}
-              </div>
-            </TextBlock>
-          )}
+          {/* Navegación */}
+          <div className="flex justify-between items-center" style={{ paddingTop: 'var(--gap-block)' }}>
+            <span className="card-label text-txt-xs">
+              {String(step + 1).padStart(2, '0')} / {String(TOTAL_STEPS).padStart(2, '0')}
+            </span>
+            <div className="flex" style={{ gap: 'var(--gap-block)' }}>
+              <button
+                className="btn-action"
+                onClick={() => setStep((s) => s - 1)}
+                disabled={step === 0}
+              >
+                [&lt;]
+              </button>
+              <button
+                className="btn-action"
+                onClick={() => setStep((s) => s + 1)}
+                disabled={step === TOTAL_STEPS - 1}
+              >
+                [&gt;]
+              </button>
+            </div>
+          </div>
 
-          <TextBlock>
-            <span className="card-label">Modality</span>
-            <span className="chip mode-chip">{mode}</span>
-          </TextBlock>
         </div>
       )}
     </div>
