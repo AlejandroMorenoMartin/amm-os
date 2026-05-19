@@ -201,7 +201,7 @@ function EduSection({ entries }: { entries: EduData[] }) {
       >
         {entries.map((entry, i) => (
           <button
-            key={entry.institution}
+            key={i}
             onClick={() => setActiveIndex(i)}
             className="w-full text-left project-row-btn"
           >
