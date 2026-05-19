@@ -56,7 +56,7 @@
   --border-strong:   0.5px solid var(--color-zinc-200);
   --border-dashed:   0.25px dashed var(--color-zinc-800);
   --focus-border:    0.5px solid var(--color-azul-500);
-  --shell-max-width: 960px;
+  --shell-max-width: 1080px;
   --shell-padding: 1rem;
   --shell-bar-offset: 48px;
   --gap-page:    3rem;

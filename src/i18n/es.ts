@@ -209,7 +209,7 @@ export const es: Strings = {
   project: {
     resources: 'Resources',
     metrics: 'Metrics',
-    update: 'Update',
+    update: 'Última actualización',
     manifesto: 'Manifesto',
     openImage: 'View image full screen',
     tooltipBack: 'Go back to projects',

@@ -36,8 +36,12 @@ export function ProjectPage() {
 
       {/* Bloque 1 — Identidad */}
       <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
-        <h2 className="text-txt-xl">{'> '}{project.name}</h2>
-        <span className="text-txt-s italic">{project.date}</span>
+        <span className="text-txt-l project-name">{'> '}{project.name}</span>
+
+        <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+          <FieldLabel>{t.project.update}</FieldLabel>
+          <span className="text-txt-base">{project.date}</span>
+        </div>
 
         <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
           <FieldLabel>Overview</FieldLabel>
@@ -63,28 +67,6 @@ export function ProjectPage() {
           </ul>
         </div>
 
-        <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-          <FieldLabel>{t.project.metrics}</FieldLabel>
-          <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
-            {project.metrics.map((m) => (
-              <span key={m.value} className="chip metric-chip">{m.value} · {m.label[lang]}</span>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-          <FieldLabel>Tools</FieldLabel>
-          <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
-            {project.tools.map((tool) => (
-              <span key={tool} className="chip tool-chip">{tool}</span>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex flex-col items-start" style={{ gap: 'var(--gap-block)' }}>
-          <FieldLabel>Status</FieldLabel>
-          <StatusChip status={project.status} />
-        </div>
         <button
           className="photo-btn photo-btn--full btn-no-focus has-tooltip"
           style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
@@ -124,8 +106,33 @@ export function ProjectPage() {
 
       <hr className="project-divider" />
 
-      {/* Bloque 3 — Recursos */}
+      {/* Bloque 3 — Meta */}
       <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
+        <div className="flex flex-col items-start" style={{ gap: 'var(--gap-block)' }}>
+          <FieldLabel>Status</FieldLabel>
+          <StatusChip status={project.status} />
+        </div>
+
+        {project.metrics.length > 0 && (
+          <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+            <FieldLabel>{t.project.metrics}</FieldLabel>
+            <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
+              {project.metrics.map((m) => (
+                <span key={m.value} className="chip metric-chip">{m.value} · {m.label[lang]}</span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+          <FieldLabel>Tools</FieldLabel>
+          <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
+            {project.tools.map((tool) => (
+              <span key={tool} className="chip tool-chip">{tool}</span>
+            ))}
+          </div>
+        </div>
+
         {(project.resources.github || project.resources.live) && (
           <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
             <FieldLabel>{t.project.resources}</FieldLabel>

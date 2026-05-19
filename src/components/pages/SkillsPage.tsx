@@ -1,6 +1,5 @@
 import { useT } from '../../i18n';
 import { PageTitle } from '../ui/PageTitle';
-import { TextBlock } from '../ui/TextBlock';
 import { SectionLabel } from '../ui/SectionLabel';
 
 export function SkillsPage() {
@@ -16,8 +15,10 @@ export function SkillsPage() {
 
       <section className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
         <SectionLabel>{t.skills.idiomas}</SectionLabel>
-        <LangEntry lang={t.skills.lang1Name} level={t.skills.lang1Level} />
-        <LangEntry lang={t.skills.lang2Name} level={t.skills.lang2Level} />
+        <ul className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+          <LangEntry lang={t.skills.lang1Name} level={t.skills.lang1Level} />
+          <LangEntry lang={t.skills.lang2Name} level={t.skills.lang2Level} />
+        </ul>
       </section>
     </article>
   );
@@ -46,9 +47,6 @@ function SkillGroup({ label, items, tools }: { label: string; items: string[]; t
 
 function LangEntry({ lang, level }: { lang: string; level: string }) {
   return (
-    <TextBlock>
-      <span className="text-txt-s">{lang}</span>
-      <span className="text-txt-base">{level}</span>
-    </TextBlock>
+    <li className="text-txt-base"><span style={{ color: 'var(--color-azul-600)' }}>&gt;</span> {lang} ({level})</li>
   );
 }

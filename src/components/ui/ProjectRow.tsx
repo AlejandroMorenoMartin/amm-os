@@ -51,6 +51,17 @@ export function ProjectRow({
             </ul>
           </TextBlock>
 
+          {project.metrics.length > 0 && (
+            <TextBlock>
+              <span className="card-label">Metrics</span>
+              <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
+                {project.metrics.map((m) => (
+                  <span key={m.value} className="chip metric-chip">{m.value} · {m.label[lang]}</span>
+                ))}
+              </div>
+            </TextBlock>
+          )}
+
           <BtnOpen onClick={() => onOpen(project.slug)} />
         </div>
       )}
