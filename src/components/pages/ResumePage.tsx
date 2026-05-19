@@ -8,14 +8,9 @@ import { LinkExternal } from '../ui/LinkExternal';
 export function ResumePage() {
   const { t } = useT();
   const [expandedExp, setExpandedExp] = useState<number | null>(null);
-  const [expandedEdu, setExpandedEdu] = useState<number | null>(null);
 
   function toggleExp(index: number) {
     setExpandedExp((prev) => (prev === index ? null : index));
-  }
-
-  function toggleEdu(index: number) {
-    setExpandedEdu((prev) => (prev === index ? null : index));
   }
 
   return (
@@ -37,13 +32,12 @@ export function ResumePage() {
       {/* Educación */}
       <section className="flex flex-col" style={{ gap: 'var(--gap-card)' }}>
         <SectionLabel>{t.cv.educacion}</SectionLabel>
-        <EduEntry period={t.cv.edu4Period} institution={t.cv.edu4Institution} institutionUrl={t.cv.edu4InstitutionUrl} mode={t.cv.edu4Mode} summary={t.cv.edu4Summary} courses={t.cv.edu4Courses} isExpanded={expandedEdu === 0} onToggle={() => toggleEdu(0)} />
-        <hr className="project-divider" />
-        <EduEntry period={t.cv.edu1Period} institution={t.cv.edu1Institution} institutionUrl={t.cv.edu1InstitutionUrl} mode={t.cv.edu1Mode} summary={t.cv.edu1Summary} courses={t.cv.edu1Courses} isExpanded={expandedEdu === 1} onToggle={() => toggleEdu(1)} />
-        <hr className="project-divider" />
-        <EduEntry period={t.cv.edu2Period} institution={t.cv.edu2Institution} institutionUrl={t.cv.edu2InstitutionUrl} mode={t.cv.edu2Mode} summary={t.cv.edu2Summary} courses={t.cv.edu2Courses} isExpanded={expandedEdu === 2} onToggle={() => toggleEdu(2)} />
-        <hr className="project-divider" />
-        <EduEntry period={t.cv.edu3Period} institution={t.cv.edu3Institution} institutionUrl={t.cv.edu3InstitutionUrl} mode={t.cv.edu3Mode} summary={t.cv.edu3Summary} courses={t.cv.edu3Courses} isExpanded={expandedEdu === 3} onToggle={() => toggleEdu(3)} />
+        <EduSection entries={[
+          { period: t.cv.edu4Period, institution: t.cv.edu4Institution, institutionUrl: t.cv.edu4InstitutionUrl, mode: t.cv.edu4Mode, summary: t.cv.edu4Summary, courses: t.cv.edu4Courses },
+          { period: t.cv.edu1Period, institution: t.cv.edu1Institution, institutionUrl: t.cv.edu1InstitutionUrl, mode: t.cv.edu1Mode, summary: t.cv.edu1Summary, courses: t.cv.edu1Courses },
+          { period: t.cv.edu2Period, institution: t.cv.edu2Institution, institutionUrl: t.cv.edu2InstitutionUrl, mode: t.cv.edu2Mode, summary: t.cv.edu2Summary, courses: t.cv.edu2Courses },
+          { period: t.cv.edu3Period, institution: t.cv.edu3Institution, institutionUrl: t.cv.edu3InstitutionUrl, mode: t.cv.edu3Mode, summary: t.cv.edu3Summary, courses: t.cv.edu3Courses },
+        ]} />
       </section>
 
     </article>
@@ -172,52 +166,106 @@ function CVEntry({ period, company, companyUrl, mode, role, description, skills,
   );
 }
 
-function EduEntry({ period, institution, institutionUrl, mode, summary, courses, isExpanded, onToggle }: {
+interface EduData {
   period: string;
   institution: string;
   institutionUrl: string;
   mode: string;
   summary: string;
   courses: string[];
-  isExpanded: boolean;
-  onToggle: () => void;
-}) {
-  return (
-    <div className={`project-row-wrap${isExpanded ? ' project-row-wrap--focused' : ''}`}>
-      <button
-        onClick={onToggle}
-        className="w-full text-left project-row-btn"
-        style={{ cursor: 'pointer' }}
-        aria-expanded={isExpanded}
-      >
-        <span className="text-txt-l project-name">{institution}</span>
-        <span className="text-txt-s italic">{period}</span>
-        <span className="text-txt-base">{summary}</span>
-      </button>
+}
 
-      {isExpanded && (
-        <div className="flex flex-col project-row-expanded-block" style={{ gap: 'var(--gap-section)' }}>
+function EduSection({ entries }: { entries: EduData[] }) {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (activeIndex === null) return;
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') setActiveIndex(null);
+    }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeIndex]);
+
+  const active = activeIndex !== null ? entries[activeIndex] : null;
+
+  return (
+    <div className="flex flex-col" style={{ gap: 'var(--gap-card)', position: 'relative' }}>
+      {/* Lista siempre visible */}
+      <div
+        className="flex flex-col"
+        style={{
+          gap: 'var(--gap-card)',
+          pointerEvents: activeIndex !== null ? 'none' : undefined,
+        }}
+      >
+        {entries.map((entry, i) => (
+          <button
+            key={entry.institution}
+            onClick={() => setActiveIndex(i)}
+            className="w-full text-left project-row-btn"
+          >
+            <span className="text-txt-l project-name">{entry.institution}</span>
+            <span className="text-txt-s italic">{entry.period}</span>
+            <span className="text-txt-base">{entry.summary}</span>
+          </button>
+        ))}
+      </div>
+
+      {/* Overlay */}
+      {active && (
+        <div
+          className="flex flex-col"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'var(--color-background)',
+            border: 'var(--border-strong)',
+            padding: '0.75rem',
+            zIndex: 10,
+            opacity: 1,
+            transition: 'opacity 150ms ease',
+            gap: 'var(--gap-section)',
+          }}
+        >
+          {/* Header overlay */}
+          <div className="flex justify-between items-start">
+            <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+              <span className="text-txt-l project-name">{active.institution}</span>
+              <span className="text-txt-s italic">{active.period}</span>
+            </div>
+            <button
+              className="btn-action"
+              onClick={() => setActiveIndex(null)}
+              aria-label="Close"
+            >
+              [×]
+            </button>
+          </div>
+
+          {/* Contenido */}
           <TextBlock>
             <span className="card-label">Institution</span>
-            <LinkExternal href={institutionUrl}>{institution}</LinkExternal>
+            <LinkExternal href={active.institutionUrl}>{active.institution}</LinkExternal>
           </TextBlock>
 
           <TextBlock>
             <span className="card-label">Courses</span>
             <ul className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-              {courses.map((course) => (
-                <li key={course} className="text-txt-base"><span style={{ color: 'var(--color-azul-600)' }}>&gt;</span> {course}</li>
+              {active.courses.map((course) => (
+                <li key={course} className="text-txt-base">
+                  <span style={{ color: 'var(--color-azul-600)' }}>&gt;</span> {course}
+                </li>
               ))}
             </ul>
           </TextBlock>
 
           <TextBlock>
             <span className="card-label">Modality</span>
-            <span className="chip mode-chip">{mode}</span>
+            <span className="chip mode-chip">{active.mode}</span>
           </TextBlock>
         </div>
       )}
     </div>
   );
 }
-
