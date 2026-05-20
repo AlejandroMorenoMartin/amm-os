@@ -18,7 +18,7 @@ export const es: Strings = {
     line4: 'VERIFICANDO IDENTIDAD... [OK]',
     line5: 'CARGANDO PERFIL... [OK]',
     line6: 'LISTO. [OK]',
-    skip: 'Pulsa Enter para saltar la animación de inicio',
+    skip: 'Pulsa Enter para saltar la animación de inicio.',
   },
   onboarding: {
     sessionLabel: 'AMM-OS-V4 — SESIÓN INICIADA',
@@ -32,12 +32,14 @@ export const es: Strings = {
     sectionPhoto: 'Photo',
     sectionRol: 'Role',
     sectionPerfil: 'Profile',
-    sectionOffline: 'Offline',
+    sectionAvailability: 'Availability',
     sectionOnline: 'Online',
     sectionLocation: 'Location',
     sectionContacto: 'Contact',
     name: 'Alejandro Moreno Martín',
-    perfil: 'Diseño productos digitales centrados en las personas. Me obsesiona la usabilidad y aprendo continuamente cómo la IA cambia lo que significa diseñar bien.',
+    rol: 'AI Product Designer',
+    perfil: 'Diseño desde la investigación hasta el código. Cinco años entendiendo problemas, diseñando soluciones y entregando algo que funciona. Con equipos de ingeniería, clientes reales y la IA como parte del proceso.',
+    availability: 'Explorando nuevas oportunidades.',
     location: 'Madrid, España',
     linkedin: 'Linkedin',
     github: 'Github',
@@ -62,7 +64,6 @@ export const es: Strings = {
   },
   sobreMi: {
     photoAlt: 'Alejandro Moreno Martín',
-    p4: 'Familia, amigos, naturaleza, música, viajes, deporte y aprendizaje continuo.',
   },
   cv: {
     title: '[RESUME]',

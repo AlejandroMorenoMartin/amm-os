@@ -18,7 +18,7 @@ export const en: Strings = {
     line4: 'VERIFYING IDENTITY... [OK]',
     line5: 'LOADING PROFILE... [OK]',
     line6: 'READY. [OK]',
-    skip: 'Press Enter to skip the boot animation',
+    skip: 'Press Enter to skip the boot animation.',
   },
   onboarding: {
     sessionLabel: 'AMM-OS-V4 — SESSION STARTED',
@@ -32,12 +32,14 @@ export const en: Strings = {
     sectionPhoto: 'Photo',
     sectionRol: 'Role',
     sectionPerfil: 'Profile',
-    sectionOffline: 'Offline',
+    sectionAvailability: 'Availability',
     sectionOnline: 'Online',
     sectionLocation: 'Location',
     sectionContacto: 'Contact',
     name: 'Alejandro Moreno Martín',
-    perfil: 'Designing digital products with people at the centre. Obsessed with usability, always learning how AI changes what good design means.',
+    rol: 'AI Product Designer',
+    perfil: 'Designing from research to code. Five years understanding problems, designing solutions and delivering something that works. With engineering teams, real clients and AI as part of the process.',
+    availability: 'Exploring new opportunities.',
     location: 'Madrid, Spain',
     linkedin: 'Linkedin',
     github: 'Github',
@@ -62,7 +64,6 @@ export const en: Strings = {
   },
   sobreMi: {
     photoAlt: 'Alejandro Moreno Martín',
-    p4: 'Family, friends, nature, music, travel, sport and continuous learning.',
   },
   cv: {
     title: '[RESUME]',

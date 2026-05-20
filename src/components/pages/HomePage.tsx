@@ -60,12 +60,17 @@ export function HomePage() {
 
       <TextBlock>
         <SectionLabel>{t.home.sectionRol}</SectionLabel>
-        <span className="text-txt-base">AI Product Designer</span>
+        <span className="text-txt-base">{t.home.rol}</span>
       </TextBlock>
 
       <TextBlock>
         <SectionLabel>{t.home.sectionPerfil}</SectionLabel>
         <span className="text-txt-base">{t.home.perfil}</span>
+      </TextBlock>
+
+      <TextBlock>
+        <SectionLabel>{t.home.sectionAvailability}</SectionLabel>
+        <span className="text-txt-base">{t.home.availability}</span>
       </TextBlock>
 
       <TextBlock>
@@ -102,10 +107,7 @@ export function HomePage() {
         </div>
       </TextBlock>
 
-      <TextBlock>
-        <SectionLabel>{t.home.sectionOffline}</SectionLabel>
-        <span className="text-txt-base">{t.sobreMi.p4}</span>
-      </TextBlock>
+
     </article>
   );
 }

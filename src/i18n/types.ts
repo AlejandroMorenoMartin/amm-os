@@ -30,12 +30,14 @@ export interface Strings {
     sectionPhoto: string;
     sectionRol: string;
     sectionPerfil: string;
-    sectionOffline: string;
+    sectionAvailability: string;
     sectionOnline: string;
     sectionLocation: string;
     sectionContacto: string;
     name: string;
+    rol: string;
     perfil: string;
+    availability: string;
     location: string;
     twitter: string;
     tooltipTwitter: string;
@@ -60,7 +62,6 @@ export interface Strings {
   };
   sobreMi: {
     photoAlt: string;
-    p4: string;
   };
   cv: {
     title: string;
