@@ -36,7 +36,7 @@ export function ProjectPage() {
 
       {/* Bloque 1 — Identidad */}
       <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
-        <span className="text-txt-l project-name">{'> '}{project.name}</span>
+        <span className="text-txt-base project-name">{'> '}{project.name}</span>
 
         <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
           <FieldLabel>{t.project.update}</FieldLabel>
@@ -62,7 +62,7 @@ export function ProjectPage() {
           <FieldLabel>Responsibilities</FieldLabel>
           <ul className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
             {project.responsibilities.map((r) => (
-              <li key={r} className="text-txt-base"><span style={{ color: 'var(--color-azul-600)' }}>&gt;</span> {r}</li>
+              <li key={r} className="text-txt-base"><span>&gt;</span> {r}</li>
             ))}
           </ul>
         </div>

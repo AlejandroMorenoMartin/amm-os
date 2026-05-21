@@ -14,7 +14,7 @@ export function BtnOpen({ onClick, disabled = false }: BtnOpenProps) {
     <button
       onClick={onClick}
       disabled={disabled}
-      className="btn-action btn-action--primary w-fit"
+      className="btn-action w-fit"
       {...focusProps}
     >
       {focused ? '> ' : ''}[OPEN]

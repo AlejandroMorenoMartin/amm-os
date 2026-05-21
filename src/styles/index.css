@@ -5,7 +5,7 @@
 
   --color-background: #010816;
 
-  --color-zinc-50: #FFFFFF;
+  --color-zinc-50: #FAFAFA;
   --color-zinc-100: #E6E6E6;
   --color-zinc-200: #D2D2D2;
   --color-zinc-300: #BCBCBC;
@@ -17,32 +17,22 @@
   --color-zinc-900: #2A2A2A;
   --color-zinc-950: #0D0D0D;
 
-  --color-azul-50: #F1F2F1;
-  --color-azul-100: #C3E8F1;
-  --color-azul-200: #67D4F0;
-  --color-azul-300: #0BC0EF;
-  --color-azul-400: #06A3F7;
-  --color-azul-500: #0086FF;
-  --color-azul-600: #1460C6;
-  --color-azul-700: #29398E;
-  --color-azul-800: #182A66;
-  --color-azul-900: #061A3F;
-  --color-azul-950: #000105;
+  --color-blue-50: #F1F2F1;
+  --color-blue-100: #C3E8F1;
+  --color-blue-200: #67D4F0;
+  --color-blue-300: #0BC0EF;
+  --color-blue-400: #06A3F7;
+  --color-blue-500: #0086FF;
+  --color-blue-600: #124D9C;
+  --color-blue-700: #0C1A67;
+  --color-blue-800: #040F33;
+  --color-blue-900: #010A1B;
+  --color-blue-950: #000209;
 
-  --color-naranja-50: #FFF7ED;
-  --color-naranja-100: #FFEDD5;
-  --color-naranja-200: #FED7AA;
-  --color-naranja-300: #FDBA74;
-  --color-naranja-400: #FB923C;
-  --color-naranja-500: #F97316;
-  --color-naranja-600: #EA580C;
-  --color-naranja-700: #C2410C;
-  --color-naranja-800: #9A3412;
-  --color-naranja-900: #7C2D12;
-  --color-naranja-950: #431407;
-
-  --color-verde: #4ADE80;
-  --color-amarillo: #FACC15;
+  --color-orange: #F97316;
+  --color-purple: #BD13E8;
+  --color-green: #4ADE80;
+  --color-yellow: #FACC15;
   --color-cyan: #22D3EE;
 
   --radius: 0;
@@ -55,7 +45,7 @@
   --photo-bg:        var(--color-zinc-950);
   --border-strong:   0.5px solid var(--color-zinc-200);
   --border-dashed:   0.25px dashed var(--color-zinc-800);
-  --focus-border:    0.5px solid var(--color-azul-500);
+  --focus-border:    0.5px solid var(--color-blue-500);
   --shell-max-width: 1080px;
   --shell-padding: 1rem;
   --shell-bar-offset: 48px;
@@ -113,7 +103,7 @@ html, body, #root {
 
 /* Focus en imágenes: outline completo hacia dentro */
 .photo-btn:focus-visible {
-  outline: 0.5px solid var(--color-azul-500);
+  outline: 0.5px solid var(--color-blue-500);
   outline-offset: -2px;
   border-bottom: none;
 }
@@ -126,6 +116,23 @@ html, body, #root {
 .text-txt-s    { font-size: 12px; line-height: 1.5; font-weight: 300; color: var(--color-zinc-500); }
 .text-txt-xs   { font-size: 10px; line-height: 1.5; font-weight: 300; color: var(--color-zinc-600); }
 
+
+/* Profile block */
+.profile-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-section);
+}
+@media (min-width: 768px) and (min-height: 500px) {
+  .profile-layout {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--gap-section);
+  }
+  .profile-photo { flex-shrink: 0; }
+  .profile-photo img { width: 100%; height: auto; }
+  .profile-text { flex: 1; }
+}
 
 /* SectionTitle */
 .section-title { border-bottom: var(--border-default); width: 100%; padding-bottom: 0.25rem; }
@@ -148,7 +155,7 @@ html, body, #root {
   padding: 0.75rem 0;
   width: 100%;
 }
-.project-row-btn:hover .project-name { color: var(--color-zinc-50); }
+.project-row-btn:hover .project-name { text-decoration: underline; }
 .project-row-wrap {
   position: relative;
   padding-bottom: 0;
@@ -158,18 +165,18 @@ html, body, #root {
   padding-bottom: var(--gap-section);
 }
 .project-row-expanded-block { border-left: var(--border-strong); padding: 0.5rem 0 var(--gap-section) var(--gap-section); }
-.project-name { text-decoration: underline; }
-.kpi { color: var(--color-naranja-500); }
-.skill-highlight { color: var(--color-naranja-500); }
+.project-name { color: var(--color-blue-500); text-decoration: none; }
+.kpi { color: var(--color-orange); }
+.skill-highlight { color: var(--color-orange); }
 .project-divider { border: none; border-top: var(--border-dashed); width: 100%; margin: 0; }
 .card-label { font-size: 12px; line-height: 1.5; font-weight: 300; color: var(--color-zinc-500); }
 
 /* Chip base — compartida por ToolChip y StatusChip */
 .chip {
   display: inline-block;
-  font-size: 9px;
-  line-height: 1;
-  font-weight: 500;
+  font-size: 10px;
+  line-height: 1.5;
+  font-weight: 300;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   padding: 4.5px 9px;
@@ -180,14 +187,14 @@ html, body, #root {
 
 /* ToolChip */
 .tool-chip {
-  color: var(--color-azul-600);
-  border-color: var(--color-azul-600);
+  color: var(--color-purple);
+  border-color: var(--color-purple);
 }
 
 /* MetricChip */
 .metric-chip {
-  color: var(--color-naranja-500);
-  border-color: var(--color-naranja-500);
+  color: var(--color-orange);
+  border-color: var(--color-orange);
 }
 
 /* ModeChip */
@@ -197,8 +204,8 @@ html, body, #root {
 }
 
 /* StatusChip */
-.status-chip--live        { color: var(--color-verde);    border-color: var(--color-verde);    }
-.status-chip--beta        { color: var(--color-amarillo); border-color: var(--color-amarillo); }
+.status-chip--live        { color: var(--color-green);  border-color: var(--color-green);  }
+.status-chip--beta        { color: var(--color-yellow); border-color: var(--color-yellow); }
 .status-chip--in-progress { color: var(--color-cyan);     border-color: var(--color-cyan);     }
 .status-chip--paused      { color: var(--color-zinc-500); border-color: var(--color-zinc-500); }
 .status-chip--archived    { color: var(--color-zinc-700); border-color: var(--color-zinc-700); }
@@ -212,7 +219,7 @@ html, body, #root {
 
 /* photo-btn--half: 100% en mobile, 192px en desktop (about) */
 .photo-btn--half { display: block; width: 100%; }
-@media (min-width: 768px) and (min-height: 500px) { .photo-btn--half { width: 270px; } }
+@media (min-width: 768px) and (min-height: 500px) { .photo-btn--half { width: 360px; } }
 .desktop-block  { display: none; }
 .desktop-inline { display: none; }
 @media (min-width: 768px) and (min-height: 500px) { .desktop-block  { display: block; } }
@@ -241,11 +248,12 @@ html, body, #root {
 /* Links */
 .link-external,
 .link-internal {
-  text-decoration: underline;
+  color: var(--color-blue-500);
+  text-decoration: none;
 }
 .link-external:hover,
 .link-internal:hover {
-  color: var(--color-zinc-50);
+  color: var(--color-blue-500);
   text-decoration: underline;
 }
 .link-external:focus-visible {
@@ -302,9 +310,12 @@ html, body, #root {
 /* Email copy button */
 .email-copy {
   cursor: pointer;
+  color: var(--color-blue-500);
+  text-decoration: none;
 }
 .email-copy:hover {
-  color: var(--color-zinc-50);
+  color: var(--color-blue-500);
+  text-decoration: underline;
 }
 .email-copy:focus-visible {
   outline: none;
@@ -328,18 +339,19 @@ html, body, #root {
   text-transform: uppercase;
   background: none;
   border: none;
-  color: var(--color-zinc-400);
+  color: var(--color-blue-500);
+  text-decoration: none;
 }
-.btn-nav:hover { color: var(--color-zinc-50); }
+.btn-nav:hover { text-decoration: underline; }
 .btn-nav:active {
-  background: var(--color-azul-500);
-  color: var(--color-azul-950);
+  background: var(--color-blue-500);
+  color: var(--color-blue-950);
 }
 .btn-nav--active {
-  background: var(--color-azul-500);
-  color: var(--color-azul-950);
+  background: var(--color-blue-500);
+  color: var(--color-blue-950);
 }
-.btn-nav--active:hover { color: var(--color-azul-950); }
+.btn-nav--active:hover { color: var(--color-blue-950); }
 
 /* btn-action — BtnControl + BtnOpen */
 .btn-action {
@@ -348,25 +360,20 @@ html, body, #root {
   font-size: 12px;
   padding: 0.4rem 0.8rem;
   text-transform: uppercase;
-  background: none;
-  border: var(--border-default);
-  color: var(--color-zinc-400);
+  background: transparent;
+  border: 0.5px solid var(--color-blue-500);
+  color: var(--color-blue-500);
 }
-.btn-action:hover {  
-  color: var(--color-zinc-50);
+.btn-action:hover {
+  background: var(--color-blue-800);
 }
-.btn-action:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-action:active {
+  background: var(--color-blue-500);
+  color: var(--color-blue-950);
+}
+.btn-action:disabled { opacity: 0.25; cursor: not-allowed; }
 
-/* btn-action--primary — variante azul (BtnOpen) */
-.btn-action--primary {
-  border-color: var(--color-azul-500);
-  color: var(--color-azul-500);
-  background: var(--color-azul-900);
-}
-.btn-action--primary:hover { 
-  color: var(--color-azul-500);
-  background: var(--color-azul-800);
-}
+
 
 /* ── Accesibilidad ──────────────────────────────────── */
 .sr-only {

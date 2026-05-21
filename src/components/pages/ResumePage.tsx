@@ -71,7 +71,7 @@ function CVEntry({ period, company, companyUrl, mode, role, description, skills,
         style={{ cursor: 'pointer' }}
         aria-expanded={isExpanded}
       >
-        <span className="text-txt-l project-name">{role}</span>
+        <span className="text-txt-base project-name">{role}</span>
         <span className="text-txt-s italic">{period}</span>
         <span className="text-txt-base">{description}</span>
       </button>
@@ -88,7 +88,7 @@ function CVEntry({ period, company, companyUrl, mode, role, description, skills,
               <span className="card-label">Responsibilities</span>
               <ul className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
                 {skills.map((skill) => (
-                  <li key={skill} className="text-txt-base"><span style={{ color: 'var(--color-azul-600)' }}>&gt;</span> {skill}</li>
+                  <li key={skill} className="text-txt-base"><span>&gt;</span> {skill}</li>
                 ))}
               </ul>
             </TextBlock>
@@ -144,7 +144,7 @@ function EduEntry({ period, institution, institutionUrl, mode, summary, courses,
         style={{ cursor: 'pointer' }}
         aria-expanded={isExpanded}
       >
-        <span className="text-txt-l project-name">{institution}</span>
+        <span className="text-txt-base project-name">{institution}</span>
         <span className="text-txt-s italic">{period}</span>
         <span className="text-txt-base">{summary}</span>
       </button>
@@ -160,7 +160,7 @@ function EduEntry({ period, institution, institutionUrl, mode, summary, courses,
             <span className="card-label">Courses</span>
             <ul className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
               {courses.map((course) => (
-                <li key={course} className="text-txt-base"><span style={{ color: 'var(--color-azul-600)' }}>&gt;</span> {course}</li>
+                <li key={course} className="text-txt-base"><span>&gt;</span> {course}</li>
               ))}
             </ul>
           </TextBlock>

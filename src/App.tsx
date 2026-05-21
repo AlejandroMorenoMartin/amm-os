@@ -12,8 +12,6 @@ import { ImageModal } from './components/ui/ImageModal';
 import { useAppStore } from './store/useAppStore';
 import { useArcadeControls } from './hooks/useArcadeControls';
 
-const ONBOARDING_KEY = 'amm-os-onboarding-seen';
-
 function AppRoutes() {
   const { bootDone, completeBoot } = useAppStore();
   const [showOnboarding, setShowOnboarding] = useState(false);
@@ -27,12 +25,10 @@ function AppRoutes() {
 
   function handleBootComplete() {
     completeBoot();
-    const seen = localStorage.getItem(ONBOARDING_KEY);
-    if (!seen) setShowOnboarding(true);
+    setShowOnboarding(true);
   }
 
   function handleOnboardingComplete(path: string) {
-    localStorage.setItem(ONBOARDING_KEY, '1');
     setShowOnboarding(false);
     navigate(path);
   }

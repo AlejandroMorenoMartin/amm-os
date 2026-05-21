@@ -34,11 +34,16 @@ export interface Strings {
     sectionOnline: string;
     sectionLocation: string;
     sectionContacto: string;
+    sectionProfile: string;
     name: string;
     rol: string;
     perfil: string;
     availability: string;
     location: string;
+    profileBio1: string;
+    profileBio2: string;
+    profileAvailability: string;
+    profileValues: string;
     twitter: string;
     tooltipTwitter: string;
     linkedin: string;

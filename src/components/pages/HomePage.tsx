@@ -34,48 +34,34 @@ export function HomePage() {
   return (
     <article className="flex-1 font-mono flex flex-col" style={{ gap: 'var(--gap-page)' }}>
       <PageTitle>{t.home.title}</PageTitle>
-      <TextBlock>
-        <SectionLabel>{t.home.sectionName}</SectionLabel>
-        <span className="text-txt-base">{t.home.name}</span>
-      </TextBlock>
 
       <TextBlock>
-        <SectionLabel>{t.home.sectionPhoto}</SectionLabel>
-        <button
-          onClick={handlePhotoClick}
-          className="p-0 photo-btn photo-btn--half btn-no-focus has-tooltip"
-          style={{ border: 'none', background: 'none', cursor: 'pointer' }}
-          aria-label={t.sobreMi.photoAlt}
-        >
-          <img
-            ref={imgRef}
-            src="/profile.webp"
-            alt={t.sobreMi.photoAlt}
-            className="object-cover photo-border"
-            style={{ width: '100%', height: 'auto', display: 'block' }}
-          />
-          <span className="tooltip">{t.modal.open}</span>
-        </button>
-      </TextBlock>
-
-      <TextBlock>
-        <SectionLabel>{t.home.sectionRol}</SectionLabel>
-        <span className="text-txt-base">{t.home.rol}</span>
-      </TextBlock>
-
-      <TextBlock>
-        <SectionLabel>{t.home.sectionPerfil}</SectionLabel>
-        <span className="text-txt-base">{t.home.perfil}</span>
-      </TextBlock>
-
-      <TextBlock>
-        <SectionLabel>{t.home.sectionAvailability}</SectionLabel>
-        <span className="text-txt-base">{t.home.availability}</span>
-      </TextBlock>
-
-      <TextBlock>
-        <SectionLabel>{t.home.sectionLocation}</SectionLabel>
-        <span className="text-txt-base">{t.home.location}</span>
+        <SectionLabel>{t.home.sectionProfile}</SectionLabel>
+        <div className="profile-layout">
+          <div className="profile-photo">
+            <button
+              onClick={handlePhotoClick}
+              className="p-0 photo-btn photo-btn--half btn-no-focus has-tooltip"
+              style={{ border: 'none', background: 'none', cursor: 'pointer' }}
+              aria-label={t.sobreMi.photoAlt}
+            >
+              <img
+                ref={imgRef}
+                src="/profile.webp"
+                alt={t.sobreMi.photoAlt}
+                className="object-cover photo-border"
+                style={{ display: 'block' }}
+              />
+              <span className="tooltip">{t.modal.open}</span>
+            </button>
+          </div>
+          <div className="profile-text flex flex-col" style={{ gap: 'var(--gap-section)' }}>
+            <span className="text-txt-base">{t.home.profileBio1}</span>
+            <span className="text-txt-base">{t.home.profileBio2}</span>
+            <span className="text-txt-base">{t.home.profileAvailability}</span>
+            <span className="text-txt-base">{t.home.profileValues}</span>
+          </div>
+        </div>
       </TextBlock>
 
       <TextBlock>
@@ -90,10 +76,6 @@ export function HomePage() {
             {copied ? t.home.emailCopied : t.home.gmail}
           </span>
         </button>
-      </TextBlock>
-
-      <TextBlock>
-        <SectionLabel>{t.home.sectionOnline}</SectionLabel>
         <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
           <LinkExternal href="https://www.linkedin.com/in/alejandromorenoproductdesigner/">
             {t.home.linkedin}
@@ -106,7 +88,6 @@ export function HomePage() {
           </LinkExternal>
         </div>
       </TextBlock>
-
 
     </article>
   );

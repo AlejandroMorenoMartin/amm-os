@@ -25,7 +25,7 @@ export function ProjectRow({
         style={{ cursor: 'pointer' }}
         aria-expanded={isExpanded}
       >
-        <span className="text-txt-l project-name">{project.name}</span>
+        <span className="text-txt-base project-name">{project.name}</span>
         <span className="text-txt-s italic">{project.date}</span>
         <span className="text-txt-base">{project.synopsis[lang]}</span>
       </button>
@@ -46,7 +46,7 @@ export function ProjectRow({
             <span className="card-label">Responsibilities</span>
             <ul className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
               {project.responsibilities.map((r) => (
-                <li key={r} className="text-txt-base"><span style={{ color: 'var(--color-azul-600)' }}>&gt;</span> {r}</li>
+                <li key={r} className="text-txt-base"><span>&gt;</span> {r}</li>
               ))}
             </ul>
           </TextBlock>

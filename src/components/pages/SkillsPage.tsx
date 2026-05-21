@@ -30,7 +30,7 @@ function SkillGroup({ label, items, tools }: { label: string; items: string[]; t
       <SectionLabel>{label}</SectionLabel>
       <ul className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
         {items.map((item) => (
-          <li key={item} className="text-txt-base"><span style={{ color: 'var(--color-azul-600)' }}>&gt;</span> {item}</li>
+          <li key={item} className="text-txt-base"><span>&gt;</span> {item}</li>
         ))}
       </ul>
       <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
@@ -47,6 +47,6 @@ function SkillGroup({ label, items, tools }: { label: string; items: string[]; t
 
 function LangEntry({ lang, level }: { lang: string; level: string }) {
   return (
-    <li className="text-txt-base"><span style={{ color: 'var(--color-azul-600)' }}>&gt;</span> {lang} ({level})</li>
+    <li className="text-txt-base"><span>&gt;</span> {lang} ({level})</li>
   );
 }
