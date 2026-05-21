@@ -89,7 +89,7 @@ function useCursor(phase: Phase) {
 function StepIndicator({ step, onSkip }: { step: 1 | 2; onSkip: () => void }) {
   return (
     <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 'var(--gap-block)' }}>
-      <p aria-hidden="true" style={{ fontSize: '14px', letterSpacing: '0.25em', color: 'var(--color-zinc-400)' }}>{step === 1 ? '■ □' : '■ ■'}</p>
+      <p aria-hidden="true" style={{ fontSize: '14px', letterSpacing: '0.125rem', color: 'var(--color-zinc-400)' }}>{step === 1 ? '■ □' : '■ ■'}</p>
       <button type="button" onClick={onSkip} className="btn-secondary font-mono w-fit">
         [SKIP]
       </button>
@@ -132,7 +132,7 @@ function Step2({ lang, onBack, onComplete }: Step2Props) {
       <button
         type="button"
         onClick={onBack}
-        className="btn-action font-mono"
+        className="btn-secondary font-mono"
         style={{ alignSelf: 'flex-start' }}
       >
         [&lt;]
