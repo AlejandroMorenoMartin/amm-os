@@ -7,6 +7,14 @@ interface OnboardingPageProps {
 
 const systemLang = navigator.language.startsWith('es') ? 'es' : 'en';
 
+function getSessionStamp() {
+  const now = new Date();
+  const day = now.toLocaleDateString('en-US', { weekday: 'short' });
+  const date = now.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+  const time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+  return `${day} ${date} ${time}`;
+}
+
 const STRINGS = {
   es: {
     step1Label: 'AMM-OS-V4 — Session started',
@@ -36,7 +44,7 @@ const NAV_LINKS = [
 const CHAR_DELAY = 40;
 const IDLE_DELAY = 1000;
 
-type Phase = 'idle' | 'typing' | 'done';
+type Phase = 'idle' | 'typing-stamp' | 'typing-welcome' | 'pausing' | 'done';
 
 function useTypewriter(text: string, active: boolean, onDone: () => void) {
   const [displayed, setDisplayed] = useState('');
@@ -70,12 +78,23 @@ function useCursor(phase: Phase) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    if (phase === 'typing') { setVisible(true); return; }
+    if (phase === 'typing-stamp' || phase === 'typing-welcome') { setVisible(true); return; }
     const t = setInterval(() => setVisible(v => !v), 530);
     return () => clearInterval(t);
   }, [phase]);
 
   return visible ? '|' : ' ';
+}
+
+function StepIndicator({ step, onSkip }: { step: 1 | 2; onSkip: () => void }) {
+  return (
+    <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 'var(--gap-block)' }}>
+      <p aria-hidden="true" style={{ fontSize: '14px', letterSpacing: '0.25em', color: 'var(--color-zinc-400)' }}>{step === 1 ? '■ □' : '■ ■'}</p>
+      <button type="button" onClick={onSkip} className="btn-action font-mono w-fit">
+        [SKIP]
+      </button>
+    </div>
+  );
 }
 
 interface Step2Props {
@@ -89,11 +108,23 @@ function Step2({ lang, onBack, onComplete }: Step2Props) {
   const [phase, setPhase] = useState<Phase>('idle');
 
   useEffect(() => {
-    const t = setTimeout(() => setPhase('typing'), IDLE_DELAY);
+    const t = setTimeout(() => setPhase('typing-welcome'), IDLE_DELAY);
     return () => clearTimeout(t);
   }, []);
 
-  const descText = useTypewriter(s.step2Desc, phase === 'typing', () => setPhase('done'));
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) { if (e.key === 'Enter') onComplete('/'); }
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onComplete]);
+
+  useEffect(() => {
+    if (phase !== 'pausing') return;
+    const t = setTimeout(() => setPhase('done'), 800);
+    return () => clearTimeout(t);
+  }, [phase]);
+
+  const descText = useTypewriter(s.step2Desc, phase === 'typing-welcome', () => setPhase('pausing'));
   const cursor = useCursor(phase);
 
   return (
@@ -109,10 +140,12 @@ function Step2({ lang, onBack, onComplete }: Step2Props) {
 
       <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
         <p className="text-txt-s">{s.step2Label}</p>
-        <p className="text-txt-base">
-          {phase === 'done' ? s.step2Desc : descText}
-          <span aria-hidden="true" style={{ color: 'var(--color-zinc-50)' }}>{cursor}</span>
-        </p>
+        {phase !== 'idle' && (
+          <p className="text-txt-base">
+            {phase === 'done' ? s.step2Desc : descText}
+            <span aria-hidden="true" style={{ color: 'var(--color-zinc-50)' }}>{cursor}</span>
+          </p>
+        )}
       </div>
 
       {phase === 'done' && (
@@ -133,6 +166,8 @@ function Step2({ lang, onBack, onComplete }: Step2Props) {
           </div>
         </div>
       )}
+
+      <StepIndicator step={2} onSkip={() => onComplete('/')} />
     </div>
   );
 }
@@ -141,16 +176,24 @@ export function OnboardingPage({ onComplete }: OnboardingPageProps) {
   const { setLang } = useAppStore();
   const [step, setStep] = useState<1 | 2>(1);
   const [selectedLang, setSelectedLang] = useState<'es' | 'en'>(systemLang);
+  const [sessionStamp] = useState(getSessionStamp);
 
   const s1 = STRINGS[systemLang];
   const [phase1, setPhase1] = useState<Phase>('idle');
 
   useEffect(() => {
-    const t = setTimeout(() => setPhase1('typing'), IDLE_DELAY);
+    const t = setTimeout(() => setPhase1('typing-stamp'), IDLE_DELAY);
     return () => clearTimeout(t);
   }, []);
 
-  const welcome1Text = useTypewriter(s1.step1Welcome, phase1 === 'typing', () => setPhase1('done'));
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) { if (e.key === 'Enter') onComplete('/'); }
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onComplete]);
+
+  const stampText = useTypewriter(sessionStamp, phase1 === 'typing-stamp', () => setPhase1('typing-welcome'));
+  const welcomeText = useTypewriter(s1.step1Welcome, phase1 === 'typing-welcome', () => setPhase1('done'));
   const cursor1 = useCursor(phase1);
 
   function handleLang(l: 'es' | 'en') {
@@ -174,17 +217,25 @@ export function OnboardingPage({ onComplete }: OnboardingPageProps) {
     <div className="flex-1 flex flex-col font-mono" style={{ height: '100%', gap: 'var(--gap-section)' }}>
       <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
         <p className="text-txt-s">{s1.step1Label}</p>
-        <p className="text-txt-base">
-          {phase1 === 'done' ? s1.step1Welcome : welcome1Text}
-          <span aria-hidden="true" style={{ color: 'var(--color-zinc-50)' }}>{cursor1}</span>
-        </p>
+        {phase1 !== 'idle' && (
+          <p className="text-txt-base">
+            {phase1 === 'typing-stamp' ? stampText : sessionStamp}
+            {phase1 === 'typing-stamp' && <span aria-hidden="true" style={{ color: 'var(--color-zinc-50)' }}>{cursor1}</span>}
+          </p>
+        )}
+        {phase1 !== 'idle' && phase1 !== 'typing-stamp' && (
+          <p className="text-txt-base">
+            {phase1 === 'done' ? s1.step1Welcome : welcomeText}
+            <span aria-hidden="true" style={{ color: 'var(--color-zinc-50)' }}>{cursor1}</span>
+          </p>
+        )}
       </div>
 
       {phase1 === 'done' && (
         <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
           <p className="text-txt-s">{s1.stepLang}</p>
           <div className="flex" style={{ gap: 'var(--gap-block)' }}>
-            {(['es', 'en'] as const).map((l) => (
+            {(['en', 'es'] as const).map((l) => (
               <button
                 key={l}
                 type="button"
@@ -197,6 +248,8 @@ export function OnboardingPage({ onComplete }: OnboardingPageProps) {
           </div>
         </div>
       )}
+
+      <StepIndicator step={1} onSkip={() => onComplete('/')} />
     </div>
   );
 }

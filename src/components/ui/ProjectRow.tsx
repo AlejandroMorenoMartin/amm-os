@@ -1,7 +1,6 @@
 import type { Project } from '../../data/projects';
 import type { Lang } from '../../store/useAppStore';
 import { BtnOpen } from './BtnOpen';
-import { TextBlock } from './TextBlock';
 
 interface ProjectRowProps {
   project: Project;
@@ -11,11 +10,13 @@ interface ProjectRowProps {
   onOpen: (slug: string) => void;
   challenge: string;
   role: string;
+  responsibilities: string;
+  metrics: string;
 }
 
 export function ProjectRow({
   project, isExpanded, lang, onToggle, onOpen,
-  challenge, role,
+  challenge, role, responsibilities, metrics,
 }: ProjectRowProps) {
   return (
     <div className={`font-mono project-row-wrap${isExpanded ? ' project-row-wrap--focused' : ''}`} data-slug={project.slug}>
@@ -32,34 +33,34 @@ export function ProjectRow({
 
       {isExpanded && (
         <div className="flex flex-col project-row-expanded-block" style={{ gap: 'var(--gap-section)' }}>
-          <TextBlock>
+          <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
             <span className="card-label">{challenge}</span>
             <span className="text-txt-base">{project.challenge[lang]}</span>
-          </TextBlock>
+          </div>
 
-          <TextBlock>
+          <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
             <span className="card-label">{role}</span>
             <span className="text-txt-base">{project.role}</span>
-          </TextBlock>
+          </div>
 
-          <TextBlock>
-            <span className="card-label">Responsibilities</span>
+          <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+            <span className="card-label">{responsibilities}</span>
             <ul className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
               {project.responsibilities.map((r) => (
-                <li key={r} className="text-txt-base"><span>&gt;</span> {r}</li>
+                <li key={r.en} className="text-txt-base"><span>&gt;</span> {r[lang]}</li>
               ))}
             </ul>
-          </TextBlock>
+          </div>
 
           {project.metrics.length > 0 && (
-            <TextBlock>
-              <span className="card-label">Metrics</span>
+            <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+              <span className="card-label">{metrics}</span>
               <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
                 {project.metrics.map((m) => (
                   <span key={m.value} className="chip metric-chip">{m.value} · {m.label[lang]}</span>
                 ))}
               </div>
-            </TextBlock>
+            </div>
           )}
 
           <BtnOpen onClick={() => onOpen(project.slug)} />

@@ -14,7 +14,7 @@ export function BootPage({ onComplete }: BootPageProps) {
   const called = useRef(false);
 
   const lines = [t.boot.line1, t.boot.line2, t.boot.line3, t.boot.line4, t.boot.line5, t.boot.line6];
-  const delay = 1500 / lines.length;
+  const delay = 2500 / lines.length;
 
   function finish() {
     if (called.current) return;
@@ -70,7 +70,7 @@ export function BootPage({ onComplete }: BootPageProps) {
 
       {/* Bottom: progress bar + skip */}
       <div className="flex flex-col" style={{ marginTop: 'auto', gap: 'var(--gap-block)' }}>
-        <div aria-hidden="true" style={{ height: '2px', background: 'var(--color-zinc-800)' }}>
+        <div aria-hidden="true" style={{ height: '4px', background: 'var(--color-zinc-800)' }}>
           <div
             style={{
               height: '100%',
@@ -80,14 +80,6 @@ export function BootPage({ onComplete }: BootPageProps) {
             }}
           />
         </div>
-        {!done && (
-          <>
-            <p className="text-txt-xs" style={{ color: 'var(--color-zinc-600)' }} aria-hidden="true">
-              Press enter to skip
-            </p>
-            <span className="sr-only">{t.boot.skip}</span>
-          </>
-        )}
       </div>
     </div>
   );

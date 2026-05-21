@@ -5,7 +5,7 @@ export interface Project {
   synopsis: { es: string; en: string };
   challenge: { es: string; en: string };
   role: string;
-  responsibilities: string[];
+  responsibilities: { es: string; en: string }[];
   tools: string[];
   status: string;
   // Project page data
@@ -35,10 +35,10 @@ export const projects: Project[] = [
     },
     role: 'AI Product Designer.',
     responsibilities: [
-      'End-to-end product design — from concept to production.',
-      'Design system architecture and component library.',
-      'Frontend development (React, TypeScript, Tailwind).',
-      'Performance optimisation and accessibility.',
+      { es: 'Diseño de producto end-to-end, de concepto a producción.', en: 'End-to-end product design, from concept to production.' },
+      { es: 'Arquitectura del design system y biblioteca de componentes.', en: 'Design system architecture and component library.' },
+      { es: 'Desarrollo frontend (React, TypeScript, Tailwind).', en: 'Frontend development (React, TypeScript, Tailwind).' },
+      { es: 'Optimización de rendimiento y accesibilidad.', en: 'Performance optimisation and accessibility.' },
     ],
     tools: ['Figma', 'React', 'TypeScript', 'Tailwind', 'Vite', 'Claude'],
     status: 'Beta',
@@ -101,10 +101,10 @@ export const projects: Project[] = [
     },
     role: 'AI Product Designer.',
     responsibilities: [
-      'UX/UI design and creative direction.',
-      'Video pipeline optimisation and performance.',
-      'Frontend development (React, Framer Motion).',
-      'SEO strategy and technical audit.',
+      { es: 'Diseño UX/UI y dirección creativa.', en: 'UX/UI design and creative direction.' },
+      { es: 'Optimización del pipeline de vídeo y rendimiento.', en: 'Video pipeline optimisation and performance.' },
+      { es: 'Desarrollo frontend (React, Framer Motion).', en: 'Frontend development (React, Framer Motion).' },
+      { es: 'Estrategia SEO y auditoría técnica.', en: 'SEO strategy and technical audit.' },
     ],
     tools: ['Figma', 'React', 'TypeScript', 'Framer Motion', 'Tailwind', 'Claude'],
     status: 'In Progress',
@@ -167,10 +167,10 @@ export const projects: Project[] = [
     },
     role: 'AI Product Designer.',
     responsibilities: [
-      'UX strategy and information architecture.',
-      'Third-party API integration (availability and pricing).',
-      'Frontend development (Astro SSG).',
-      'Copywriting and brand voice.',
+      { es: 'Estrategia UX y arquitectura de información.', en: 'UX strategy and information architecture.' },
+      { es: 'Integración de API de terceros (disponibilidad y precios).', en: 'Third-party API integration (availability and pricing).' },
+      { es: 'Desarrollo frontend (Astro SSG).', en: 'Frontend development (Astro SSG).' },
+      { es: 'Copywriting y voz de marca.', en: 'Copywriting and brand voice.' },
     ],
     tools: ['Figma', 'Astro', 'TypeScript', 'Tailwind', 'Claude'],
     status: 'In Progress',
@@ -233,10 +233,10 @@ export const projects: Project[] = [
     },
     role: 'AI Product Designer & Founder',
     responsibilities: [
-      'Product strategy and UX architecture.',
-      'Design system creation and community design patterns.',
-      'User research and usability testing.',
-      'Full-stack development.',
+      { es: 'Estrategia de producto y arquitectura UX.', en: 'Product strategy and UX architecture.' },
+      { es: 'Creación del design system y patrones de diseño comunitario.', en: 'Design system creation and community design patterns.' },
+      { es: 'Investigación de usuario y tests de usabilidad.', en: 'User research and usability testing.' },
+      { es: 'Desarrollo full-stack.', en: 'Full-stack development.' },
     ],
     tools: ['Figma', 'React', 'TypeScript', 'Tailwind', 'Claude', 'Hotjar'],
     status: 'In Progress',
@@ -300,10 +300,10 @@ export const projects: Project[] = [
     },
     role: 'AI Product Designer & Founder',
     responsibilities: [
-      'Data visualisation design and information hierarchy.',
-      'Mobile UX and biometric interaction patterns.',
-      'User research with athletes and trainers.',
-      'Design system and component library.',
+      { es: 'Diseño de visualización de datos y jerarquía de información.', en: 'Data visualisation design and information hierarchy.' },
+      { es: 'UX móvil y patrones de interacción biométrica.', en: 'Mobile UX and biometric interaction patterns.' },
+      { es: 'Investigación de usuario con atletas y entrenadores.', en: 'User research with athletes and trainers.' },
+      { es: 'Design system y biblioteca de componentes.', en: 'Design system and component library.' },
     ],
     tools: ['Figma', 'React Native', 'TypeScript', 'Claude', 'Mixpanel'],
     status: 'In Progress',

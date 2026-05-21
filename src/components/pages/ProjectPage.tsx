@@ -23,10 +23,10 @@ export function ProjectPage() {
   if (!project) return null;
 
   const sections: { key: string; label: string; content: string }[] = [
-    { key: 'research',  label: 'RESEARCH',  content: project.research[lang] },
-    { key: 'decisions', label: 'DECISIONS', content: project.decisions[lang] },
-    { key: 'system',    label: 'SYSTEM',    content: project.system[lang] },
-    { key: 'lessons',   label: 'LESSONS',   content: project.lessons[lang] },
+    { key: 'research',  label: t.project.sectionResearch,  content: project.research[lang] },
+    { key: 'decisions', label: t.project.sectionDecisions, content: project.decisions[lang] },
+    { key: 'system',    label: t.project.sectionSystem,    content: project.system[lang] },
+    { key: 'lessons',   label: t.project.sectionLessons,   content: project.lessons[lang] },
   ];
 
   return (
@@ -36,7 +36,7 @@ export function ProjectPage() {
 
       {/* Bloque 1 — Identidad */}
       <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
-        <span className="text-txt-base project-name">{'> '}{project.name}</span>
+        <h1 className="text-txt-xxl">{'> '}{project.name}</h1>
 
         <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
           <FieldLabel>{t.project.update}</FieldLabel>
@@ -44,7 +44,7 @@ export function ProjectPage() {
         </div>
 
         <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-          <FieldLabel>Overview</FieldLabel>
+          <FieldLabel>{t.trabajo.overview}</FieldLabel>
           <span className="text-txt-base">{project.synopsis[lang]}</span>
         </div>
 
@@ -59,10 +59,10 @@ export function ProjectPage() {
         </div>
 
         <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-          <FieldLabel>Responsibilities</FieldLabel>
+          <FieldLabel>{t.trabajo.responsibilities}</FieldLabel>
           <ul className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
             {project.responsibilities.map((r) => (
-              <li key={r} className="text-txt-base"><span>&gt;</span> {r}</li>
+              <li key={r.en} className="text-txt-base"><span>&gt;</span> {r[lang]}</li>
             ))}
           </ul>
         </div>
@@ -109,7 +109,7 @@ export function ProjectPage() {
       {/* Bloque 3 — Meta */}
       <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
         <div className="flex flex-col items-start" style={{ gap: 'var(--gap-block)' }}>
-          <FieldLabel>Status</FieldLabel>
+          <FieldLabel>{t.project.status}</FieldLabel>
           <StatusChip status={project.status} />
         </div>
 
@@ -125,16 +125,12 @@ export function ProjectPage() {
         )}
 
         <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-          <FieldLabel>Tools</FieldLabel>
-          <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
-            {project.tools.map((tool) => (
-              <span key={tool} className="chip tool-chip">{tool}</span>
-            ))}
-          </div>
+          <FieldLabel>{t.project.tools}</FieldLabel>
+          <span className="text-txt-base">{project.tools.join(', ')}</span>
         </div>
 
         {(project.resources.github || project.resources.live) && (
-          <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+          <div className="flex flex-col text-txt-base" style={{ gap: 'var(--gap-block)' }}>
             <FieldLabel>{t.project.resources}</FieldLabel>
             {project.resources.github && (
               project.resources.disabled?.includes('github') ? (

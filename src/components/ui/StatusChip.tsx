@@ -7,15 +7,15 @@ interface StatusChipProps {
 export function StatusChip({ status }: StatusChipProps) {
   const normalized = status as Status;
 
-  const classMap: Record<Status, string> = {
-    'Live':        'chip status-chip--live',
-    'Beta':        'chip status-chip--beta',
-    'In Progress': 'chip status-chip--in-progress',
-    'Paused':      'chip status-chip--paused',
-    'Archived':    'chip status-chip--archived',
+  const colorMap: Record<Status, string> = {
+    'Live':        'var(--color-green)',
+    'Beta':        'var(--color-yellow)',
+    'In Progress': 'var(--color-cyan)',
+    'Paused':      'var(--color-zinc-500)',
+    'Archived':    'var(--color-zinc-700)',
   };
 
-  const cls = classMap[normalized] ?? 'chip status-chip--paused';
+  const color = colorMap[normalized] ?? 'var(--color-zinc-500)';
 
-  return <span className={cls}>{status}</span>;
+  return <span className="text-txt-base" style={{ color }}>{status}</span>;
 }

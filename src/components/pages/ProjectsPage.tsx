@@ -33,6 +33,8 @@ export function ProjectsPage() {
               onOpen={(slug) => navigate(`/projects/${slug}`)}
               challenge={t.trabajo.challenge}
               role={t.trabajo.role}
+              responsibilities={t.trabajo.responsibilities}
+              metrics={t.project.metrics}
             />
           </React.Fragment>
         ))}

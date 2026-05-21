@@ -14,7 +14,7 @@ export function LinkExternal({ href, children, tooltip }: LinkExternalProps) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`font-mono text-txt-base link-external${tooltip ? ' has-tooltip' : ''}`}
+      className={`font-mono link-external${tooltip ? ' has-tooltip' : ''}`}
       {...focusProps}
     >
       {focused ? '> ' : ''}{children} ↗

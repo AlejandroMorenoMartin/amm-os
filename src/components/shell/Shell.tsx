@@ -27,7 +27,9 @@ export function Shell({ children, hideBars = false }: ShellProps) {
   return (
     <div className="flex flex-col min-h-dvh bg-background font-mono">
       <TopBar ref={topRef} style={barsStyle} />
-      {hideBars ? (
+
+
+{hideBars ? (
         <div className="flex-1 flex justify-center">
           <main className="w-full flex flex-col" style={{ maxWidth: 'var(--shell-max-width)', paddingInline: 'var(--shell-padding)', paddingBlock: '2rem' }}>
             {children}
@@ -35,45 +37,18 @@ export function Shell({ children, hideBars = false }: ShellProps) {
         </div>
       ) : (
         <div
-          className="flex-1 flex justify-center relative"
+          className="flex-1 flex justify-center"
           style={{
             paddingTop: `calc(${topH}px + 2rem)`,
             paddingBottom: `calc(${bottomH}px + 2rem)`,
           }}
         >
-          {/* Fade vignette — top */}
-          <div
-            aria-hidden="true"
-            style={{
-              position: 'fixed',
-              top: topH,
-              left: 0,
-              right: 0,
-              height: '3rem',
-              background: 'linear-gradient(to bottom, var(--color-background) 0%, transparent 100%)',
-              pointerEvents: 'none',
-              zIndex: 40,
-            }}
-          />
-          {/* Fade vignette — bottom */}
-          <div
-            aria-hidden="true"
-            style={{
-              position: 'fixed',
-              bottom: bottomH,
-              left: 0,
-              right: 0,
-              height: '3rem',
-              background: 'linear-gradient(to top, var(--color-background) 0%, transparent 100%)',
-              pointerEvents: 'none',
-              zIndex: 40,
-            }}
-          />
           <main className="w-full flex flex-col overflow-y-auto" style={{ maxWidth: 'var(--shell-max-width)', gap: 'var(--gap-page)', paddingInline: 'var(--shell-padding)' }}>
             {children}
           </main>
         </div>
       )}
+
       <BottomBar ref={bottomRef} style={barsStyle} />
     </div>
   );

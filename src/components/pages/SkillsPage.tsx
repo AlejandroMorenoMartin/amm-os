@@ -9,9 +9,9 @@ export function SkillsPage() {
     <article className="flex-1 font-mono flex flex-col" style={{ gap: 'var(--gap-page)' }}>
       <PageTitle>{t.skills.title}</PageTitle>
 
-      <SkillGroup label={t.skills.skill1Label} items={t.skills.skill1Items} tools={t.skills.skill1Tools} />
-      <SkillGroup label={t.skills.skill2Label} items={t.skills.skill2Items} tools={t.skills.skill2Tools} />
-      <SkillGroup label={t.skills.skill3Label} items={t.skills.skill3Items} tools={t.skills.skill3Tools} />
+      <SkillGroup label={t.skills.skill1Label} items={t.skills.skill1Items} tools={t.skills.skill1Tools} labelTools={t.skills.labelTools} />
+      <SkillGroup label={t.skills.skill2Label} items={t.skills.skill2Items} tools={t.skills.skill2Tools} labelTools={t.skills.labelTools} />
+      <SkillGroup label={t.skills.skill3Label} items={t.skills.skill3Items} tools={t.skills.skill3Tools} labelTools={t.skills.labelTools} />
 
       <section className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
         <SectionLabel>{t.skills.idiomas}</SectionLabel>
@@ -24,7 +24,7 @@ export function SkillsPage() {
   );
 }
 
-function SkillGroup({ label, items, tools }: { label: string; items: string[]; tools: string[] }) {
+function SkillGroup({ label, items, tools, labelTools }: { label: string; items: string[]; tools: string[]; labelTools: string }) {
   return (
     <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
       <SectionLabel>{label}</SectionLabel>
@@ -34,12 +34,8 @@ function SkillGroup({ label, items, tools }: { label: string; items: string[]; t
         ))}
       </ul>
       <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-        <span className="card-label">Tools</span>
-        <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
-          {tools.map((tool) => (
-            <span key={tool} className="chip tool-chip">{tool}</span>
-          ))}
-        </div>
+        <span className="card-label">{labelTools}</span>
+        <span className="text-txt-base">{tools.join(', ')}</span>
       </div>
     </div>
   );

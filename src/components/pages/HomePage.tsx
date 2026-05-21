@@ -66,17 +66,17 @@ export function HomePage() {
 
       <TextBlock>
         <SectionLabel>{t.home.sectionContacto}</SectionLabel>
-        <button
-          type="button"
-          onClick={handleCopyEmail}
-          className="email-copy has-tooltip text-txt-base font-mono text-left"
-        >
-          {EMAIL}
-          <span className="tooltip">
-            {copied ? t.home.emailCopied : t.home.gmail}
-          </span>
-        </button>
-        <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+        <div className="flex flex-col text-txt-base" style={{ gap: 'var(--gap-block)' }}>
+          <button
+            type="button"
+            onClick={handleCopyEmail}
+            className="email-copy has-tooltip text-txt-base font-mono text-left"
+          >
+            {EMAIL}
+            <span className="tooltip">
+              {copied ? t.home.emailCopied : t.home.gmail}
+            </span>
+          </button>
           <LinkExternal href="https://www.linkedin.com/in/alejandromorenoproductdesigner/">
             {t.home.linkedin}
           </LinkExternal>
