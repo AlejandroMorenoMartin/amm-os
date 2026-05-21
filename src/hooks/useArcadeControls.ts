@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useAppStore } from '../store/useAppStore';
 import { projects } from '../data/projects';
 
-const PAGE_ORDER = ['/', '/projects', '/about', '/resume'];
+const PAGE_ORDER = ['/', '/projects', '/resume', '/skills'];
 
 export function useArcadeControls() {
   const navigate = useNavigate();

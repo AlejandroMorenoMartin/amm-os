@@ -29,11 +29,11 @@ export const TopBar = forwardRef<HTMLElement, TopBarProps>(function TopBar({ sty
           AMM-OS-V4
         </span>
         <div className="flex items-center" style={{ gap: 'var(--gap-block)' }}>
-          <button onClick={handleShare} className="btn-action has-tooltip" aria-label={t.topbar.share}>
+          <button onClick={handleShare} className="btn-secondary has-tooltip" aria-label={t.topbar.share}>
             [&gt;&gt;]
             <span className="tooltip tooltip--down">{t.topbar.share}</span>
           </button>
-          <button onClick={toggleLang} className="btn-action has-tooltip" aria-label={t.topbar.switchLang}>
+          <button onClick={toggleLang} className="btn-secondary has-tooltip" aria-label={t.topbar.switchLang}>
             [{lang.toUpperCase()}]
             <span className="tooltip tooltip--down">{t.topbar.switchLang}</span>
           </button>

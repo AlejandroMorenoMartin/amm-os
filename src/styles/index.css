@@ -163,7 +163,7 @@ html, body, #root {
   font-weight: 300;
   color: var(--color-zinc-500);
   text-align: left;
-  padding: 0 1rem 0.5rem 0;
+  padding: 0 2rem 0.5rem 0;
   border-bottom: var(--border-default);
 }
 .edu-table td {
@@ -171,7 +171,7 @@ html, body, #root {
   line-height: 1.5;
   font-weight: 400;
   color: var(--color-zinc-400);
-  padding: 0.5rem 1rem 0.5rem 0;
+  padding: 0.5rem 2rem 0.5rem 0;
   border-bottom: none;
   vertical-align: top;
   white-space: normal;
@@ -406,7 +406,7 @@ html, body, #root {
 .btn-action {
   cursor: pointer;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 14px;
   padding: 0.4rem 0.8rem;
   text-transform: uppercase;
   background: transparent;
@@ -421,6 +421,26 @@ html, body, #root {
   color: var(--color-blue-950);
 }
 .btn-action:disabled { opacity: 0.25; cursor: not-allowed; }
+
+/* btn-secondary — skip, share, lang switcher */
+.btn-secondary {
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  padding: 0.4rem 0.8rem;
+  text-transform: uppercase;
+  background: transparent;
+  border: var(--border-default);
+  color: var(--color-zinc-400);
+}
+.btn-secondary:hover {
+  background: var(--color-zinc-950);
+}
+.btn-secondary:active {
+  background: var(--color-zinc-400);
+  color: var(--color-zinc-950);
+}
+.btn-secondary:disabled { opacity: 0.25; cursor: not-allowed; }
 
 
 

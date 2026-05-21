@@ -138,9 +138,9 @@ function EduTable({ t }: { t: Strings }) {
     <div className="edu-table-wrap">
       <table className="edu-table">
         <colgroup>
-          <col style={{ width: '5%' }} />
-          <col style={{ width: '16%' }} />
-          <col style={{ width: '18%' }} />
+          <col style={{ width: '8%' }} />
+          <col style={{ width: '15%' }} />
+          <col style={{ width: '17%' }} />
           <col style={{ width: '30%' }} />
           <col style={{ width: '31%' }} />
         </colgroup>

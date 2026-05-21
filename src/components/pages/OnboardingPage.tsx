@@ -37,8 +37,8 @@ const STRINGS = {
 const NAV_LINKS = [
   { label: '[HOME]',     path: '/',         dest: 'home' },
   { label: '[PROJECTS]', path: '/projects', dest: 'projects' },
-  { label: '[SKILLS]',   path: '/skills',   dest: 'skills' },
   { label: '[RESUME]',   path: '/resume',   dest: 'resume' },
+  { label: '[SKILLS]',   path: '/skills',   dest: 'skills' },
 ];
 
 const CHAR_DELAY = 40;
@@ -90,7 +90,7 @@ function StepIndicator({ step, onSkip }: { step: 1 | 2; onSkip: () => void }) {
   return (
     <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 'var(--gap-block)' }}>
       <p aria-hidden="true" style={{ fontSize: '14px', letterSpacing: '0.25em', color: 'var(--color-zinc-400)' }}>{step === 1 ? '■ □' : '■ ■'}</p>
-      <button type="button" onClick={onSkip} className="btn-action font-mono w-fit">
+      <button type="button" onClick={onSkip} className="btn-secondary font-mono w-fit">
         [SKIP]
       </button>
     </div>
@@ -192,8 +192,14 @@ export function OnboardingPage({ onComplete }: OnboardingPageProps) {
     return () => window.removeEventListener('keydown', onKey);
   }, [onComplete]);
 
+  useEffect(() => {
+    if (phase1 !== 'pausing') return;
+    const t = setTimeout(() => setPhase1('done'), 800);
+    return () => clearTimeout(t);
+  }, [phase1]);
+
   const stampText = useTypewriter(sessionStamp, phase1 === 'typing-stamp', () => setPhase1('typing-welcome'));
-  const welcomeText = useTypewriter(s1.step1Welcome, phase1 === 'typing-welcome', () => setPhase1('done'));
+  const welcomeText = useTypewriter(s1.step1Welcome, phase1 === 'typing-welcome', () => setPhase1('pausing'));
   const cursor1 = useCursor(phase1);
 
   function handleLang(l: 'es' | 'en') {
@@ -225,7 +231,7 @@ export function OnboardingPage({ onComplete }: OnboardingPageProps) {
         )}
         {phase1 !== 'idle' && phase1 !== 'typing-stamp' && (
           <p className="text-txt-base">
-            {phase1 === 'done' ? s1.step1Welcome : welcomeText}
+            {phase1 === 'pausing' || phase1 === 'done' ? s1.step1Welcome : welcomeText}
             <span aria-hidden="true" style={{ color: 'var(--color-zinc-50)' }}>{cursor1}</span>
           </p>
         )}

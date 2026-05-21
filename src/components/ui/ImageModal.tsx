@@ -96,7 +96,7 @@ export function ImageModal() {
                 ref={firstBtn}
                 onClick={() => setZoom((z) => Math.max(10, z - 10))}
                 disabled={zoom <= 10}
-                className="btn-action has-tooltip"
+                className="btn-secondary has-tooltip"
                 aria-label={t.modal.zoomOut}
               >
                 [-]
@@ -105,7 +105,7 @@ export function ImageModal() {
               <button
                 onClick={() => setZoom(100)}
                 disabled={zoom === 100}
-                className="btn-action has-tooltip"
+                className="btn-secondary has-tooltip"
                 aria-label={t.modal.zoomReset}
               >
                 [100%]
@@ -114,7 +114,7 @@ export function ImageModal() {
               <button
                 onClick={() => setZoom((z) => Math.min(200, z + 10))}
                 disabled={zoom >= 200}
-                className="btn-action has-tooltip"
+                className="btn-secondary has-tooltip"
                 aria-label={t.modal.zoomIn}
               >
                 [+]
@@ -125,7 +125,7 @@ export function ImageModal() {
             </div>
             <button
               onClick={closeImageModal}
-              className="btn-action has-tooltip"
+              className="btn-secondary has-tooltip"
               aria-label={t.modal.close}
             >
               [X]
