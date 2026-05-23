@@ -3,7 +3,7 @@ import type { Strings } from './types';
 export const en: Strings = {
   nav: {
     home: '[HOME]',
-    trabajo: '[PROJECTS]',
+    trabajo: '[LAB]',
     cv: '[RESUME]',
     skills: '[SKILLS]',
     tooltipHome: 'View home',
@@ -56,7 +56,7 @@ export const en: Strings = {
     tooltipGithub: 'Visit my GitHub profile',
   },
   trabajo: {
-    title: '[PROJECTS]',
+    title: '[LAB]',
     colNombre: 'Name',
     colFecha: 'Date',
     colSinopsis: 'Description',
@@ -266,7 +266,7 @@ export const en: Strings = {
   },
   breadcrumb: {
     home: 'HOME',
-    trabajo: 'WORK',
+    trabajo: 'LAB',
     cv: 'CV',
     skills: 'SKILLS',
     sistema: 'SYSTEM',

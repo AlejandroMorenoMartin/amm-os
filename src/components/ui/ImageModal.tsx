@@ -98,6 +98,7 @@ export function ImageModal() {
                 disabled={zoom <= 10}
                 className="btn-secondary has-tooltip"
                 aria-label={t.modal.zoomOut}
+                data-sound="interactive"
               >
                 [-]
                 <span className="tooltip tooltip--down">{t.modal.zoomOut}</span>
@@ -107,6 +108,7 @@ export function ImageModal() {
                 disabled={zoom === 100}
                 className="btn-secondary has-tooltip"
                 aria-label={t.modal.zoomReset}
+                data-sound="interactive"
               >
                 [100%]
                 <span className="tooltip tooltip--down">{t.modal.zoomReset}</span>
@@ -116,6 +118,7 @@ export function ImageModal() {
                 disabled={zoom >= 200}
                 className="btn-secondary has-tooltip"
                 aria-label={t.modal.zoomIn}
+                data-sound="interactive"
               >
                 [+]
                 <span className="tooltip tooltip--down">{t.modal.zoomIn}</span>
@@ -127,6 +130,7 @@ export function ImageModal() {
               onClick={closeImageModal}
               className="btn-secondary has-tooltip"
               aria-label={t.modal.close}
+              data-sound="interactive"
             >
               [X]
               <span className="tooltip tooltip--down">{t.modal.close}</span>

@@ -22,7 +22,7 @@ const STRINGS = {
     step1Welcome: 'Estás accediendo al sistema personal de Alejandro Moreno.',
     stepLang: 'Selecciona tu idioma.',
     step2Label: 'AMM-OS-V4 — Session started',
-    step2Desc: 'El sistema tiene cuatro áreas. En Home encontrarás quién soy. En Projects, los proyectos en los que he trabajado. En Skills, las habilidades y herramientas con las que opero. En Resume, mi trayectoria.',
+    step2Desc: 'El sistema tiene cuatro áreas. En Home encontrarás quién soy. En Lab, algunos de mis trabajos más recientes. En Skills, las habilidades y herramientas con las que opero. En Resume, información sobre mis últimas experiencias profesionales y algunas de mis últimas certificaciones.',
     stepDestination: 'Selecciona tu destino.',
   },
   en: {
@@ -30,14 +30,14 @@ const STRINGS = {
     step1Welcome: "You are accessing Alejandro Moreno's personal system.",
     stepLang: 'Select your language.',
     step2Label: 'AMM-OS-V4 — Session started',
-    step2Desc: "The system has four areas. Home is where you'll find who I am. Projects holds the work I've done. Skills covers both my abilities and the tools I work with. Resume covers my background.",
+    step2Desc: "The system has four areas. Home is where you'll find who I am. Lab holds some of my most recent work. Skills covers both my abilities and the tools I work with. Resume has information about my latest professional experience and some of my recent certifications.",
     stepDestination: 'Select your destination.',
   },
 };
 
 const NAV_LINKS = [
   { label: '[HOME]',     path: '/',         dest: 'home' },
-  { label: '[PROJECTS]', path: '/projects', dest: 'projects' },
+  { label: '[LAB]',      path: '/projects', dest: 'projects' },
   { label: '[RESUME]',   path: '/resume',   dest: 'resume' },
   { label: '[SKILLS]',   path: '/skills',   dest: 'skills' },
 ];
@@ -152,12 +152,12 @@ function Step2({ lang, onBack, onComplete }: Step2Props) {
   return (
     <div className="flex-1 flex flex-col font-mono" style={{ height: '100%', gap: 'var(--gap-section)' }}>
       <div className="flex" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-        <button type="button" onClick={onBack} className="btn-secondary font-mono" data-sound="interactive">[&lt;]</button>
-        <StepDots step={2} />
         <div className="flex" style={{ gap: 'var(--gap-block)' }}>
+          <button type="button" onClick={onBack} className="btn-secondary font-mono" data-sound="interactive">[&lt;]</button>
           <SoundToggle />
           <button type="button" onClick={() => onComplete('/')} className="btn-secondary font-mono" data-sound="interactive">[SKIP]</button>
         </div>
+        <StepDots step={2} />
       </div>
 
       <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
@@ -181,6 +181,7 @@ function Step2({ lang, onBack, onComplete }: Step2Props) {
                 data-destination={dest}
                 onClick={() => onComplete(path)}
                 className="btn-action font-mono"
+                style={{ fontSize: '14px' }}
                 data-sound="interactive"
               >
                 {label}
@@ -245,12 +246,11 @@ export function OnboardingPage({ onComplete }: OnboardingPageProps) {
   return (
     <div className="flex-1 flex flex-col font-mono" style={{ height: '100%', gap: 'var(--gap-section)' }}>
       <div className="flex" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-        <div style={{ visibility: 'hidden', pointerEvents: 'none' }} className="btn-secondary font-mono">[&lt;]</div>
-        <StepDots step={1} />
         <div className="flex" style={{ gap: 'var(--gap-block)' }}>
           <SoundToggle />
           <button type="button" onClick={() => onComplete('/')} className="btn-secondary font-mono" data-sound="interactive">[SKIP]</button>
         </div>
+        <StepDots step={1} />
       </div>
 
       <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>

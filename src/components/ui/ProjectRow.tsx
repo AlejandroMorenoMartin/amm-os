@@ -25,6 +25,7 @@ export function ProjectRow({
         className="w-full text-left project-row-btn"
         style={{ cursor: 'pointer' }}
         aria-expanded={isExpanded}
+        data-sound="interactive"
       >
         <span className="text-txt-base project-name">{project.name}</span>
         <span className="text-txt-s italic">{project.date}</span>

@@ -118,6 +118,7 @@ function ExpandableCell({ items }: { items: string[] }) {
           onClick={() => setExpanded(e => !e)}
           className="font-mono"
           style={{ marginLeft: '0.4em', fontSize: 'inherit', color: 'var(--color-blue-500)', background: 'none', border: 'none', cursor: 'pointer', padding: 0, lineHeight: 'inherit' }}
+          data-sound="interactive"
         >
           {expanded ? '[-]' : '[+]'}
         </button>

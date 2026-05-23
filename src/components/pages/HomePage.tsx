@@ -44,6 +44,7 @@ export function HomePage() {
               className="p-0 photo-btn photo-btn--half btn-no-focus has-tooltip"
               style={{ border: 'none', background: 'none', cursor: 'pointer' }}
               aria-label={t.sobreMi.photoAlt}
+              data-sound="interactive"
             >
               <img
                 ref={imgRef}
@@ -71,6 +72,7 @@ export function HomePage() {
             type="button"
             onClick={handleCopyEmail}
             className="email-copy has-tooltip text-txt-base font-mono text-left"
+            data-sound="interactive"
           >
             {EMAIL}
             <span className="tooltip">

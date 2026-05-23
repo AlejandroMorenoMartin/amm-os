@@ -8,6 +8,7 @@ export function BtnControl({ label, onClick }: BtnControlProps) {
     <button
       onClick={onClick}
       className="btn-action"
+      data-sound="interactive"
     >
       {label}
     </button>

@@ -34,7 +34,7 @@ export const useAppStore = create<AppStore>()(
       focusIndex: -1,
       imageModal: null,
       lang: 'es',
-      soundEnabled: false,
+      soundEnabled: true,
 
       completeBoot: () => set({ bootDone: true }),
       toggleProject: (slug) =>

@@ -71,6 +71,7 @@ export function ProjectPage() {
           className="photo-btn photo-btn--full btn-no-focus has-tooltip"
           style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
           aria-label={t.project.openImage}
+          data-sound="interactive"
           onClick={() => {
             const el = imgRef.current;
             openImageModal({

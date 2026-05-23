@@ -15,6 +15,7 @@ export function BtnOpen({ onClick, disabled = false }: BtnOpenProps) {
       onClick={onClick}
       disabled={disabled}
       className="btn-action w-fit"
+      data-sound="interactive"
       {...focusProps}
     >
       {focused ? '> ' : ''}[OPEN]
