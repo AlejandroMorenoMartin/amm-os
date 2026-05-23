@@ -42,7 +42,7 @@ export const TopBar = forwardRef<HTMLElement, TopBarProps>(function TopBar({ sty
             aria-label={soundEnabled ? t.topbar.soundOff : t.topbar.soundOn}
             data-sound="interactive"
           >
-            {soundEnabled ? '[♪]' : '[♫]'}
+            {soundEnabled ? '[♪]' : '[♪x]'}
             <span className="tooltip tooltip--down">
               {soundEnabled ? t.topbar.soundOff : t.topbar.soundOn}
             </span>

@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import { useAppStore } from '../store/useAppStore';
 
-const TYPING = { frequency: 800, duration: 0.03, gain: 0.25 };
-const HOVER  = { frequency: 600, duration: 0.02, gain: 0.15 };
-const CLICK  = { frequency: 400, duration: 0.05, gain: 0.25 };
+const TYPING = { frequency: 800, duration: 0.03, gain: 0.20 };
+const HOVER  = { frequency: 600, duration: 0.02, gain: 0.12 };
+const CLICK  = { frequency: 400, duration: 0.05, gain: 0.20 };
 
 // Singleton — shared across all useSound() instances, survives re-renders
 let sharedCtx: AudioContext | null = null;

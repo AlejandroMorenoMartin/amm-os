@@ -105,7 +105,7 @@ function SoundToggle() {
       data-sound="interactive"
       aria-label={soundEnabled ? 'Desactivar sonido' : 'Activar sonido'}
     >
-      {soundEnabled ? '[♪]' : '[♫]'}
+      {soundEnabled ? '[♪]' : '[♪x]'}
     </button>
   );
 }
