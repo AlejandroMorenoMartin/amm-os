@@ -6,7 +6,7 @@ export function SkillsPage() {
   const { t } = useT();
 
   return (
-    <article className="flex-1 font-mono flex flex-col" style={{ gap: 'var(--gap-section)' }}>
+    <article className="flex-1 font-mono flex flex-col" style={{ gap: 'var(--gap-page)' }}>
       <PageTitle>{t.skills.title}</PageTitle>
 
       <div className="flex flex-col" style={{ gap: 'var(--gap-card)' }}>

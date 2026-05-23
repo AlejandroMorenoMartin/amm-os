@@ -9,7 +9,7 @@ export function ResumePage() {
   const { t } = useT();
 
   return (
-    <article className="flex-1 font-mono flex flex-col" style={{ gap: 'var(--gap-section)' }}>
+    <article className="flex-1 font-mono flex flex-col" style={{ gap: 'var(--gap-page)' }}>
       <PageTitle>{t.cv.title}</PageTitle>
 
       {/* Experiencia */}

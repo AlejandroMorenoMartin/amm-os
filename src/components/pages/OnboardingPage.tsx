@@ -150,7 +150,7 @@ function Step2({ lang, onBack, onComplete }: Step2Props) {
   const cursor = useCursor(phase);
 
   return (
-    <div className="flex-1 flex flex-col font-mono" style={{ height: '100%', gap: 'var(--gap-section)' }}>
+    <div className="flex-1 flex flex-col font-mono" style={{ height: '100%', gap: 'var(--gap-page)' }}>
       <div className="flex" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
         <div className="flex" style={{ gap: 'var(--gap-block)' }}>
           <button type="button" onClick={onBack} className="btn-secondary font-mono" data-sound="interactive">[&lt;]</button>
@@ -200,11 +200,10 @@ export function OnboardingPage({ onComplete }: OnboardingPageProps) {
   const [step, setStep] = useState<1 | 2>(1);
   const [selectedLang, setSelectedLang] = useState<'es' | 'en'>(systemLang);
   const [sessionStamp] = useState(getSessionStamp);
-  const [audioUnlocked, setAudioUnlocked] = useState(false);
-
   const s1 = STRINGS[systemLang];
   const { playTyping } = useSound();
   const [phase1, setPhase1] = useState<Phase>('idle');
+  const [audioUnlocked, setAudioUnlocked] = useState(false);
 
   useEffect(() => {
     function unlock() { setAudioUnlocked(true); }
@@ -217,14 +216,12 @@ export function OnboardingPage({ onComplete }: OnboardingPageProps) {
   }, []);
 
   useEffect(() => {
-    if (!audioUnlocked) return;
     const t = setTimeout(() => setPhase1('typing-stamp'), IDLE_DELAY);
     return () => clearTimeout(t);
-  }, [audioUnlocked]);
+  }, []);
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      setAudioUnlocked(true);
       if (e.key === 'Enter') onComplete('/');
     }
     window.addEventListener('keydown', onKey);
@@ -237,8 +234,9 @@ export function OnboardingPage({ onComplete }: OnboardingPageProps) {
     return () => clearTimeout(t);
   }, [phase1]);
 
-  const stampText   = useTypewriter(sessionStamp,    phase1 === 'typing-stamp',   () => setPhase1('typing-welcome'), playTyping);
-  const welcomeText = useTypewriter(s1.step1Welcome, phase1 === 'typing-welcome', () => setPhase1('pausing'), playTyping);
+  const safePlayTyping = audioUnlocked ? playTyping : undefined;
+  const stampText   = useTypewriter(sessionStamp,    phase1 === 'typing-stamp',   () => setPhase1('typing-welcome'), safePlayTyping);
+  const welcomeText = useTypewriter(s1.step1Welcome, phase1 === 'typing-welcome', () => setPhase1('pausing'), safePlayTyping);
   const cursor1 = useCursor(phase1);
 
   function handleLang(l: 'es' | 'en') {
@@ -259,7 +257,7 @@ export function OnboardingPage({ onComplete }: OnboardingPageProps) {
   }
 
   return (
-    <div className="flex-1 flex flex-col font-mono" style={{ height: '100%', gap: 'var(--gap-section)' }}>
+    <div className="flex-1 flex flex-col font-mono" style={{ height: '100%', gap: 'var(--gap-page)' }}>
       <div className="flex" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
         <div className="flex" style={{ gap: 'var(--gap-block)' }}>
           <SoundToggle />

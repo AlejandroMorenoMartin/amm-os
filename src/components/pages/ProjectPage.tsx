@@ -96,7 +96,7 @@ export function ProjectPage() {
       <hr className="project-divider" />
 
       {/* Bloque 2 — Narrativa */}
-      <div className="flex flex-col" style={{ gap: 'var(--gap-page)' }}>
+      <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
         {sections.map((s) => (
           <div key={s.key} className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
             <SectionLabel>{s.label}</SectionLabel>

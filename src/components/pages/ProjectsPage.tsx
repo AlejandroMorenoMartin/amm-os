@@ -18,7 +18,7 @@ export function ProjectsPage() {
   }, [expandedProject]);
 
   return (
-    <article className="flex-1 font-mono flex flex-col" style={{ gap: 'var(--gap-section)' }}>
+    <article className="flex-1 font-mono flex flex-col" style={{ gap: 'var(--gap-page)' }}>
       <PageTitle>{t.trabajo.title}</PageTitle>
 
       <div className="projects-list flex flex-col" style={{ gap: 'var(--gap-card)' }}>
