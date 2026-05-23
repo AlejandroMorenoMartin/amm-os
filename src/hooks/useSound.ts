@@ -32,41 +32,23 @@ function fire(frequency: number, duration: number, gain: number, wave: Oscillato
   }
 }
 
-// Mechanical keyboard simulation: sharp click (high freq) + thump (low freq)
+// Classic keyboard click — short square pulse, instant decay
 function fireKeyClick() {
   try {
     const ctx = getCtx();
     if (ctx.state === 'suspended') ctx.resume();
     const t = ctx.currentTime;
-
-    // Click layer — sharp transient
-    const clickOsc = ctx.createOscillator();
-    const clickGain = ctx.createGain();
-    clickOsc.type = 'square';
-    clickOsc.frequency.setValueAtTime(1200, t);
-    clickOsc.frequency.exponentialRampToValueAtTime(600, t + 0.012);
-    clickGain.gain.setValueAtTime(0.14, t);
-    clickGain.gain.exponentialRampToValueAtTime(0.001, t + 0.018);
-    clickOsc.connect(clickGain);
-    clickGain.connect(ctx.destination);
-    clickOsc.start(t);
-    clickOsc.stop(t + 0.018);
-    clickOsc.onended = () => { clickOsc.disconnect(); clickGain.disconnect(); };
-
-    // Thump layer — body of the keystroke
-    const thumpOsc = ctx.createOscillator();
-    const thumpGain = ctx.createGain();
-    thumpOsc.type = 'triangle';
-    thumpOsc.frequency.setValueAtTime(180, t + 0.008);
-    thumpOsc.frequency.exponentialRampToValueAtTime(80, t + 0.045);
-    thumpGain.gain.setValueAtTime(0.0, t);
-    thumpGain.gain.setValueAtTime(0.10, t + 0.008);
-    thumpGain.gain.exponentialRampToValueAtTime(0.001, t + 0.055);
-    thumpOsc.connect(thumpGain);
-    thumpGain.connect(ctx.destination);
-    thumpOsc.start(t + 0.008);
-    thumpOsc.stop(t + 0.055);
-    thumpOsc.onended = () => { thumpOsc.disconnect(); thumpGain.disconnect(); };
+    const osc = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(1000, t);
+    gainNode.gain.setValueAtTime(0.12, t);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, t + 0.02);
+    osc.connect(gainNode);
+    gainNode.connect(ctx.destination);
+    osc.start(t);
+    osc.stop(t + 0.02);
+    osc.onended = () => { osc.disconnect(); gainNode.disconnect(); };
   } catch {
     // AudioContext blocked or unavailable — silent fail
   }
