@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { TopBar } from './TopBar';
 import { BottomBar } from './BottomBar';
+import { useSoundListeners } from '../../hooks/useSoundListeners';
 interface ShellProps {
   children: React.ReactNode;
   hideBars?: boolean;
@@ -11,6 +12,8 @@ export function Shell({ children, hideBars = false }: ShellProps) {
   const bottomRef = useRef<HTMLElement>(null);
   const [topH, setTopH] = useState(48);
   const [bottomH, setBottomH] = useState(48);
+
+  useSoundListeners();
 
   useEffect(() => {
     const obs = new ResizeObserver(() => {
