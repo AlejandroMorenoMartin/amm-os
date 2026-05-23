@@ -197,6 +197,8 @@ export interface Strings {
   topbar: {
     switchLang: string;
     share: string;
+    soundOn: string;
+    soundOff: string;
   };
   breadcrumb: {
     home: string;

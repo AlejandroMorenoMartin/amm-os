@@ -261,6 +261,8 @@ export const es: Strings = {
   topbar: {
     switchLang: 'Switch language',
     share: 'Share page',
+    soundOn: 'Activar sonido',
+    soundOff: 'Desactivar sonido',
   },
   breadcrumb: {
     home: 'HOME',
