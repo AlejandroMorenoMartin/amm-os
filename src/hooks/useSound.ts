@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { Howl, Howler } from 'howler';
 import { useAppStore } from '../store/useAppStore';
 
@@ -24,11 +23,19 @@ const typingSound = new Howl({
   sprite: { key: [0, 150] },
 });
 
+export function playTyping() {
+  if (!useAppStore.getState().soundEnabled) return;
+  if (Howler.ctx?.state === 'suspended') return;
+  typingSound.play('key');
+}
+
+export function playClick() {
+  if (!useAppStore.getState().soundEnabled) return;
+  const ctx = Howler.ctx;
+  if (ctx?.state === 'suspended') ctx.resume().then(() => clickSound.play('key'));
+  else clickSound.play('key');
+}
+
 export function useSound() {
-  const soundEnabled = useAppStore((s) => s.soundEnabled);
-
-  const playTyping = useCallback(() => { if (soundEnabled) typingSound.play('key'); }, [soundEnabled]);
-  const playClick  = useCallback(() => { if (soundEnabled) clickSound.play('key'); }, [soundEnabled]);
-
   return { playTyping, playClick };
 }

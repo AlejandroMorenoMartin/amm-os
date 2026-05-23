@@ -2,7 +2,6 @@ import { useRef, useState } from 'react';
 import { useT } from '../../i18n';
 import { useAppStore } from '../../store/useAppStore';
 import { LinkExternal } from '../ui/LinkExternal';
-import { PageTitle } from '../ui/PageTitle';
 import { SectionLabel } from '../ui/SectionLabel';
 import { TextBlock } from '../ui/TextBlock';
 
@@ -33,8 +32,6 @@ export function HomePage() {
 
   return (
     <article className="flex-1 font-mono flex flex-col" style={{ gap: 'var(--gap-page)' }}>
-      <PageTitle>{t.home.title}</PageTitle>
-
       <TextBlock>
         <SectionLabel>{t.home.sectionProfile}</SectionLabel>
         <div className="profile-layout">

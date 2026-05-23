@@ -2,18 +2,23 @@ import { useEffect, useRef, useState } from 'react';
 import { TopBar } from './TopBar';
 import { BottomBar } from './BottomBar';
 import { useSoundListeners } from '../../hooks/useSoundListeners';
+import { useMusic } from '../../hooks/useMusic';
 interface ShellProps {
   children: React.ReactNode;
   hideBars?: boolean;
+  hideCtrl?: boolean;
+  hideBottomBar?: boolean;
+  bottomSlot?: React.ReactNode;
 }
 
-export function Shell({ children, hideBars = false }: ShellProps) {
+export function Shell({ children, hideBars = false, hideCtrl = false, hideBottomBar = false, bottomSlot }: ShellProps) {
   const topRef = useRef<HTMLElement>(null);
   const bottomRef = useRef<HTMLElement>(null);
   const [topH, setTopH] = useState(48);
   const [bottomH, setBottomH] = useState(48);
 
   useSoundListeners();
+  useMusic();
 
   useEffect(() => {
     const obs = new ResizeObserver(() => {
@@ -29,7 +34,7 @@ export function Shell({ children, hideBars = false }: ShellProps) {
 
   return (
     <div className="flex flex-col min-h-dvh bg-background font-mono">
-      <TopBar ref={topRef} style={barsStyle} />
+      <TopBar ref={topRef} style={barsStyle} hideCtrl={hideCtrl} />
 
 
 {hideBars ? (
@@ -42,17 +47,18 @@ export function Shell({ children, hideBars = false }: ShellProps) {
         <div
           className="flex-1 flex justify-center"
           style={{
-            paddingTop: `calc(${topH}px + 2rem)`,
-            paddingBottom: `calc(${bottomH}px + 2rem)`,
+            paddingTop: `calc(${topH}px + 1rem)`,
+            paddingBottom: (hideBottomBar || bottomSlot) ? '1rem' : `calc(${bottomH}px + 1rem)`,
+            alignItems: hideBottomBar ? 'stretch' : undefined,
           }}
         >
-          <main className="w-full flex flex-col overflow-y-auto" style={{ maxWidth: 'var(--shell-max-width)', gap: 'var(--gap-page)', paddingInline: 'var(--shell-padding)' }}>
+          <main className="w-full flex flex-col overflow-y-auto" style={{ maxWidth: 'var(--shell-max-width)', gap: 'var(--gap-page)', paddingInline: '0.75rem', height: hideBottomBar ? '100%' : undefined }}>
             {children}
           </main>
         </div>
       )}
 
-      <BottomBar ref={bottomRef} style={barsStyle} />
+      {!hideBottomBar && (bottomSlot ?? <BottomBar ref={bottomRef} style={barsStyle} />)}
     </div>
   );
 }

@@ -15,7 +15,7 @@
   --color-zinc-700: #434343;
   --color-zinc-800: #3F3F3F;
   --color-zinc-900: #2A2A2A;
-  --color-zinc-950: #0D0D0D;
+  --color-zinc-950: #01060F;
 
   --color-blue-50: #F1F2F1;
   --color-blue-100: #C3E8F1;
@@ -74,7 +74,8 @@
 /* crosshair hover: zinc-50 + círculo relleno, líneas interrumpidas — interactivos + cards */
 a:hover, a:hover *, button:hover, button:hover *, [role="button"]:hover, [role="button"]:hover *, [tabindex]:hover, [tabindex]:hover *,
 .project-row-wrap:hover, .project-row-wrap:hover *,
-.skill-card:hover, .skill-card:hover * {
+.skill-card:hover, .skill-card:hover *,
+input[type="range"]:hover, input[type="range"]:hover * {
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Crect width='36' height='36' fill='transparent'/%3E%3Cline x1='18' y1='2' x2='18' y2='15' stroke='%23FAFAFA' stroke-width='1'/%3E%3Cline x1='18' y1='21' x2='18' y2='34' stroke='%23FAFAFA' stroke-width='1'/%3E%3Cline x1='2' y1='18' x2='15' y2='18' stroke='%23FAFAFA' stroke-width='1'/%3E%3Cline x1='21' y1='18' x2='34' y2='18' stroke='%23FAFAFA' stroke-width='1'/%3E%3Ccircle cx='18' cy='18' r='3' fill='%23FAFAFA' stroke='%23FAFAFA' stroke-width='1'/%3E%3C/svg%3E") 18 18, crosshair !important;
 }
 /* crosshair active: azul-500, 30px (-15%) — cualquier superficie */
@@ -84,7 +85,8 @@ a:hover, a:hover *, button:hover, button:hover *, [role="button"]:hover, [role="
 /* crosshair active con círculo: azul-500, 30px — interactivos + cards */
 a:active, a:active *, button:active, button:active *, [role="button"]:active, [role="button"]:active *, [tabindex]:active, [tabindex]:active *,
 .project-row-wrap:active, .project-row-wrap:active *,
-.skill-card:active, .skill-card:active * {
+.skill-card:active, .skill-card:active *,
+input[type="range"]:active, input[type="range"]:active * {
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Crect width='30' height='30' fill='transparent'/%3E%3Cline x1='15' y1='2' x2='15' y2='12' stroke='%230086FF' stroke-width='1'/%3E%3Cline x1='15' y1='18' x2='15' y2='28' stroke='%230086FF' stroke-width='1'/%3E%3Cline x1='2' y1='15' x2='12' y2='15' stroke='%230086FF' stroke-width='1'/%3E%3Cline x1='18' y1='15' x2='28' y2='15' stroke='%230086FF' stroke-width='1'/%3E%3Ccircle cx='15' cy='15' r='3' fill='%230086FF' stroke='%230086FF' stroke-width='1'/%3E%3C/svg%3E") 15 15, crosshair !important;
 }
 
@@ -215,21 +217,13 @@ html, body, #root {
 .shell-bar-top    { background: var(--color-background); border-bottom: var(--border-default); }
 .shell-bar-bottom { background: var(--color-background); border-top: var(--border-default); }
 
-/* ProjectRow */
-.project-row-wrap { background: var(--color-blue-950); border: 0.5px solid var(--color-blue-600); }
-.project-row-wrap:hover { background: var(--color-blue-900); }
-.project-row-wrap--focused { background: var(--color-blue-800); }
-.project-row-wrap--focused:hover { background: var(--color-blue-800); }
-.project-row-btn { display: flex; flex-direction: column; gap: var(--gap-card); padding: 0.5rem 1rem; width: 100%; background: none; border: none; text-align: left; cursor: pointer; text-transform: none; }
-.project-row-wrap:hover .project-name { text-decoration: underline; }
-.project-row-expanded-block { padding: 0 1rem 0.5rem; }
-.project-name { color: var(--color-blue-500); text-decoration: none; }
+/* AccordionCard */
 .skill-card { background: var(--color-blue-950); border: 0.5px solid var(--color-blue-600); }
-.skill-card:hover { background: var(--color-blue-900); }
-.skill-card--open { background: var(--color-blue-800); }
-.skill-card--open:hover { background: var(--color-blue-800); }
 .skill-group-btn { font-size: 14px; line-height: 1.5; font-weight: 400; color: var(--color-blue-500); text-decoration: none; }
-.skill-group-btn:hover { text-decoration: underline; }
+
+@media (hover: hover) {
+  .skill-card:hover { background: var(--color-blue-900); }
+}
 .kpi { color: var(--color-orange); }
 .skill-highlight { color: var(--color-orange); }
 .project-divider { border: none; border-top: var(--border-dashed); width: 100%; margin: 0; }
@@ -264,7 +258,7 @@ html, body, #root {
 
 /* Photo */
 .photo-border { border: var(--border-default); display: block; padding: 8px; background: var(--photo-bg); }
-.photo-btn:hover .photo-border { opacity: 0.9; }
+@media (hover: hover) { .photo-btn:hover .photo-border { opacity: 0.9; } }
 
 /* photo-btn--full: 100% en mobile y desktop (proyectos) */
 .photo-btn--full { display: block; width: 100%; }
@@ -303,10 +297,12 @@ html, body, #root {
   color: var(--color-blue-500);
   text-decoration: none;
 }
-.link-external:hover,
-.link-internal:hover {
-  color: var(--color-blue-500);
-  text-decoration: underline;
+@media (hover: hover) {
+  .link-external:hover,
+  .link-internal:hover {
+    color: var(--color-blue-500);
+    text-decoration: underline;
+  }
 }
 .link-external:focus-visible {
   outline: none;
@@ -365,9 +361,11 @@ html, body, #root {
   color: var(--color-blue-500);
   text-decoration: none;
 }
-.email-copy:hover {
-  color: var(--color-blue-500);
-  text-decoration: underline;
+@media (hover: hover) {
+  .email-copy:hover {
+    color: var(--color-blue-500);
+    text-decoration: underline;
+  }
 }
 .email-copy:focus-visible {
   outline: none;
@@ -394,16 +392,18 @@ html, body, #root {
   color: var(--color-blue-500);
   text-decoration: none;
 }
-.btn-nav:hover { text-decoration: underline; }
-.btn-nav:active {
-  background: var(--color-blue-500);
-  color: var(--color-blue-950);
+@media (hover: hover) { .btn-nav:hover { text-decoration: underline; } }
+@media (hover: hover) {
+  .btn-nav:active {
+    background: var(--color-blue-500);
+    color: var(--color-blue-950);
+  }
 }
 .btn-nav--active {
   background: var(--color-blue-500);
   color: var(--color-blue-950);
 }
-.btn-nav--active:hover { color: var(--color-blue-950); }
+@media (hover: hover) { .btn-nav--active:hover { color: var(--color-blue-950); } }
 
 /* btn-action — BtnControl + BtnOpen */
 .btn-action {
@@ -416,12 +416,16 @@ html, body, #root {
   border: 0.5px solid var(--color-blue-500);
   color: var(--color-blue-500);
 }
-.btn-action:hover {
-  background: var(--color-blue-600);
+@media (hover: hover) {
+  .btn-action:hover {
+    background: var(--color-blue-600);
+  }
 }
-.btn-action:active {
-  background: var(--color-blue-500);
-  color: var(--color-blue-950);
+@media (hover: hover) {
+  .btn-action:active {
+    background: var(--color-blue-500);
+    color: var(--color-blue-950);
+  }
 }
 .btn-action:disabled { opacity: 0.25; cursor: not-allowed; }
 
@@ -430,21 +434,51 @@ html, body, #root {
   cursor: pointer;
   font-family: var(--font-mono);
   font-size: 14px;
+  font-weight: 400;
   padding: 0.4rem 0.8rem;
   text-transform: uppercase;
   background: transparent;
   border: var(--border-default);
   color: var(--color-zinc-400);
 }
-.btn-secondary:hover {
-  background: var(--color-zinc-950);
+@media (hover: hover) {
+  .btn-secondary:hover {
+    background: var(--color-zinc-950);
+  }
 }
-.btn-secondary:active {
-  background: var(--color-zinc-400);
-  color: var(--color-zinc-950);
+@media (hover: hover) {
+  .btn-secondary:active {
+    background: var(--color-zinc-400);
+    color: var(--color-zinc-950);
+  }
 }
 .btn-secondary:disabled { opacity: 0.25; cursor: not-allowed; }
 
+/* Volume slider */
+.volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 2px;
+  background: var(--color-zinc-300);
+  outline: none;
+}
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  background: var(--color-zinc-300);
+  border: var(--border-default);
+}
+.volume-slider::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  background: var(--color-zinc-300);
+  border: var(--border-default);
+}
+.volume-slider:focus-visible {
+  outline: 0.5px solid var(--color-blue-500);
+}
 
 
 /* ── Accesibilidad ──────────────────────────────────── */

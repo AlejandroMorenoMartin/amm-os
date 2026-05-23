@@ -1,34 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../../store/useAppStore';
 import { useT } from '../../i18n';
 import { projects } from '../../data/projects';
 import { ProjectRow } from '../ui/ProjectRow';
-import { PageTitle } from '../ui/PageTitle';
 
 export function ProjectsPage() {
-  const { expandedProject, toggleProject, lang } = useAppStore();
+  const { lang } = useAppStore();
   const { t } = useT();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!expandedProject) return;
-    const el = document.querySelector(`[data-slug="${expandedProject}"]`);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }, [expandedProject]);
+  const [openSlug, setOpenSlug] = useState<string | null>(null);
+  const toggle = (slug: string) => setOpenSlug((s) => (s === slug ? null : slug));
 
   return (
     <article className="flex-1 font-mono flex flex-col" style={{ gap: 'var(--gap-page)' }}>
-      <PageTitle>{t.trabajo.title}</PageTitle>
-
       <div className="projects-list flex flex-col" style={{ gap: 'var(--gap-card)' }}>
         {projects.map((project) => (
           <React.Fragment key={project.slug}>
             <ProjectRow
               project={project}
-              isExpanded={expandedProject === project.slug}
+              isExpanded={openSlug === project.slug}
               lang={lang}
-              onToggle={toggleProject}
+              onToggle={toggle}
               onOpen={(slug) => navigate(`/projects/${slug}`)}
               challenge={t.trabajo.challenge}
               role={t.trabajo.role}

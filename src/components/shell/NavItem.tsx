@@ -7,7 +7,7 @@ interface NavItemProps {
 }
 
 export function NavItem({ label, to }: NavItemProps) {
-  const { focused, focusProps } = useFocused();
+  const { focusProps } = useFocused();
 
   return (
     <NavLink
@@ -16,12 +16,7 @@ export function NavItem({ label, to }: NavItemProps) {
       data-sound="interactive"
       {...focusProps}
     >
-      {({ isActive }) => (
-        <>
-          {(isActive || focused) && <span className="desktop-inline">&gt; </span>}
-          {label}
-        </>
-      )}
+      {() => label}
     </NavLink>
   );
 }

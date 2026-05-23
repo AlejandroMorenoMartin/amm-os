@@ -4,7 +4,6 @@ import { projects } from '../../data/projects';
 import { LinkExternal } from '../ui/LinkExternal';
 import { SectionLabel } from '../ui/SectionLabel';
 import { StatusChip } from '../ui/StatusChip';
-import { Breadcrumb } from '../shell/Breadcrumb';
 import { useT } from '../../i18n';
 import { useRef } from 'react';
 
@@ -32,12 +31,8 @@ export function ProjectPage() {
   return (
     <article className="flex-1 font-mono flex flex-col" style={{ gap: 'var(--gap-page)' }}>
 
-      <Breadcrumb />
-
       {/* Bloque 1 — Identidad */}
       <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
-        <h1 className="text-txt-xxl">{'> '}{project.name}</h1>
-
         <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
           <FieldLabel>{t.project.update}</FieldLabel>
           <span className="text-txt-base">{project.date}</span>
@@ -93,10 +88,9 @@ export function ProjectPage() {
         </button>
       </div>
 
-      <hr className="project-divider" />
 
       {/* Bloque 2 — Narrativa */}
-      <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
+      <div className="flex flex-col" style={{ gap: 'var(--gap-page)' }}>
         {sections.map((s) => (
           <div key={s.key} className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
             <SectionLabel>{s.label}</SectionLabel>
@@ -105,7 +99,6 @@ export function ProjectPage() {
         ))}
       </div>
 
-      <hr className="project-divider" />
 
       {/* Bloque 3 — Meta */}
       <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>

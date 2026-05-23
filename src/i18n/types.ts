@@ -21,8 +21,18 @@ export interface Strings {
   onboarding: {
     sessionLabel: string;
     welcome: string;
+    stepSetup: string;
+    stepVolume: string;
+    stepSound: string;
+    stepSoundOn: string;
+    stepSoundOff: string;
+    stepMusic: string;
+    stepMusicOn: string;
+    stepMusicOff: string;
     stepLang: string;
+    stepContinue: string;
     stepDestination: string;
+    stepDesc: string;
   };
   home: {
     title: string;
@@ -204,6 +214,10 @@ export interface Strings {
     share: string;
     soundOn: string;
     soundOff: string;
+    back: string;
+    controls: string;
+    music: string;
+    volume: string;
   };
   breadcrumb: {
     home: string;

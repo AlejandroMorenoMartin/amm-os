@@ -51,7 +51,7 @@ export function ImageModal() {
       {/* Overlay */}
       <div
         className="fixed inset-0"
-        style={{ background: 'rgba(0,0,0,0.7)', zIndex: 9999 }}
+        style={{ background: 'rgba(0,0,0,0.5)', zIndex: 9999 }}
         onClick={closeImageModal}
         aria-hidden="true"
       />

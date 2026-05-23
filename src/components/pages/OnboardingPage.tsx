@@ -1,56 +1,66 @@
 import { useEffect, useRef, useState } from 'react';
 import { useAppStore } from '../../store/useAppStore';
-import { useSound } from '../../hooks/useSound';
+import { useSound, playTyping } from '../../hooks/useSound';
+import { PreloadShell } from '../shell/PreloadShell';
 
 interface OnboardingPageProps {
   onComplete: (path: string) => void;
+  onStepChange: (step: 1 | 2) => void;
 }
 
 const systemLang = navigator.language.startsWith('es') ? 'es' : 'en';
 
-function getSessionStamp() {
-  const now = new Date();
-  const day = now.toLocaleDateString('en-US', { weekday: 'short' });
-  const date = now.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
-  const time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
-  return `${day} ${date} ${time}`;
-}
-
 const STRINGS = {
   es: {
-    step1Label: 'AMM-OS-V4 — Session started',
-    step1Welcome: 'Estás accediendo al sistema personal de Alejandro Moreno.',
-    stepLang: 'Selecciona tu idioma.',
-    step2Label: 'AMM-OS-V4 — Session started',
-    step2Desc: 'El sistema tiene cuatro áreas. En Home encontrarás quién soy. En Lab, algunos de mis trabajos más recientes. En Skills, las habilidades y herramientas con las que opero. En Resume, información sobre mis últimas experiencias profesionales y algunas de mis últimas certificaciones.',
-    stepDestination: 'Selecciona tu destino.',
+    sessionLabel: 'AMM-OS-V4 — SESIÓN INICIADA',
+    welcome: 'Estás accediendo a AMM-OS, el sistema personal de Alejandro Moreno.',
+    stepVolume: 'Select volume',
+    stepSound: 'Select sound',
+    stepMusic: 'Select music',
+    stepLang: 'Select language',
+    stepSkip: '[SKIP]',
+    stepContinue: '[CONTINUAR]',
+    stepDestination: 'Select your destination',
+    stepDesc: 'The system has four areas....',
+    navBack: '[<]',
+    navSkip: '[SKIP]',
   },
   en: {
-    step1Label: 'AMM-OS-V4 — Session started',
-    step1Welcome: "You are accessing Alejandro Moreno's personal system.",
-    stepLang: 'Select your language.',
-    step2Label: 'AMM-OS-V4 — Session started',
-    step2Desc: "The system has four areas. Home is where you'll find who I am. Lab holds some of my most recent work. Skills covers both my abilities and the tools I work with. Resume has information about my latest professional experience and some of my recent certifications.",
-    stepDestination: 'Select your destination.',
+    sessionLabel: 'AMM-OS-V4 — SESSION STARTED',
+    welcome: "You are accessing to AMM-OS, Alejandro Moreno's personal system.",
+    stepVolume: 'Select volume',
+    stepSound: 'Select sound',
+    stepMusic: 'Select music',
+    stepLang: 'Select language',
+    stepSkip: '[SKIP]',
+    stepContinue: '[CONTINUE]',
+    stepDestination: 'Select your destination',
+    stepDesc: 'The system has four areas....',
+    navBack: '[<]',
+    navSkip: '[SKIP]',
   },
 };
 
 const NAV_LINKS = [
-  { label: '[HOME]',     path: '/',         dest: 'home' },
-  { label: '[LAB]',      path: '/projects', dest: 'projects' },
-  { label: '[RESUME]',   path: '/resume',   dest: 'resume' },
-  { label: '[SKILLS]',   path: '/skills',   dest: 'skills' },
+  { label: '[HOME]',   path: '/',         dest: 'home' },
+  { label: '[LAB]',    path: '/projects', dest: 'projects' },
+  { label: '[RESUME]', path: '/resume',   dest: 'resume' },
+  { label: '[SKILLS]', path: '/skills',   dest: 'skills' },
 ];
 
 const CHAR_DELAY = 40;
-const IDLE_DELAY = 1000;
+const IDLE_DELAY = 600;
 
-type Phase = 'idle' | 'typing-stamp' | 'typing-welcome' | 'pausing' | 'done';
+type Phase = 'idle' | 'typing' | 'pausing' | 'done';
 
 function useTypewriter(text: string, active: boolean, onDone: () => void, onChar?: () => void) {
   const [displayed, setDisplayed] = useState('');
   const indexRef = useRef(0);
   const doneRef = useRef(false);
+  const onCharRef = useRef(onChar);
+  const onDoneRef = useRef(onDone);
+  onCharRef.current = onChar;
+  onDoneRef.current = onDone;
 
   useEffect(() => {
     if (!active) return;
@@ -61,78 +71,66 @@ function useTypewriter(text: string, active: boolean, onDone: () => void, onChar
     const interval = setInterval(() => {
       indexRef.current += 1;
       setDisplayed(text.slice(0, indexRef.current));
-      onChar?.();
+      onCharRef.current?.();
       if (indexRef.current >= text.length && !doneRef.current) {
         doneRef.current = true;
         clearInterval(interval);
-        onDone();
+        onDoneRef.current();
       }
     }, CHAR_DELAY);
 
     return () => clearInterval(interval);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, text]);
 
   return displayed;
 }
 
-function useCursor(phase: Phase) {
+function useCursor(active: boolean) {
   const [visible, setVisible] = useState(true);
-
   useEffect(() => {
-    if (phase === 'typing-stamp' || phase === 'typing-welcome') { setVisible(true); return; }
+    if (active) { setVisible(true); return; }
     const t = setInterval(() => setVisible(v => !v), 530);
     return () => clearInterval(t);
-  }, [phase]);
-
+  }, [active]);
   return visible ? '|' : ' ';
 }
 
-function SoundToggle() {
-  const { soundEnabled, toggleSound } = useAppStore();
+function StepBar({ step }: { step: 1 | 2 }) {
+  return (
+    <div aria-hidden="true" style={{ display: 'flex', gap: '4px' }}>
+      <div style={{ flex: 1, height: '4px', background: 'var(--color-zinc-300)' }} />
+      <div style={{ flex: 1, height: '4px', background: step === 2 ? 'var(--color-zinc-300)' : 'var(--color-zinc-700)' }} />
+    </div>
+  );
+}
+
+function active(condition: boolean) {
+  return condition ? 'btn-nav btn-nav--active font-mono' : 'btn-secondary font-mono';
+}
+
+export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps) {
+  const { setLang, soundEnabled, toggleSound, musicEnabled, toggleMusic } = useAppStore();
   const { playClick } = useSound();
-
-  const handleToggle = () => {
-    toggleSound();
-    if (!soundEnabled) playClick();
-  };
-
-  return (
-    <button
-      type="button"
-      onClick={handleToggle}
-      className="btn-secondary font-mono"
-      data-sound="interactive"
-      aria-label={soundEnabled ? 'Desactivar sonido' : 'Activar sonido'}
-    >
-      {soundEnabled ? '[♪]' : '[♪x]'}
-    </button>
-  );
-}
-
-function StepDots({ step }: { step: 1 | 2 }) {
-  return (
-    <p aria-hidden="true" style={{ fontSize: '14px', letterSpacing: '0.125rem', color: 'var(--color-zinc-400)' }}>
-      {step === 1 ? '■ □' : '■ ■'}
-    </p>
-  );
-}
-
-interface Step2Props {
-  lang: 'es' | 'en';
-  onBack: () => void;
-  onComplete: (path: string) => void;
-}
-
-function Step2({ lang, onBack, onComplete }: Step2Props) {
-  const s = STRINGS[lang];
-  const { playTyping } = useSound();
+  const [step, setStep] = useState<1 | 2>(1);
+  const [selectedLang, setSelectedLang] = useState<'es' | 'en'>(systemLang);
   const [phase, setPhase] = useState<Phase>('idle');
+  const s = STRINGS[systemLang];
+
+  function goToStep(s: 1 | 2) {
+    setStep(s);
+    onStepChange(s);
+  }
 
   useEffect(() => {
-    const t = setTimeout(() => setPhase('typing-welcome'), IDLE_DELAY);
+    const t = setTimeout(() => setPhase('typing'), IDLE_DELAY);
     return () => clearTimeout(t);
   }, []);
+
+  useEffect(() => {
+    if (phase !== 'pausing') return;
+    const t = setTimeout(() => setPhase('done'), 600);
+    return () => clearTimeout(t);
+  }, [phase]);
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) { if (e.key === 'Enter') onComplete('/'); }
@@ -140,167 +138,126 @@ function Step2({ lang, onBack, onComplete }: Step2Props) {
     return () => window.removeEventListener('keydown', onKey);
   }, [onComplete]);
 
-  useEffect(() => {
-    if (phase !== 'pausing') return;
-    const t = setTimeout(() => setPhase('done'), 800);
-    return () => clearTimeout(t);
-  }, [phase]);
-
-  const descText = useTypewriter(s.step2Desc, phase === 'typing-welcome', () => setPhase('pausing'), playTyping);
-  const cursor = useCursor(phase);
-
-  return (
-    <div className="flex-1 flex flex-col font-mono" style={{ height: '100%', gap: 'var(--gap-page)' }}>
-      <div className="flex" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-        <div className="flex" style={{ gap: 'var(--gap-block)' }}>
-          <button type="button" onClick={onBack} className="btn-secondary font-mono" data-sound="interactive">[&lt;]</button>
-          <SoundToggle />
-          <button type="button" onClick={() => onComplete('/')} className="btn-secondary font-mono" data-sound="interactive">[SKIP]</button>
-        </div>
-        <StepDots step={2} />
-      </div>
-
-      <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-        <p className="text-txt-s">{s.step2Label}</p>
-        {phase !== 'idle' && (
-          <p className="text-txt-base">
-            {phase === 'done' ? s.step2Desc : descText}
-            <span aria-hidden="true" style={{ color: 'var(--color-zinc-50)' }}>{cursor}</span>
-          </p>
-        )}
-      </div>
-
-      {phase === 'done' && (
-        <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-          <p className="text-txt-s">{s.stepDestination}</p>
-          <div className="flex" style={{ gap: 'var(--gap-block)' }}>
-            {NAV_LINKS.map(({ label, path, dest }) => (
-              <button
-                key={path}
-                type="button"
-                data-destination={dest}
-                onClick={() => onComplete(path)}
-                className="btn-action font-mono"
-                style={{ fontSize: '14px' }}
-                data-sound="interactive"
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-    </div>
-  );
-}
-
-export function OnboardingPage({ onComplete }: OnboardingPageProps) {
-  const { setLang } = useAppStore();
-  const [step, setStep] = useState<1 | 2>(1);
-  const [selectedLang, setSelectedLang] = useState<'es' | 'en'>(systemLang);
-  const [sessionStamp] = useState(getSessionStamp);
-  const s1 = STRINGS[systemLang];
-  const { playTyping } = useSound();
-  const [phase1, setPhase1] = useState<Phase>('idle');
-  const [audioUnlocked, setAudioUnlocked] = useState(false);
-
-  useEffect(() => {
-    function unlock() { setAudioUnlocked(true); }
-    document.addEventListener('touchstart', unlock, { once: true, passive: true });
-    document.addEventListener('click', unlock, { once: true });
-    return () => {
-      document.removeEventListener('touchstart', unlock);
-      document.removeEventListener('click', unlock);
-    };
-  }, []);
-
-  useEffect(() => {
-    const t = setTimeout(() => setPhase1('typing-stamp'), IDLE_DELAY);
-    return () => clearTimeout(t);
-  }, []);
-
-  useEffect(() => {
-    function onKey(e: KeyboardEvent) {
-      if (e.key === 'Enter') onComplete('/');
-    }
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [onComplete]);
-
-  useEffect(() => {
-    if (phase1 !== 'pausing') return;
-    const t = setTimeout(() => setPhase1('done'), 800);
-    return () => clearTimeout(t);
-  }, [phase1]);
-
-  const safePlayTyping = audioUnlocked ? playTyping : undefined;
-  const stampText   = useTypewriter(sessionStamp,    phase1 === 'typing-stamp',   () => setPhase1('typing-welcome'), safePlayTyping);
-  const welcomeText = useTypewriter(s1.step1Welcome, phase1 === 'typing-welcome', () => setPhase1('pausing'), safePlayTyping);
-  const cursor1 = useCursor(phase1);
+  const welcomeText = useTypewriter(s.welcome, phase === 'typing', () => setPhase('pausing'), playTyping);
+  const cursor = useCursor(phase === 'typing');
 
   function handleLang(l: 'es' | 'en') {
     setSelectedLang(l);
     setLang(l);
-    setStep(2);
+  }
+
+  function handleToggleSound(target: boolean) {
+    if (soundEnabled !== target) {
+      toggleSound();
+      if (target) playClick();
+    }
+  }
+
+  function handleToggleMusic(target: boolean) {
+    if (musicEnabled !== target) toggleMusic();
   }
 
   if (step === 2) {
+    const s2 = STRINGS[selectedLang];
     return (
-      <Step2
-        key={selectedLang}
-        lang={selectedLang}
-        onBack={() => setStep(1)}
-        onComplete={onComplete}
-      />
+      <PreloadShell>
+        <div className="flex flex-col" style={{ gap: 'var(--gap-page)' }}>
+          <p className="text-txt-base">{s2.stepDesc}</p>
+
+          <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
+            <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+              <p className="text-txt-s">{s2.stepDestination}</p>
+              <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
+                {NAV_LINKS.map(({ label, path, dest }) => (
+                  <button
+                    key={path}
+                    type="button"
+                    data-destination={dest}
+                    onClick={() => onComplete(path)}
+                    className="btn-nav btn-nav--active font-mono"
+                    data-sound="interactive"
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex" style={{ gap: 'var(--gap-block)' }}>
+            <button type="button" onClick={() => goToStep(1)} className="btn-secondary font-mono" data-sound="interactive">{s2.navBack}</button>
+            <button type="button" onClick={() => onComplete('/')} className="btn-secondary font-mono" data-sound="interactive">{s2.navSkip}</button>
+          </div>
+        </div>
+
+        <StepBar step={2} />
+      </PreloadShell>
     );
   }
 
   return (
-    <div className="flex-1 flex flex-col font-mono" style={{ height: '100%', gap: 'var(--gap-page)' }}>
-      <div className="flex" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-        <div className="flex" style={{ gap: 'var(--gap-block)' }}>
-          <SoundToggle />
-          <button type="button" onClick={() => onComplete('/')} className="btn-secondary font-mono" data-sound="interactive">[SKIP]</button>
-        </div>
-        <StepDots step={1} />
-      </div>
-
-      <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-        <p className="text-txt-s">{s1.step1Label}</p>
-        {phase1 !== 'idle' && (
+    <PreloadShell>
+      <div className="flex flex-col" style={{ gap: 'var(--gap-page)' }}>
+        {phase !== 'idle' && (
           <p className="text-txt-base">
-            {phase1 === 'typing-stamp' ? stampText : sessionStamp}
-            {phase1 === 'typing-stamp' && <span aria-hidden="true" style={{ color: 'var(--color-zinc-50)' }}>{cursor1}</span>}
+            {phase === 'pausing' || phase === 'done' ? s.welcome : welcomeText}
+            {(phase === 'typing' || phase === 'pausing') && <span aria-hidden="true" style={{ color: 'var(--color-zinc-50)' }}>{cursor}</span>}
           </p>
         )}
-        {phase1 !== 'idle' && phase1 !== 'typing-stamp' && (
-          <p className="text-txt-base">
-            {phase1 === 'pausing' || phase1 === 'done' ? s1.step1Welcome : welcomeText}
-            <span aria-hidden="true" style={{ color: 'var(--color-zinc-50)' }}>{cursor1}</span>
-          </p>
+
+        {phase === 'done' && (
+          <>
+            <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
+              {/* Volume */}
+              <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+                <p className="text-txt-s">{s.stepVolume}</p>
+                <div className="flex" style={{ gap: 'var(--gap-block)' }}>
+                  <button type="button" className="btn-secondary font-mono" data-sound="interactive">[EN]</button>
+                  <button type="button" className="btn-nav btn-nav--active font-mono" data-sound="interactive">[ES]</button>
+                </div>
+              </div>
+
+              {/* Sound */}
+              <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+                <p className="text-txt-s">{s.stepSound}</p>
+                <div className="flex" style={{ gap: 'var(--gap-block)' }}>
+                  <button type="button" onClick={() => handleToggleSound(true)} className={active(soundEnabled)} data-sound="interactive">[ON]</button>
+                  <button type="button" onClick={() => handleToggleSound(false)} className={active(!soundEnabled)} data-sound="interactive">[OFF]</button>
+                </div>
+              </div>
+
+              {/* Music */}
+              <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+                <p className="text-txt-s">{s.stepMusic}</p>
+                <div className="flex" style={{ gap: 'var(--gap-block)' }}>
+                  <button type="button" onClick={() => handleToggleMusic(true)} className={active(musicEnabled)} data-sound="interactive">[ON]</button>
+                  <button type="button" onClick={() => handleToggleMusic(false)} className={active(!musicEnabled)} data-sound="interactive">[OFF]</button>
+                </div>
+              </div>
+
+              {/* Language */}
+              <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+                <p className="text-txt-s">{s.stepLang}</p>
+                <div className="flex" style={{ gap: 'var(--gap-block)' }}>
+                  {(['en', 'es'] as const).map((l) => (
+                    <button key={l} type="button" onClick={() => handleLang(l)} className={active(selectedLang === l)} data-sound="interactive">
+                      [{l.toUpperCase()}]
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Skip + Continue */}
+            <div className="flex" style={{ gap: 'var(--gap-block)' }}>
+              <button type="button" onClick={() => onComplete('/')} className="btn-secondary font-mono" data-sound="interactive">{s.stepSkip}</button>
+              <button type="button" onClick={() => goToStep(2)} className="btn-nav btn-nav--active font-mono" data-sound="interactive">{STRINGS[selectedLang].stepContinue}</button>
+            </div>
+          </>
         )}
       </div>
 
-      {phase1 === 'done' && (
-        <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-          <p className="text-txt-s">{s1.stepLang}</p>
-          <div className="flex" style={{ gap: 'var(--gap-block)' }}>
-            {(['en', 'es'] as const).map((l) => (
-              <button
-                key={l}
-                type="button"
-                onClick={() => handleLang(l)}
-                className="btn-action font-mono"
-                data-sound="interactive"
-              >
-                [{l.toUpperCase()}]
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-    </div>
+      <StepBar step={1} />
+    </PreloadShell>
   );
 }

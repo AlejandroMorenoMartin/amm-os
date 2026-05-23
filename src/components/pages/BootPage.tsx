@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useAppStore } from '../../store/useAppStore';
 import { useT } from '../../i18n';
+import { PreloadShell } from '../shell/PreloadShell';
 
 interface BootPageProps {
   onComplete: () => void;
@@ -50,12 +51,9 @@ export function BootPage({ onComplete }: BootPageProps) {
   }, [lang]);
 
   return (
-    <div className="flex-1 flex flex-col font-mono" style={{ height: '100%' }}>
-      {/* Top: label + lines */}
+    <PreloadShell>
       <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-        <p className="text-txt-s" style={{ color: 'var(--color-zinc-600)' }}>
-          AMM-OS-V4
-        </p>
+        <p className="text-txt-s" style={{ color: 'var(--color-zinc-600)' }}>AMM-OS-V4</p>
         {lines.slice(0, visibleLines).map((line, i) => {
           const spaceIdx = line.lastIndexOf(' ');
           const body = spaceIdx !== -1 ? line.slice(0, spaceIdx) : line;
@@ -67,20 +65,6 @@ export function BootPage({ onComplete }: BootPageProps) {
           );
         })}
       </div>
-
-      {/* Bottom: progress bar + skip */}
-      <div className="flex flex-col" style={{ marginTop: 'auto', gap: 'var(--gap-block)' }}>
-        <div aria-hidden="true" style={{ height: '4px', background: 'var(--color-zinc-800)' }}>
-          <div
-            style={{
-              height: '100%',
-              width: `${(visibleLines / lines.length) * 100}%`,
-              background: 'var(--color-zinc-400)',
-              transition: 'width 300ms ease',
-            }}
-          />
-        </div>
-      </div>
-    </div>
+    </PreloadShell>
   );
 }

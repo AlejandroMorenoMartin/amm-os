@@ -15,6 +15,7 @@ import { useArcadeControls } from './hooks/useArcadeControls';
 function AppRoutes() {
   const { bootDone, completeBoot } = useAppStore();
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [onboardingStep, setOnboardingStep] = useState<1 | 2>(1);
   const navigate = useNavigate();
   const { pathname } = useLocation();
   useArcadeControls();
@@ -35,7 +36,7 @@ function AppRoutes() {
 
   if (!bootDone) {
     return (
-      <Shell hideBars>
+      <Shell hideCtrl hideBottomBar>
         <BootPage onComplete={handleBootComplete} />
       </Shell>
     );
@@ -43,8 +44,11 @@ function AppRoutes() {
 
   if (showOnboarding) {
     return (
-      <Shell hideBars>
-        <OnboardingPage onComplete={handleOnboardingComplete} />
+      <Shell hideCtrl={onboardingStep === 1} hideBottomBar>
+        <OnboardingPage
+          onComplete={handleOnboardingComplete}
+          onStepChange={setOnboardingStep}
+        />
       </Shell>
     );
   }
