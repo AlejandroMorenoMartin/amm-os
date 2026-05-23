@@ -1,5 +1,6 @@
 import { forwardRef } from 'react';
 import { useAppStore } from '../../store/useAppStore';
+import { useSound } from '../../hooks/useSound';
 import type { Lang } from '../../store/useAppStore';
 import { useT } from '../../i18n';
 
@@ -8,7 +9,8 @@ interface TopBarProps {
 }
 
 export const TopBar = forwardRef<HTMLElement, TopBarProps>(function TopBar({ style }, ref) {
-  const { lang, setLang } = useAppStore();
+  const { lang, setLang, soundEnabled, toggleSound } = useAppStore();
+  const { playClick } = useSound();
   const { t } = useT();
 
   const toggleLang = () => {
@@ -21,6 +23,11 @@ export const TopBar = forwardRef<HTMLElement, TopBarProps>(function TopBar({ sty
     await navigator.share({ url: window.location.href });
   };
 
+  const handleToggleSound = () => {
+    toggleSound();
+    if (!soundEnabled) playClick();
+  };
+
   return (
     <header ref={ref} style={style} className="fixed top-0 left-0 right-0 z-50 flex justify-center text-txt-s font-mono shell-bar-top">
       <div className="w-full flex items-center justify-between" style={{ maxWidth: 'var(--shell-max-width)', paddingInline: 'var(--shell-padding)', paddingBlock: 'var(--shell-padding)' }}>
@@ -29,11 +36,22 @@ export const TopBar = forwardRef<HTMLElement, TopBarProps>(function TopBar({ sty
           AMM-OS-V4
         </span>
         <div className="flex items-center" style={{ gap: 'var(--gap-block)' }}>
-          <button onClick={handleShare} className="btn-secondary has-tooltip" aria-label={t.topbar.share}>
+          <button
+            onClick={handleToggleSound}
+            className="btn-secondary has-tooltip"
+            aria-label={soundEnabled ? t.topbar.soundOff : t.topbar.soundOn}
+            data-sound="interactive"
+          >
+            {soundEnabled ? '[♪]' : '[♫]'}
+            <span className="tooltip tooltip--down">
+              {soundEnabled ? t.topbar.soundOff : t.topbar.soundOn}
+            </span>
+          </button>
+          <button onClick={handleShare} className="btn-secondary has-tooltip" aria-label={t.topbar.share} data-sound="interactive">
             [&gt;&gt;]
             <span className="tooltip tooltip--down">{t.topbar.share}</span>
           </button>
-          <button onClick={toggleLang} className="btn-secondary has-tooltip" aria-label={t.topbar.switchLang}>
+          <button onClick={toggleLang} className="btn-secondary has-tooltip" aria-label={t.topbar.switchLang} data-sound="interactive">
             [{lang.toUpperCase()}]
             <span className="tooltip tooltip--down">{t.topbar.switchLang}</span>
           </button>
