@@ -23,11 +23,11 @@
   --color-blue-300: #0BC0EF;
   --color-blue-400: #06A3F7;
   --color-blue-500: #0086FF;
-  --color-blue-600: #124D9C;
-  --color-blue-700: #0C1A67;
-  --color-blue-800: #040F33;
-  --color-blue-900: #010A1B;
-  --color-blue-950: #000209;
+  --color-blue-600: #04173D;
+  --color-blue-700: #031333;
+  --color-blue-800: #020E26;
+  --color-blue-900: #020D22;
+  --color-blue-950: #010A1B;
 
   --color-orange: #F97316;
   --color-purple: #BD13E8;
@@ -73,7 +73,8 @@
 }
 /* crosshair hover: zinc-50 + círculo relleno, líneas interrumpidas — interactivos + cards */
 a:hover, a:hover *, button:hover, button:hover *, [role="button"]:hover, [role="button"]:hover *, [tabindex]:hover, [tabindex]:hover *,
-.project-row-wrap:hover, .project-row-wrap:hover * {
+.project-row-wrap:hover, .project-row-wrap:hover *,
+.skill-card:hover, .skill-card:hover * {
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Crect width='36' height='36' fill='transparent'/%3E%3Cline x1='18' y1='2' x2='18' y2='15' stroke='%23FAFAFA' stroke-width='1'/%3E%3Cline x1='18' y1='21' x2='18' y2='34' stroke='%23FAFAFA' stroke-width='1'/%3E%3Cline x1='2' y1='18' x2='15' y2='18' stroke='%23FAFAFA' stroke-width='1'/%3E%3Cline x1='21' y1='18' x2='34' y2='18' stroke='%23FAFAFA' stroke-width='1'/%3E%3Ccircle cx='18' cy='18' r='3' fill='%23FAFAFA' stroke='%23FAFAFA' stroke-width='1'/%3E%3C/svg%3E") 18 18, crosshair !important;
 }
 /* crosshair active: azul-500, 30px (-15%) — cualquier superficie */
@@ -82,7 +83,8 @@ a:hover, a:hover *, button:hover, button:hover *, [role="button"]:hover, [role="
 }
 /* crosshair active con círculo: azul-500, 30px — interactivos + cards */
 a:active, a:active *, button:active, button:active *, [role="button"]:active, [role="button"]:active *, [tabindex]:active, [tabindex]:active *,
-.project-row-wrap:active, .project-row-wrap:active * {
+.project-row-wrap:active, .project-row-wrap:active *,
+.skill-card:active, .skill-card:active * {
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Crect width='30' height='30' fill='transparent'/%3E%3Cline x1='15' y1='2' x2='15' y2='12' stroke='%230086FF' stroke-width='1'/%3E%3Cline x1='15' y1='18' x2='15' y2='28' stroke='%230086FF' stroke-width='1'/%3E%3Cline x1='2' y1='15' x2='12' y2='15' stroke='%230086FF' stroke-width='1'/%3E%3Cline x1='18' y1='15' x2='28' y2='15' stroke='%230086FF' stroke-width='1'/%3E%3Ccircle cx='15' cy='15' r='3' fill='%230086FF' stroke='%230086FF' stroke-width='1'/%3E%3C/svg%3E") 15 15, crosshair !important;
 }
 
@@ -214,19 +216,20 @@ html, body, #root {
 .shell-bar-bottom { background: var(--color-background); border-top: var(--border-default); }
 
 /* ProjectRow */
-.project-row-btn { display: flex; flex-direction: column; gap: var(--gap-card); padding: 0.75rem 0; width: 100%; }
-.project-row-wrap:first-child .project-row-btn { padding-top: 0; }
+.project-row-wrap { background: var(--color-blue-950); border: 0.5px solid var(--color-blue-600); }
+.project-row-wrap:hover { background: var(--color-blue-900); }
+.project-row-wrap--focused { background: var(--color-blue-800); }
+.project-row-wrap--focused:hover { background: var(--color-blue-800); }
+.project-row-btn { display: flex; flex-direction: column; gap: var(--gap-card); padding: 0.5rem 1rem; width: 100%; background: none; border: none; text-align: left; cursor: pointer; text-transform: none; }
 .project-row-wrap:hover .project-name { text-decoration: underline; }
-.project-row-wrap {
-  position: relative;
-  padding-bottom: 0;
-  transition: padding-bottom 150ms ease;
-}
-.project-row-wrap--focused {
-  padding-bottom: var(--gap-section);
-}
-.project-row-expanded-block { border-left: 0.5px solid var(--color-blue-500); padding: 0.5rem 0 var(--gap-section) var(--gap-section); }
+.project-row-expanded-block { padding: 0 1rem 0.5rem; }
 .project-name { color: var(--color-blue-500); text-decoration: none; }
+.skill-card { background: var(--color-blue-950); border: 0.5px solid var(--color-blue-600); }
+.skill-card:hover { background: var(--color-blue-900); }
+.skill-card--open { background: var(--color-blue-800); }
+.skill-card--open:hover { background: var(--color-blue-800); }
+.skill-group-btn { font-size: 14px; line-height: 1.5; font-weight: 400; color: var(--color-blue-500); text-decoration: none; }
+.skill-group-btn:hover { text-decoration: underline; }
 .kpi { color: var(--color-orange); }
 .skill-highlight { color: var(--color-orange); }
 .project-divider { border: none; border-top: var(--border-dashed); width: 100%; margin: 0; }
@@ -267,7 +270,7 @@ html, body, #root {
 .photo-btn--full { display: block; width: 100%; }
 
 /* photo-btn--half: 100% en mobile, 192px en desktop (about) */
-.photo-btn--half { display: block; width: 100%; max-width: 280px; }
+.photo-btn--half { display: block; width: 100%; }
 @media (min-width: 768px) and (min-height: 500px) { .photo-btn--half { width: 360px; max-width: none; } }
 .desktop-block  { display: none; }
 .desktop-inline { display: none; }
@@ -409,12 +412,12 @@ html, body, #root {
   font-size: 14px;
   padding: 0.4rem 0.8rem;
   text-transform: uppercase;
-  background: transparent;
+  background: var(--color-blue-700);
   border: 0.5px solid var(--color-blue-500);
   color: var(--color-blue-500);
 }
 .btn-action:hover {
-  background: var(--color-blue-800);
+  background: var(--color-blue-600);
 }
 .btn-action:active {
   background: var(--color-blue-500);

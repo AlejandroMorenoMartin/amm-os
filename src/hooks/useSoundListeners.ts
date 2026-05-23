@@ -14,10 +14,10 @@ export function useSoundListeners() {
       if (getInteractiveTarget(e)) playClick();
     }
 
-    document.addEventListener('click', onClick);
+    document.addEventListener('click', onClick, true);
 
     return () => {
-      document.removeEventListener('click', onClick);
+      document.removeEventListener('click', onClick, true);
     };
   }, [playClick]);
 }

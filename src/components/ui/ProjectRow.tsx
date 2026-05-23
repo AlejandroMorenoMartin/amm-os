@@ -12,36 +12,48 @@ interface ProjectRowProps {
   role: string;
   responsibilities: string;
   metrics: string;
+  update: string;
+  overview: string;
 }
 
 export function ProjectRow({
   project, isExpanded, lang, onToggle, onOpen,
-  challenge, role, responsibilities, metrics,
+  challenge, role, responsibilities, metrics, update, overview,
 }: ProjectRowProps) {
   return (
     <div className={`font-mono project-row-wrap${isExpanded ? ' project-row-wrap--focused' : ''}`} data-slug={project.slug}>
       <button
         onClick={() => onToggle(project.slug)}
-        className="w-full text-left project-row-btn"
-        style={{ cursor: 'pointer' }}
+        className="project-row-btn"
         aria-expanded={isExpanded}
         data-sound="interactive"
       >
-        <span className="text-txt-base project-name">{project.name}</span>
-        <span className="text-txt-s italic">{project.date}</span>
-        <span className="text-txt-base">{project.synopsis[lang]}</span>
+        <div className="flex items-center justify-between" style={{ gap: '1rem' }}>
+          <span className="project-name" style={{ fontSize: '14px', textTransform: 'none' }}>{project.name}</span>
+          <span className="project-name" style={{ fontSize: '14px', textTransform: 'none', flexShrink: 0 }}>{isExpanded ? '[-]' : '[+]'}</span>
+        </div>
       </button>
 
       {isExpanded && (
-        <div className="flex flex-col project-row-expanded-block" style={{ gap: 'var(--gap-section)' }}>
+        <div className="flex flex-col project-row-expanded-block" style={{ gap: '1rem', padding: '0.5rem 1rem 1rem' }}>
           <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-            <span className="card-label">{challenge}</span>
-            <span className="text-txt-base">{project.challenge[lang]}</span>
+            <span className="card-label">{update}</span>
+            <span className="text-txt-base">{project.date}</span>
+          </div>
+
+          <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+            <span className="card-label">{overview}</span>
+            <span className="text-txt-base">{project.synopsis[lang]}</span>
           </div>
 
           <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
             <span className="card-label">{role}</span>
             <span className="text-txt-base">{project.role}</span>
+          </div>
+
+          <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+            <span className="card-label">{challenge}</span>
+            <span className="text-txt-base">{project.challenge[lang]}</span>
           </div>
 
           <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>

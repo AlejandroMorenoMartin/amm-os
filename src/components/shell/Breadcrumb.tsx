@@ -1,14 +1,12 @@
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { projects } from '../../data/projects';
 import { useAppStore } from '../../store/useAppStore';
-import { useT } from '../../i18n';
 
 export function Breadcrumb() {
   const { pathname } = useLocation();
   const { slug } = useParams<{ slug: string }>();
   const { toggleProject, expandedProject } = useAppStore();
   const navigate = useNavigate();
-  const { t } = useT();
 
   if (!pathname.startsWith('/projects/') || !slug) return null;
 

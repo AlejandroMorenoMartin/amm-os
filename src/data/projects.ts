@@ -23,7 +23,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     slug: 'amm-os',
-    name: 'AMM_OS.app',
+    name: 'AMM-OS.app',
     date: '02/2026',
     synopsis: {
       es: 'Portfolio que transforma la narrativa de diseño en una experiencia técnica funcional.',
@@ -89,7 +89,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'senzo-studio',
-    name: 'SENZO.studio',
+    name: 'Senzo.studio',
     date: '01/2026',
     synopsis: {
       es: 'Plataforma digital inmersiva para un estudio de efectos visuales de alta gama.',
@@ -155,7 +155,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'casa-del-aire',
-    name: 'CASA_DEL_AIRE.app',
+    name: 'Casa-del-aire.app',
     date: '01/2026',
     synopsis: {
       es: 'Experiencia digital informativa y nexo de reservas para alojamiento rural boutique.',
@@ -221,7 +221,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'sazon',
-    name: 'SAZON.app',
+    name: 'Sazon.app',
     date: '05/2026',
     synopsis: {
       es: 'Plataforma social para la gestión inteligente de recetas y el intercambio de cultura culinaria.',
@@ -288,7 +288,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'forma',
-    name: 'FORMA.app',
+    name: 'Forma.app',
     date: '05/2026',
     synopsis: {
       es: 'Plataforma de análisis biométrico para la optimización del rendimiento deportivo y la salud física.',

@@ -9,166 +9,170 @@ export function ResumePage() {
   const { t } = useT();
 
   return (
-    <article className="flex-1 font-mono flex flex-col" style={{ gap: 'var(--gap-page)' }}>
+    <article className="flex-1 font-mono flex flex-col" style={{ gap: 'var(--gap-section)' }}>
       <PageTitle>{t.cv.title}</PageTitle>
 
       {/* Experiencia */}
       <section className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
         <SectionLabel>{t.cv.experiencia}</SectionLabel>
-        <CVEntry period={t.cv.exp1Period} company={t.cv.exp1Company} companyUrl={t.cv.exp1CompanyUrl} role={t.cv.exp1Role} description={t.cv.exp1Desc} skills={t.cv.exp1Skills} tools={t.cv.exp1Tools} kpis={t.cv.exp1Kpis} labelPeriod={t.cv.labelPeriod} labelDescription={t.cv.labelDescription} labelCompany={t.cv.labelCompany} labelResponsibilities={t.cv.labelResponsibilities} labelMetrics={t.cv.labelMetrics} labelTools={t.cv.labelTools} />
-        <hr className="project-divider" />
-        <CVEntry period={t.cv.exp2Period} company={t.cv.exp2Company} companyUrl={t.cv.exp2CompanyUrl} role={t.cv.exp2Role} description={t.cv.exp2Desc} skills={t.cv.exp2Skills} tools={t.cv.exp2Tools} kpis={t.cv.exp2Kpis} labelPeriod={t.cv.labelPeriod} labelDescription={t.cv.labelDescription} labelCompany={t.cv.labelCompany} labelResponsibilities={t.cv.labelResponsibilities} labelMetrics={t.cv.labelMetrics} labelTools={t.cv.labelTools} />
-        <hr className="project-divider" />
-        <CVEntry period={t.cv.exp3Period} company={t.cv.exp3Company} companyUrl={t.cv.exp3CompanyUrl} role={t.cv.exp3Role} description={t.cv.exp3Desc} skills={t.cv.exp3Skills} tools={t.cv.exp3Tools} kpis={t.cv.exp3Kpis} labelPeriod={t.cv.labelPeriod} labelDescription={t.cv.labelDescription} labelCompany={t.cv.labelCompany} labelResponsibilities={t.cv.labelResponsibilities} labelMetrics={t.cv.labelMetrics} labelTools={t.cv.labelTools} />
-        <hr className="project-divider" />
-        <CVEntry period={t.cv.exp4Period} company={t.cv.exp4Company} companyUrl={t.cv.exp4CompanyUrl} role={t.cv.exp4Role} description={t.cv.exp4Desc} skills={t.cv.exp4Skills} tools={t.cv.exp4Tools} kpis={t.cv.exp4Kpis} labelPeriod={t.cv.labelPeriod} labelDescription={t.cv.labelDescription} labelCompany={t.cv.labelCompany} labelResponsibilities={t.cv.labelResponsibilities} labelMetrics={t.cv.labelMetrics} labelTools={t.cv.labelTools} />
+        <div className="flex flex-col" style={{ gap: 'var(--gap-card)' }}>
+          <CVEntry t={t} prefix="exp1" />
+          <CVEntry t={t} prefix="exp2" />
+          <CVEntry t={t} prefix="exp3" />
+          <CVEntry t={t} prefix="exp4" />
+        </div>
       </section>
 
       {/* Educación */}
       <section className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
         <SectionLabel>{t.cv.educacion}</SectionLabel>
-        <EduTable t={t} />
+        <div className="flex flex-col" style={{ gap: 'var(--gap-card)' }}>
+          <EduEntry t={t} prefix="edu4" />
+          <EduEntry t={t} prefix="edu1" />
+          <EduEntry t={t} prefix="edu2" />
+          <EduEntry t={t} prefix="edu3" />
+        </div>
       </section>
-
     </article>
   );
 }
 
-function CVEntry({ period, company, companyUrl, role, description, skills, tools, kpis, labelPeriod, labelDescription, labelCompany, labelResponsibilities, labelMetrics, labelTools }: {
-  period: string;
-  company: string;
-  companyUrl: string;
-  role: string;
-  description: string;
-  skills: string[];
-  tools: string[];
-  kpis: { value: string; label: string }[];
-  labelPeriod: string;
-  labelDescription: string;
-  labelCompany: string;
-  labelResponsibilities: string;
-  labelMetrics: string;
-  labelTools: string;
-}) {
+function CVEntry({ t, prefix }: { t: Strings; prefix: string }) {
+  const [open, setOpen] = useState(false);
+  const p = prefix as 'exp1' | 'exp2' | 'exp3' | 'exp4';
+
+  const role = t.cv[`${p}Role` as keyof typeof t.cv] as string;
+  const period = t.cv[`${p}Period` as keyof typeof t.cv] as string;
+  const company = t.cv[`${p}Company` as keyof typeof t.cv] as string;
+  const companyUrl = t.cv[`${p}CompanyUrl` as keyof typeof t.cv] as string;
+  const description = t.cv[`${p}Desc` as keyof typeof t.cv] as string;
+  const skills = t.cv[`${p}Skills` as keyof typeof t.cv] as string[];
+  const tools = t.cv[`${p}Tools` as keyof typeof t.cv] as string[];
+  const kpis = t.cv[`${p}Kpis` as keyof typeof t.cv] as { value: string; label: string }[];
+
   return (
-    <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
-      <span className="text-txt-l">{role}</span>
-
-      <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-        <span className="card-label">{labelPeriod}</span>
-        <span className="text-txt-base">{period}</span>
+    <div
+      className={`skill-card${open ? ' skill-card--open' : ''}`}
+      onClick={() => setOpen((o) => !o)}
+      data-sound="interactive"
+      style={{ cursor: 'pointer' }}
+    >
+      <div className="flex items-center justify-between skill-group-btn" style={{ padding: '0.5rem 1rem' }}>
+        <span>{role}</span>
+        <span style={{ flexShrink: 0, marginLeft: '1rem' }}>{open ? '[-]' : '[+]'}</span>
       </div>
 
-      <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-        <span className="card-label">{labelDescription}</span>
-        <span className="text-txt-base">{description}</span>
-      </div>
-
-      <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-        <span className="card-label">{labelCompany}</span>
-        <span className="text-txt-base"><LinkExternal href={companyUrl}>{company}</LinkExternal></span>
-      </div>
-
-      {skills.length > 0 && (
-        <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-          <span className="card-label">{labelResponsibilities}</span>
-          <ul className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-            {skills.map((skill) => (
-              <li key={skill} className="text-txt-base"><span>&gt;</span> {skill}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {kpis.length > 0 && (
-        <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-          <span className="card-label">{labelMetrics}</span>
-          <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
-            {kpis.map((kpi) => (
-              <span key={kpi.value} className="chip metric-chip">{kpi.value} · {kpi.label}</span>
-            ))}
+      {open && (
+        <div className="flex flex-col" style={{ gap: '1rem', padding: '0.5rem 1rem 1rem' }}>
+          <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+            <span className="card-label">{t.cv.labelPeriod}</span>
+            <span className="text-txt-base">{period}</span>
           </div>
-        </div>
-      )}
 
-      {tools.length > 0 && (
-        <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-          <span className="card-label">{labelTools}</span>
-          <span className="text-txt-base">{tools.join(', ')}</span>
+          <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+            <span className="card-label">{t.cv.labelCompany}</span>
+            <span className="text-txt-base"><LinkExternal href={companyUrl}>{company}</LinkExternal></span>
+          </div>
+
+          <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+            <span className="card-label">{t.cv.labelDescription}</span>
+            <span className="text-txt-base">{description}</span>
+          </div>
+
+          {skills.length > 0 && (
+            <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+              <span className="card-label">{t.cv.labelResponsibilities}</span>
+              <ul className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+                {skills.map((skill) => (
+                  <li key={skill} className="text-txt-base"><span>&gt;</span> {skill}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {kpis.length > 0 && (
+            <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+              <span className="card-label">{t.cv.labelMetrics}</span>
+              <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
+                {kpis.map((kpi) => (
+                  <span key={kpi.value} className="chip metric-chip">{kpi.value} · {kpi.label}</span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {tools.length > 0 && (
+            <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+              <span className="card-label">{t.cv.labelTools}</span>
+              <span className="text-txt-base">{tools.join(', ')}</span>
+            </div>
+          )}
         </div>
       )}
     </div>
   );
 }
 
-function ExpandableCell({ items }: { items: string[] }) {
-  const [expanded, setExpanded] = useState(false);
-  const text = items.join(', ');
+function EduEntry({ t, prefix }: { t: Strings; prefix: string }) {
+  const [open, setOpen] = useState(false);
+  const p = prefix as 'edu1' | 'edu2' | 'edu3' | 'edu4';
+
+  const category = t.cv[`${p}Category` as keyof typeof t.cv] as string;
+  const institution = t.cv[`${p}Institution` as keyof typeof t.cv] as string;
+  const institutionUrl = t.cv[`${p}InstitutionUrl` as keyof typeof t.cv] as string;
+  const period = t.cv[`${p}Period` as keyof typeof t.cv] as string;
+  const summary = t.cv[`${p}Summary` as keyof typeof t.cv] as string;
+  const courses = t.cv[`${p}Courses` as keyof typeof t.cv] as string[];
+  const tools = t.cv[`${p}Tools` as keyof typeof t.cv] as string[];
 
   return (
-    <span>
-      {expanded ? text : (
-        <span style={{ display: '-webkit-box', WebkitLineClamp: 1, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-          {text}
-        </span>
-      )}
-      {items.length > 1 && (
-        <button
-          type="button"
-          onClick={() => setExpanded(e => !e)}
-          className="font-mono"
-          style={{ marginLeft: '0.4em', fontSize: 'inherit', color: 'var(--color-blue-500)', background: 'none', border: 'none', cursor: 'pointer', padding: 0, lineHeight: 'inherit' }}
-          data-sound="interactive"
-        >
-          {expanded ? '[-]' : '[+]'}
-        </button>
-      )}
-    </span>
-  );
-}
+    <div
+      className={`skill-card${open ? ' skill-card--open' : ''}`}
+      onClick={() => setOpen((o) => !o)}
+      data-sound="interactive"
+      style={{ cursor: 'pointer' }}
+    >
+      <div className="flex items-center justify-between skill-group-btn" style={{ padding: '0.5rem 1rem' }}>
+        <span>{category}</span>
+        <span style={{ flexShrink: 0, marginLeft: '1rem' }}>{open ? '[-]' : '[+]'}</span>
+      </div>
 
-function EduTable({ t }: { t: Strings }) {
-  const rows = [
-    { period: t.cv.edu4Period, institution: t.cv.edu4Institution, institutionUrl: t.cv.edu4InstitutionUrl, mode: t.cv.edu4Mode, summary: t.cv.edu4Summary, courses: t.cv.edu4Courses, tools: t.cv.edu4Tools },
-    { period: t.cv.edu1Period, institution: t.cv.edu1Institution, institutionUrl: t.cv.edu1InstitutionUrl, mode: t.cv.edu1Mode, summary: t.cv.edu1Summary, courses: t.cv.edu1Courses, tools: t.cv.edu1Tools },
-    { period: t.cv.edu2Period, institution: t.cv.edu2Institution, institutionUrl: t.cv.edu2InstitutionUrl, mode: t.cv.edu2Mode, summary: t.cv.edu2Summary, courses: t.cv.edu2Courses, tools: t.cv.edu2Tools },
-    { period: t.cv.edu3Period, institution: t.cv.edu3Institution, institutionUrl: t.cv.edu3InstitutionUrl, mode: t.cv.edu3Mode, summary: t.cv.edu3Summary, courses: t.cv.edu3Courses, tools: t.cv.edu3Tools },
-  ];
+      {open && (
+        <div className="flex flex-col" style={{ gap: '1rem', padding: '0.5rem 1rem 1rem' }}>
+          <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+            <span className="card-label">{t.cv.eduColDate}</span>
+            <span className="text-txt-base">{period}</span>
+          </div>
 
-  return (
-    <div className="edu-table-wrap">
-      <table className="edu-table">
-        <colgroup>
-          <col style={{ width: '8%' }} />
-          <col style={{ width: '15%' }} />
-          <col style={{ width: '17%' }} />
-          <col style={{ width: '30%' }} />
-          <col style={{ width: '31%' }} />
-        </colgroup>
-        <thead>
-          <tr>
-            <th>{t.cv.eduColDate}</th>
-            <th>{t.cv.eduColInstitution}</th>
-            <th>{t.cv.eduColTools}</th>
-            <th>{t.cv.eduColLearnings}</th>
-            <th>{t.cv.eduColCourses}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row) => (
-            <tr key={row.institution}>
-              <td className="edu-td-nowrap">{row.period}</td>
-              <td>
-                <LinkExternal href={row.institutionUrl}>{row.institution}</LinkExternal>
-              </td>
-              <td className="edu-td-nowrap">{row.tools.join(', ')}</td>
-              <td className="edu-td-wide">{row.summary}</td>
-              <td className="edu-td-wide"><ExpandableCell items={row.courses} /></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+            <span className="card-label">{t.cv.eduColInstitution}</span>
+            <span className="text-txt-base"><LinkExternal href={institutionUrl}>{institution}</LinkExternal></span>
+          </div>
+
+          <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+            <span className="card-label">{t.cv.eduColLearnings}</span>
+            <span className="text-txt-base">{summary}</span>
+          </div>
+
+          {tools.length > 0 && (
+            <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+              <span className="card-label">{t.cv.eduColTools}</span>
+              <span className="text-txt-base">{tools.join(', ')}</span>
+            </div>
+          )}
+
+          {courses.length > 0 && (
+            <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+              <span className="card-label">{t.cv.eduColCourses}</span>
+              <ul className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+                {courses.map((course) => (
+                  <li key={course} className="text-txt-base"><span>&gt;</span> {course}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
-

@@ -123,6 +123,7 @@ export interface Strings {
     exp4Skills: string[];
     exp4Tools: string[];
     exp4Kpis: { value: string; label: string }[];
+    edu1Category: string;
     edu1Period: string;
     edu1Institution: string;
     edu1InstitutionUrl: string;
@@ -130,6 +131,7 @@ export interface Strings {
     edu1Summary: string;
     edu1Courses: string[];
     edu1Tools: string[];
+    edu2Category: string;
     edu2Period: string;
     edu2Institution: string;
     edu2InstitutionUrl: string;
@@ -137,6 +139,7 @@ export interface Strings {
     edu2Summary: string;
     edu2Courses: string[];
     edu2Tools: string[];
+    edu3Category: string;
     edu3Period: string;
     edu3Institution: string;
     edu3InstitutionUrl: string;
@@ -144,6 +147,7 @@ export interface Strings {
     edu3Summary: string;
     edu3Courses: string[];
     edu3Tools: string[];
+    edu4Category: string;
     edu4Period: string;
     edu4Institution: string;
     edu4InstitutionUrl: string;
@@ -155,6 +159,7 @@ export interface Strings {
   skills: {
     title: string;
     tooltipSkills: string;
+    labelCapabilities: string;
     labelTools: string;
     skill1Label: string;
     skill1Items: string[];

@@ -1,6 +1,14 @@
 import { useCallback } from 'react';
-import { Howl } from 'howler';
+import { Howl, Howler } from 'howler';
 import { useAppStore } from '../store/useAppStore';
+
+function unlockAudio() {
+  if (Howler.ctx && Howler.ctx.state === 'suspended') {
+    Howler.ctx.resume();
+  }
+}
+document.addEventListener('touchstart', unlockAudio, { once: true, passive: true });
+document.addEventListener('click', unlockAudio, { once: true });
 
 const clickSound = new Howl({
   src: ['/sounds/click.wav'],
@@ -10,7 +18,8 @@ const clickSound = new Howl({
 });
 const typingSound = new Howl({
   src: ['/sounds/typing.wav'],
-  volume: 0.3,
+  volume: 0.5,
+  rate: 0.8,
   preload: true,
   sprite: { key: [0, 150] },
 });

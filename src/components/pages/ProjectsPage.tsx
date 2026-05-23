@@ -18,13 +18,12 @@ export function ProjectsPage() {
   }, [expandedProject]);
 
   return (
-    <article className="flex-1 font-mono flex flex-col" style={{ gap: 'var(--gap-page)' }}>
+    <article className="flex-1 font-mono flex flex-col" style={{ gap: 'var(--gap-section)' }}>
       <PageTitle>{t.trabajo.title}</PageTitle>
 
       <div className="projects-list flex flex-col" style={{ gap: 'var(--gap-card)' }}>
-        {projects.map((project, i) => (
+        {projects.map((project) => (
           <React.Fragment key={project.slug}>
-            {i > 0 && <hr className="project-divider" />}
             <ProjectRow
               project={project}
               isExpanded={expandedProject === project.slug}
@@ -35,6 +34,8 @@ export function ProjectsPage() {
               role={t.trabajo.role}
               responsibilities={t.trabajo.responsibilities}
               metrics={t.project.metrics}
+              update={t.project.update}
+              overview={t.trabajo.overview}
             />
           </React.Fragment>
         ))}

@@ -200,18 +200,33 @@ export function OnboardingPage({ onComplete }: OnboardingPageProps) {
   const [step, setStep] = useState<1 | 2>(1);
   const [selectedLang, setSelectedLang] = useState<'es' | 'en'>(systemLang);
   const [sessionStamp] = useState(getSessionStamp);
+  const [audioUnlocked, setAudioUnlocked] = useState(false);
 
   const s1 = STRINGS[systemLang];
   const { playTyping } = useSound();
   const [phase1, setPhase1] = useState<Phase>('idle');
 
   useEffect(() => {
-    const t = setTimeout(() => setPhase1('typing-stamp'), IDLE_DELAY);
-    return () => clearTimeout(t);
+    function unlock() { setAudioUnlocked(true); }
+    document.addEventListener('touchstart', unlock, { once: true, passive: true });
+    document.addEventListener('click', unlock, { once: true });
+    return () => {
+      document.removeEventListener('touchstart', unlock);
+      document.removeEventListener('click', unlock);
+    };
   }, []);
 
   useEffect(() => {
-    function onKey(e: KeyboardEvent) { if (e.key === 'Enter') onComplete('/'); }
+    if (!audioUnlocked) return;
+    const t = setTimeout(() => setPhase1('typing-stamp'), IDLE_DELAY);
+    return () => clearTimeout(t);
+  }, [audioUnlocked]);
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      setAudioUnlocked(true);
+      if (e.key === 'Enter') onComplete('/');
+    }
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [onComplete]);

@@ -10,7 +10,7 @@ export function BootPage({ onComplete }: BootPageProps) {
   const { lang } = useAppStore();
   const { t } = useT();
   const [visibleLines, setVisibleLines] = useState(0);
-  const [done, setDone] = useState(false);
+  const [, setDone] = useState(false);
   const called = useRef(false);
 
   const lines = [t.boot.line1, t.boot.line2, t.boot.line3, t.boot.line4, t.boot.line5, t.boot.line6];
