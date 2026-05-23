@@ -13,6 +13,7 @@ export function NavItem({ label, to }: NavItemProps) {
     <NavLink
       to={to}
       className={({ isActive }) => `btn-nav${isActive ? ' btn-nav--active' : ''}`}
+      data-sound="interactive"
       {...focusProps}
     >
       {({ isActive }) => (
