@@ -53,11 +53,10 @@ export const useAppStore = create<AppStore>()(
       version: 3,
       migrate: (persisted) => {
         const state = persisted as Partial<AppStore>;
-        return { lang: state.lang ?? 'es', soundEnabled: false };
+        return { lang: state.lang ?? 'es' };
       },
-      partialize: (s): Pick<AppStore, 'lang' | 'soundEnabled'> => ({
+      partialize: (s): Pick<AppStore, 'lang'> => ({
         lang: s.lang,
-        soundEnabled: s.soundEnabled,
       }),
     }
   )
