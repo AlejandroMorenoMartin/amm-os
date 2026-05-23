@@ -50,10 +50,10 @@ export const useAppStore = create<AppStore>()(
     }),
     {
       name: 'amm-os-store',
-      version: 1,
+      version: 2,
       migrate: (persisted) => {
         const state = persisted as Partial<AppStore>;
-        return { lang: state.lang ?? 'es', soundEnabled: state.soundEnabled ?? false };
+        return { lang: state.lang ?? 'es', soundEnabled: false };
       },
       partialize: (s): Pick<AppStore, 'lang' | 'soundEnabled'> => ({
         lang: s.lang,
