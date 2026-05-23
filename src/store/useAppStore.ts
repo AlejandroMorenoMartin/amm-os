@@ -16,12 +16,14 @@ export interface AppStore {
   focusIndex: number;
   imageModal: ImageModalState | null;
   lang: Lang;
+  soundEnabled: boolean;
   completeBoot: () => void;
   toggleProject: (slug: string) => void;
   setFocus: (index: number) => void;
   openImageModal: (data: ImageModalState) => void;
   closeImageModal: () => void;
   setLang: (lang: Lang) => void;
+  toggleSound: () => void;
 }
 
 export const useAppStore = create<AppStore>()(
@@ -32,6 +34,7 @@ export const useAppStore = create<AppStore>()(
       focusIndex: -1,
       imageModal: null,
       lang: 'es',
+      soundEnabled: true,
 
       completeBoot: () => set({ bootDone: true }),
       toggleProject: (slug) =>
@@ -43,15 +46,19 @@ export const useAppStore = create<AppStore>()(
         if (typeof document !== 'undefined') document.documentElement.lang = lang;
         set({ lang });
       },
+      toggleSound: () => set((s) => ({ soundEnabled: !s.soundEnabled })),
     }),
     {
       name: 'amm-os-store',
       version: 1,
       migrate: (persisted) => {
         const state = persisted as Partial<AppStore>;
-        return { lang: state.lang ?? 'es' };
+        return { lang: state.lang ?? 'es', soundEnabled: state.soundEnabled ?? true };
       },
-      partialize: (s): Pick<AppStore, 'lang'> => ({ lang: s.lang }),
+      partialize: (s): Pick<AppStore, 'lang' | 'soundEnabled'> => ({
+        lang: s.lang,
+        soundEnabled: s.soundEnabled,
+      }),
     }
   )
 );
