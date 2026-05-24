@@ -404,6 +404,7 @@ html, body, #root {
   color: var(--color-blue-950);
 }
 @media (hover: hover) { .btn-nav--active:hover { color: var(--color-blue-950); } }
+@media (hover: hover) { .btn-underline-hover:hover { text-decoration: underline; } }
 
 /* btn-action — BtnControl + BtnOpen */
 .btn-action {

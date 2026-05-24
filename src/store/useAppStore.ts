@@ -40,7 +40,7 @@ export const useAppStore = create<AppStore>()(
       lang: 'es',
       soundEnabled: true,
       musicEnabled: true,
-      volume: 0.5,
+      volume: 0.2,
 
       completeBoot: () => set({ bootDone: true }),
       toggleProject: (slug) =>
@@ -61,7 +61,7 @@ export const useAppStore = create<AppStore>()(
       version: 4,
       migrate: (persisted) => {
         const state = persisted as Partial<AppStore>;
-        return { lang: state.lang ?? 'es', volume: state.volume ?? 0.5 };
+        return { lang: state.lang ?? 'es', volume: state.volume ?? 0.2 };
       },
       partialize: (s): Pick<AppStore, 'lang' | 'volume'> => ({
         lang: s.lang,

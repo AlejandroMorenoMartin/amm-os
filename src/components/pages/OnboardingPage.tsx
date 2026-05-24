@@ -165,7 +165,7 @@ function OnboardingStep2({ t, onComplete, selectedLang }: Step2Props) {
                     type="button"
                     data-destination={dest}
                     onClick={() => onComplete(path)}
-                    className="btn-secondary font-mono"
+                    className="btn-secondary btn-underline-hover font-mono"
                     style={activeStyle(true)}
                     data-sound="interactive"
                   >
