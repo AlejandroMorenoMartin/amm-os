@@ -16,6 +16,7 @@ export interface Strings {
     line4: string;
     line5: string;
     line6: string;
+    line7: string;
     skip: string;
   };
   onboarding: {
@@ -65,6 +66,8 @@ export interface Strings {
   };
   trabajo: {
     title: string;
+    sectionFreelance: string;
+    sectionPersonal: string;
     colNombre: string;
     colFecha: string;
     colSinopsis: string;
@@ -169,6 +172,8 @@ export interface Strings {
   skills: {
     title: string;
     tooltipSkills: string;
+    sectionTechnical: string;
+    sectionHuman: string;
     labelCapabilities: string;
     labelTools: string;
     skill1Label: string;
@@ -180,6 +185,8 @@ export interface Strings {
     skill3Label: string;
     skill3Items: string[];
     skill3Tools: string[];
+    skill4Label: string;
+    skill4Items: string[];
     idiomas: string;
     lang1Name: string;
     lang1Level: string;

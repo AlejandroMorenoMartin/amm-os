@@ -1,6 +1,7 @@
 export interface Project {
   slug: string;
   name: string;
+  category: 'freelance' | 'personal';
   date: string;
   synopsis: { es: string; en: string };
   challenge: { es: string; en: string };
@@ -23,7 +24,8 @@ export interface Project {
 export const projects: Project[] = [
   {
     slug: 'amm-os',
-    name: 'AMM-OS.app',
+    name: 'AMM-OS',
+    category: 'personal',
     date: '02/2026',
     synopsis: {
       es: 'Portfolio que transforma la narrativa de diseño en una experiencia técnica funcional.',
@@ -89,7 +91,8 @@ export const projects: Project[] = [
   },
   {
     slug: 'senzo-studio',
-    name: 'Senzo.studio',
+    name: 'Senzo-studio',
+    category: 'freelance',
     date: '01/2026',
     synopsis: {
       es: 'Plataforma digital inmersiva para un estudio de efectos visuales de alta gama.',
@@ -155,7 +158,8 @@ export const projects: Project[] = [
   },
   {
     slug: 'casa-del-aire',
-    name: 'Casa-del-aire.app',
+    name: 'Casa-del-aire',
+    category: 'freelance',
     date: '01/2026',
     synopsis: {
       es: 'Experiencia digital informativa y nexo de reservas para alojamiento rural boutique.',
@@ -221,7 +225,8 @@ export const projects: Project[] = [
   },
   {
     slug: 'sazon',
-    name: 'Sazon.app',
+    name: 'Sazon',
+    category: 'personal',
     date: '05/2026',
     synopsis: {
       es: 'Plataforma social para la gestión inteligente de recetas y el intercambio de cultura culinaria.',
@@ -288,7 +293,8 @@ export const projects: Project[] = [
   },
   {
     slug: 'forma',
-    name: 'Forma.app',
+    name: 'Forma',
+    category: 'personal',
     date: '05/2026',
     synopsis: {
       es: 'Plataforma de análisis biométrico para la optimización del rendimiento deportivo y la salud física.',

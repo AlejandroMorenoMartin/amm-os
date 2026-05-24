@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useAppStore } from '../../store/useAppStore';
 import { useSound, playTyping } from '../../hooks/useSound';
+import { useT } from '../../i18n';
 import { PreloadShell } from '../shell/PreloadShell';
 
 interface OnboardingPageProps {
@@ -97,20 +98,109 @@ function useCursor(active: boolean) {
 
 function StepBar({ step }: { step: 1 | 2 }) {
   return (
-    <div aria-hidden="true" style={{ display: 'flex', gap: '4px' }}>
-      <div style={{ flex: 1, height: '4px', background: 'var(--color-zinc-300)' }} />
-      <div style={{ flex: 1, height: '4px', background: step === 2 ? 'var(--color-zinc-300)' : 'var(--color-zinc-700)' }} />
+    <div
+      aria-hidden="true"
+      style={{
+        position: 'fixed',
+        bottom: '1rem',
+        left: 0,
+        right: 0,
+        display: 'flex',
+        justifyContent: 'center',
+        paddingInline: 'var(--shell-padding)',
+      }}
+    >
+      <div style={{ width: '100%', maxWidth: 'var(--shell-max-width)', display: 'flex', gap: 'var(--gap-block)' }}>
+        <div style={{ flex: 1, height: '8px', background: 'var(--color-zinc-300)' }} />
+        <div style={{ flex: 1, height: '8px', background: step === 2 ? 'var(--color-zinc-300)' : 'var(--color-zinc-900)' }} />
+      </div>
     </div>
   );
 }
 
-function active(condition: boolean) {
-  return condition ? 'btn-nav btn-nav--active font-mono' : 'btn-secondary font-mono';
+import type { Strings } from '../../i18n/types';
+
+interface Step2Props {
+  t: Strings;
+  onComplete: (path: string) => void;
+  selectedLang: 'es' | 'en';
+}
+
+function OnboardingStep2({ t, onComplete, selectedLang }: Step2Props) {
+  const s2 = STRINGS[selectedLang];
+  const [phase2, setPhase2] = useState<Phase>('idle');
+
+  useEffect(() => {
+    const timer = setTimeout(() => setPhase2('typing'), IDLE_DELAY);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (phase2 !== 'pausing') return;
+    const timer = setTimeout(() => setPhase2('done'), 600);
+    return () => clearTimeout(timer);
+  }, [phase2]);
+
+  const descText = useTypewriter(t.onboarding.stepDesc, phase2 === 'typing', () => setPhase2('pausing'), playTyping);
+  const cursor2 = useCursor(phase2 === 'typing');
+
+  return (
+    <PreloadShell>
+      <div className="flex flex-col" style={{ gap: 'var(--gap-page)' }}>
+        {phase2 !== 'idle' && (
+          <p className="text-txt-base">
+            {phase2 === 'pausing' || phase2 === 'done' ? t.onboarding.stepDesc : descText}
+            {(phase2 === 'typing' || phase2 === 'pausing') && <span aria-hidden="true" style={{ color: 'var(--color-zinc-50)' }}>{cursor2}</span>}
+          </p>
+        )}
+
+        {phase2 === 'done' && (
+          <>
+            <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+              <p className="text-txt-s">{s2.stepDestination}</p>
+              <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
+                {NAV_LINKS.map(({ label, path, dest }) => (
+                  <button
+                    key={path}
+                    type="button"
+                    data-destination={dest}
+                    onClick={() => onComplete(path)}
+                    className="btn-secondary font-mono"
+                    style={activeStyle(true)}
+                    data-sound="interactive"
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex" style={{ gap: 'var(--gap-block)' }}>
+              <button type="button" onClick={() => onComplete('/')} className="btn-secondary font-mono" data-sound="interactive">{s2.navSkip}</button>
+            </div>
+          </>
+        )}
+      </div>
+
+      <StepBar step={2} />
+    </PreloadShell>
+  );
+}
+
+function activeStyle(condition: boolean): React.CSSProperties {
+  return condition
+    ? { background: 'var(--color-blue-500)', color: 'var(--color-blue-950)', borderColor: 'var(--color-blue-500)' }
+    : {};
+}
+
+function active(_condition: boolean) {
+  return 'btn-secondary font-mono';
 }
 
 export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps) {
-  const { setLang, soundEnabled, toggleSound, musicEnabled, toggleMusic } = useAppStore();
+  const { setLang, soundEnabled, toggleSound, musicEnabled, toggleMusic, volume, setVolume } = useAppStore();
   const { playClick } = useSound();
+  const { t } = useT();
   const [step, setStep] = useState<1 | 2>(1);
   const [selectedLang, setSelectedLang] = useState<'es' | 'en'>(systemLang);
   const [phase, setPhase] = useState<Phase>('idle');
@@ -158,41 +248,7 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
   }
 
   if (step === 2) {
-    const s2 = STRINGS[selectedLang];
-    return (
-      <PreloadShell>
-        <div className="flex flex-col" style={{ gap: 'var(--gap-page)' }}>
-          <p className="text-txt-base">{s2.stepDesc}</p>
-
-          <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
-            <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-              <p className="text-txt-s">{s2.stepDestination}</p>
-              <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
-                {NAV_LINKS.map(({ label, path, dest }) => (
-                  <button
-                    key={path}
-                    type="button"
-                    data-destination={dest}
-                    onClick={() => onComplete(path)}
-                    className="btn-nav btn-nav--active font-mono"
-                    data-sound="interactive"
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex" style={{ gap: 'var(--gap-block)' }}>
-            <button type="button" onClick={() => goToStep(1)} className="btn-secondary font-mono" data-sound="interactive">{s2.navBack}</button>
-            <button type="button" onClick={() => onComplete('/')} className="btn-secondary font-mono" data-sound="interactive">{s2.navSkip}</button>
-          </div>
-        </div>
-
-        <StepBar step={2} />
-      </PreloadShell>
-    );
+    return <OnboardingStep2 t={t} onComplete={onComplete} selectedLang={selectedLang} />;
   }
 
   return (
@@ -207,13 +263,25 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
 
         {phase === 'done' && (
           <>
-            <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
+            <div className="flex flex-col" style={{ gap: 'var(--gap-card)' }}>
               {/* Volume */}
               <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
                 <p className="text-txt-s">{s.stepVolume}</p>
-                <div className="flex" style={{ gap: 'var(--gap-block)' }}>
-                  <button type="button" className="btn-secondary font-mono" data-sound="interactive">[EN]</button>
-                  <button type="button" className="btn-nav btn-nav--active font-mono" data-sound="interactive">[ES]</button>
+                <div style={{ width: 'calc(2 * 3.5rem + var(--gap-block))', height: '34.3px', display: 'flex', alignItems: 'center' }}>
+                  <input
+                    type="range"
+                    min={0}
+                    max={1}
+                    step={0.05}
+                    value={volume}
+                    onChange={(e) => setVolume(parseFloat(e.target.value))}
+                    aria-label={s.stepVolume}
+                    className="volume-slider"
+                    style={{
+                      width: '100%',
+                      background: `linear-gradient(to right, var(--color-blue-500) ${volume * 100}%, var(--color-zinc-300) ${volume * 100}%)`,
+                    }}
+                  />
                 </div>
               </div>
 
@@ -221,8 +289,8 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
               <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
                 <p className="text-txt-s">{s.stepSound}</p>
                 <div className="flex" style={{ gap: 'var(--gap-block)' }}>
-                  <button type="button" onClick={() => handleToggleSound(true)} className={active(soundEnabled)} data-sound="interactive">[ON]</button>
-                  <button type="button" onClick={() => handleToggleSound(false)} className={active(!soundEnabled)} data-sound="interactive">[OFF]</button>
+                  <button type="button" onClick={() => handleToggleSound(true)} className={active(soundEnabled)} style={{ minWidth: '3.5rem', paddingInline: 0, display: 'flex', justifyContent: 'center', ...activeStyle(soundEnabled) }} data-sound="interactive">[ON]</button>
+                  <button type="button" onClick={() => handleToggleSound(false)} className={active(!soundEnabled)} style={{ minWidth: '3.5rem', paddingInline: 0, display: 'flex', justifyContent: 'center', ...activeStyle(!soundEnabled) }} data-sound="interactive">[OFF]</button>
                 </div>
               </div>
 
@@ -230,8 +298,8 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
               <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
                 <p className="text-txt-s">{s.stepMusic}</p>
                 <div className="flex" style={{ gap: 'var(--gap-block)' }}>
-                  <button type="button" onClick={() => handleToggleMusic(true)} className={active(musicEnabled)} data-sound="interactive">[ON]</button>
-                  <button type="button" onClick={() => handleToggleMusic(false)} className={active(!musicEnabled)} data-sound="interactive">[OFF]</button>
+                  <button type="button" onClick={() => handleToggleMusic(true)} className={active(musicEnabled)} style={{ minWidth: '3.5rem', paddingInline: 0, display: 'flex', justifyContent: 'center', ...activeStyle(musicEnabled) }} data-sound="interactive">[ON]</button>
+                  <button type="button" onClick={() => handleToggleMusic(false)} className={active(!musicEnabled)} style={{ minWidth: '3.5rem', paddingInline: 0, display: 'flex', justifyContent: 'center', ...activeStyle(!musicEnabled) }} data-sound="interactive">[OFF]</button>
                 </div>
               </div>
 
@@ -240,7 +308,7 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
                 <p className="text-txt-s">{s.stepLang}</p>
                 <div className="flex" style={{ gap: 'var(--gap-block)' }}>
                   {(['en', 'es'] as const).map((l) => (
-                    <button key={l} type="button" onClick={() => handleLang(l)} className={active(selectedLang === l)} data-sound="interactive">
+                    <button key={l} type="button" onClick={() => handleLang(l)} className={active(selectedLang === l)} style={{ minWidth: '3.5rem', paddingInline: 0, display: 'flex', justifyContent: 'center', ...activeStyle(selectedLang === l) }} data-sound="interactive">
                       [{l.toUpperCase()}]
                     </button>
                   ))}
@@ -251,7 +319,7 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
             {/* Skip + Continue */}
             <div className="flex" style={{ gap: 'var(--gap-block)' }}>
               <button type="button" onClick={() => onComplete('/')} className="btn-secondary font-mono" data-sound="interactive">{s.stepSkip}</button>
-              <button type="button" onClick={() => goToStep(2)} className="btn-nav btn-nav--active font-mono" data-sound="interactive">{STRINGS[selectedLang].stepContinue}</button>
+              <button type="button" onClick={() => goToStep(2)} className="btn-secondary font-mono" style={{ color: 'var(--color-blue-500)', borderColor: 'var(--color-blue-500)' }} data-sound="interactive">{STRINGS[selectedLang].stepContinue}</button>
             </div>
           </>
         )}

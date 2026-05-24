@@ -11,17 +11,21 @@ export function BootPage({ onComplete }: BootPageProps) {
   const { lang } = useAppStore();
   const { t } = useT();
   const [visibleLines, setVisibleLines] = useState(0);
-  const [, setDone] = useState(false);
+  const [allDone, setAllDone] = useState(false);
   const called = useRef(false);
 
-  const lines = [t.boot.line1, t.boot.line2, t.boot.line3, t.boot.line4, t.boot.line5, t.boot.line6];
+  const lines = [t.boot.line1, t.boot.line2, t.boot.line3, t.boot.line4, t.boot.line5, t.boot.line6, t.boot.line7];
   const delay = 2500 / lines.length;
 
   function finish() {
     if (called.current) return;
     called.current = true;
-    setDone(true);
     onComplete();
+  }
+
+  function skipToEnd() {
+    setVisibleLines(lines.length);
+    setAllDone(true);
   }
 
   useEffect(() => {
@@ -30,7 +34,7 @@ export function BootPage({ onComplete }: BootPageProps) {
       timers.push(setTimeout(() => {
         setVisibleLines(i + 1);
         if (i === lines.length - 1) {
-          timers.push(setTimeout(finish, 400));
+          timers.push(setTimeout(() => setAllDone(true), 400));
         }
       }, delay * (i + 1)));
     });
@@ -41,30 +45,35 @@ export function BootPage({ onComplete }: BootPageProps) {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Enter') {
-        setVisibleLines(lines.length);
-        finish();
+        if (!allDone) { skipToEnd(); } else { finish(); }
       }
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lang]);
+  }, [lang, allDone]);
 
   return (
     <PreloadShell>
       <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-        <p className="text-txt-s" style={{ color: 'var(--color-zinc-600)' }}>AMM-OS-V4</p>
         {lines.slice(0, visibleLines).map((line, i) => {
-          const spaceIdx = line.lastIndexOf(' ');
-          const body = spaceIdx !== -1 ? line.slice(0, spaceIdx) : line;
-          const suffix = spaceIdx !== -1 ? line.slice(spaceIdx + 1) : '';
+          const okIdx = line.lastIndexOf('[OK]');
+          const body = okIdx !== -1 ? line.slice(0, okIdx).trimEnd() : line;
+          const hasOk = okIdx !== -1;
           return (
             <p key={i} className="text-txt-s">
-              {body}{suffix && <> <span className="text-txt-base">{suffix}</span></>}
+              {body}{hasOk && <> <span className="text-txt-base">[OK]</span></>}
             </p>
           );
         })}
       </div>
+
+      {allDone && (
+        <div className="flex" style={{ gap: 'var(--gap-block)' }}>
+          <button type="button" onClick={finish} className="btn-secondary font-mono" data-sound="interactive">[SKIP]</button>
+          <button type="button" onClick={finish} className="btn-secondary font-mono" style={{ color: 'var(--color-blue-500)', borderColor: 'var(--color-blue-500)' }} data-sound="interactive">[CONTINUE]</button>
+        </div>
+      )}
     </PreloadShell>
   );
 }

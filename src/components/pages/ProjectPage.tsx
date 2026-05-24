@@ -33,6 +33,7 @@ export function ProjectPage() {
 
       {/* Bloque 1 — Identidad */}
       <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
+        <h1 className="text-txt-xxl">{project.name}</h1>
         <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
           <FieldLabel>{t.project.update}</FieldLabel>
           <span className="text-txt-base">{project.date}</span>

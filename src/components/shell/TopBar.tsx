@@ -4,7 +4,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useAppStore } from '../../store/useAppStore';
 import { useSound } from '../../hooks/useSound';
 import { projects } from '../../data/projects';
-import type { Lang } from '../../store/useAppStore';
 import { useT } from '../../i18n';
 
 interface TopBarProps {
@@ -31,11 +30,6 @@ export const TopBar = forwardRef<HTMLElement, TopBarProps>(function TopBar({ sty
     if (projectSlug && expandedProject !== projectSlug) toggleProject(projectSlug);
     navigate('/projects');
   }
-
-  const toggleLang = () => {
-    const next: Lang = lang === 'es' ? 'en' : 'es';
-    setLang(next);
-  };
 
   const handleShare = async () => {
     if (!navigator.share) return;
@@ -79,7 +73,7 @@ export const TopBar = forwardRef<HTMLElement, TopBarProps>(function TopBar({ sty
     <header ref={ref} style={style} className="fixed top-0 left-0 right-0 z-50 flex justify-center text-txt-s font-mono shell-bar-top">
       <div className="w-full flex items-center justify-between" style={{ maxWidth: 'var(--shell-max-width)', paddingInline: 'var(--shell-padding)', paddingBlock: 'var(--shell-padding)' }}>
         {project ? (
-          <span className="text-txt-l flex items-center" style={{ gap: 'var(--gap-card)' }}>
+          <span className="text-txt-base flex items-center" style={{ gap: 'var(--gap-card)' }}>
             <a href="/projects" onClick={handleBack} className="btn-secondary has-tooltip" aria-label={t.topbar.back} data-sound="interactive">
               [&lt;]
               <span className="tooltip tooltip--down">{t.topbar.back}</span>
@@ -87,23 +81,34 @@ export const TopBar = forwardRef<HTMLElement, TopBarProps>(function TopBar({ sty
             {project.name}
           </span>
         ) : (
-          <span className="text-txt-l flex items-center" style={{ gap: 'var(--gap-card)' }}>
+          <span className="text-txt-base flex items-center" style={{ gap: 'var(--gap-card)' }}>
             <img src="/favicon.svg" alt="" aria-hidden="true" width={32} height={32} />
             AMM-OS v4.0
           </span>
         )}
 
         {!hideCtrl && (
-          <button
-            ref={btnRef}
-            onClick={() => menuOpen ? setMenuOpen(false) : openMenu()}
-            className="btn-secondary has-tooltip"
-            aria-label={t.topbar.controls}
-            data-sound="interactive"
-          >
-            [CTRL]
-            <span className="tooltip tooltip--down">{t.topbar.controls}</span>
-          </button>
+          <div style={{ display: 'flex', gap: 'var(--gap-block)' }}>
+            <button
+              onClick={handleShare}
+              className="btn-secondary has-tooltip"
+              aria-label={t.topbar.share}
+              data-sound="interactive"
+            >
+              [&gt;&gt;]
+              <span className="tooltip tooltip--down">{t.topbar.share}</span>
+            </button>
+            <button
+              ref={btnRef}
+              onClick={() => menuOpen ? setMenuOpen(false) : openMenu()}
+              className="btn-secondary has-tooltip"
+              aria-label={t.topbar.controls}
+              data-sound="interactive"
+            >
+              [CTRL]
+              <span className="tooltip tooltip--down">{t.topbar.controls}</span>
+            </button>
+          </div>
         )}
       </div>
 
@@ -131,47 +136,53 @@ export const TopBar = forwardRef<HTMLElement, TopBarProps>(function TopBar({ sty
             }}
           >
             <span className="text-txt-l">CONTROLS</span>
-            <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-              <div className="flex items-center justify-between" style={{ gap: 'var(--gap-block)', paddingBlock: 'var(--gap-card)' }}>
-                <span className="text-txt-base">{t.topbar.volume}</span>
-                <input
-                  type="range"
-                  min={0}
-                  max={1}
-                  step={0.05}
-                  value={volume}
-                  onChange={(e) => setVolume(parseFloat(e.target.value))}
-                  aria-label={t.topbar.volume}
-                  className="volume-slider"
-                  style={{
-                    width: '3.5rem',
-                    background: `linear-gradient(to right, var(--color-blue-500) ${volume * 100}%, var(--color-zinc-300) ${volume * 100}%)`,
-                  }}
-                />
+            <div className="flex flex-col" style={{ gap: 'var(--gap-card)' }}>
+              {/* Volume */}
+              <div className="flex items-stretch justify-between" style={{ gap: 'var(--gap-block)' }}>
+                <span className="text-txt-base" style={{ flex: 1, display: 'flex', alignItems: 'center' }}>{t.onboarding.stepVolume}</span>
+                <div style={{ width: 'calc(2 * 3.5rem + var(--gap-block))', height: '34.3px', display: 'flex', alignItems: 'center' }}>
+                  <input
+                    type="range"
+                    min={0}
+                    max={1}
+                    step={0.05}
+                    value={volume}
+                    onChange={(e) => setVolume(parseFloat(e.target.value))}
+                    aria-label={t.topbar.volume}
+                    className="volume-slider"
+                    style={{
+                      width: '100%',
+                      background: `linear-gradient(to right, var(--color-blue-500) ${volume * 100}%, var(--color-zinc-300) ${volume * 100}%)`,
+                    }}
+                  />
+                </div>
               </div>
-              <div className="flex items-center justify-between">
-                <span className="text-txt-base">{soundEnabled ? t.topbar.soundOff : t.topbar.soundOn}</span>
-                <button onClick={handleToggleSound} className="btn-secondary" style={{ width: '3.5rem', display: 'flex', justifyContent: 'center', alignItems: 'center', paddingBlock: 'var(--gap-card)', paddingInline: 0 }} aria-label={soundEnabled ? t.topbar.soundOff : t.topbar.soundOn} data-sound="interactive">
-                  {soundEnabled ? '[on]' : '[off]'}
-                </button>
+              {/* Sound */}
+              <div className="flex items-center" style={{ gap: 'var(--gap-section)' }}>
+                <span className="text-txt-base" style={{ flex: 1 }}>{t.onboarding.stepSound}</span>
+                <div style={{ display: 'flex', gap: 'var(--gap-block)' }}>
+                  <button onClick={handleToggleSound} className="btn-secondary font-mono" style={{ minWidth: '3.5rem', paddingInline: 0, display: 'flex', justifyContent: 'center', ...(soundEnabled ? { color: 'var(--color-blue-950)', borderColor: 'var(--color-blue-500)', background: 'var(--color-blue-500)' } : {}) }} aria-label={t.topbar.soundOn} data-sound="interactive">[ON]</button>
+                  <button onClick={handleToggleSound} className="btn-secondary font-mono" style={{ minWidth: '3.5rem', paddingInline: 0, display: 'flex', justifyContent: 'center', ...(!soundEnabled ? { color: 'var(--color-blue-950)', borderColor: 'var(--color-blue-500)', background: 'var(--color-blue-500)' } : {}) }} aria-label={t.topbar.soundOff} data-sound="interactive">[OFF]</button>
+                </div>
               </div>
-              <div className="flex items-center justify-between">
-                <span className="text-txt-base">{t.topbar.music}</span>
-                <button onClick={toggleMusic} className="btn-secondary" style={{ width: '3.5rem', display: 'flex', justifyContent: 'center', alignItems: 'center', paddingBlock: 'var(--gap-card)', paddingInline: 0 }} aria-label={t.topbar.music} data-sound="interactive">
-                  {musicEnabled ? '[on]' : '[off]'}
-                </button>
+              {/* Music */}
+              <div className="flex items-center" style={{ gap: 'var(--gap-section)' }}>
+                <span className="text-txt-base" style={{ flex: 1 }}>{t.onboarding.stepMusic}</span>
+                <div style={{ display: 'flex', gap: 'var(--gap-block)' }}>
+                  <button onClick={() => { if (!musicEnabled) toggleMusic(); }} className="btn-secondary font-mono" style={{ minWidth: '3.5rem', paddingInline: 0, display: 'flex', justifyContent: 'center', ...(musicEnabled ? { color: 'var(--color-blue-950)', borderColor: 'var(--color-blue-500)', background: 'var(--color-blue-500)' } : {}) }} aria-label={t.topbar.music} data-sound="interactive">[ON]</button>
+                  <button onClick={() => { if (musicEnabled) toggleMusic(); }} className="btn-secondary font-mono" style={{ minWidth: '3.5rem', paddingInline: 0, display: 'flex', justifyContent: 'center', ...(!musicEnabled ? { color: 'var(--color-blue-950)', borderColor: 'var(--color-blue-500)', background: 'var(--color-blue-500)' } : {}) }} aria-label={t.topbar.music} data-sound="interactive">[OFF]</button>
+                </div>
               </div>
-              <div className="flex items-center justify-between">
-                <span className="text-txt-base">{t.topbar.share}</span>
-                <button onClick={handleShare} className="btn-secondary" style={{ width: '3.5rem', display: 'flex', justifyContent: 'center', alignItems: 'center', paddingBlock: 'var(--gap-card)', paddingInline: 0 }} aria-label={t.topbar.share} data-sound="interactive">
-                  [&gt;&gt;]
-                </button>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-txt-base">{t.topbar.switchLang}</span>
-                <button onClick={toggleLang} className="btn-secondary" style={{ width: '3.5rem', display: 'flex', justifyContent: 'center', alignItems: 'center', paddingBlock: 'var(--gap-card)', paddingInline: 0 }} aria-label={t.topbar.switchLang} data-sound="interactive">
-                  [{lang.toUpperCase()}]
-                </button>
+              {/* Language */}
+              <div className="flex items-center" style={{ gap: 'var(--gap-section)' }}>
+                <span className="text-txt-base" style={{ flex: 1 }}>{t.onboarding.stepLang}</span>
+                <div style={{ display: 'flex', gap: 'var(--gap-block)' }}>
+                  {(['en', 'es'] as const).map((l) => (
+                    <button key={l} onClick={() => setLang(l)} className="btn-secondary font-mono" style={{ minWidth: '3.5rem', paddingInline: 0, display: 'flex', justifyContent: 'center', ...(lang === l ? { color: 'var(--color-blue-950)', borderColor: 'var(--color-blue-500)', background: 'var(--color-blue-500)' } : {}) }} aria-label={l.toUpperCase()} data-sound="interactive">
+                      [{l.toUpperCase()}]
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

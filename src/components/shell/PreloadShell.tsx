@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function getSessionStamp() {
   const now = new Date();
@@ -20,18 +20,21 @@ interface PreloadShellProps {
 
 export function PreloadShell({ children }: PreloadShellProps) {
   const [sessionDate] = useState(getSessionStamp);
-  const [sessionTime] = useState(getTimeStamp);
+  const [sessionTime, setSessionTime] = useState(getTimeStamp);
+
+  useEffect(() => {
+    const interval = setInterval(() => setSessionTime(getTimeStamp()), 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="flex-1 flex flex-col font-mono" style={{ height: '100%', gap: 'var(--gap-page)' }}>
-      {/* Static header */}
       <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
         <p className="text-txt-s">{sessionDate}</p>
         <p className="text-txt-s" style={{ color: 'var(--color-zinc-500)' }}>{sessionTime}</p>
         <p className="text-txt-s" style={{ color: 'var(--color-zinc-500)' }}>Madrid, Spain</p>
       </div>
 
-      {/* Page content */}
       {children}
     </div>
   );
