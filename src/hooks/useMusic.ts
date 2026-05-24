@@ -3,7 +3,7 @@ import { Howl, Howler } from 'howler';
 import { useAppStore } from '../store/useAppStore';
 
 const music = new Howl({
-  src: ['/ambient.mp3'],
+  src: ['https://m27susnswojuovbl.public.blob.vercel-storage.com/ambient.mp3'],
   loop: true,
   volume: 1,
   preload: true,
