@@ -28,12 +28,12 @@ export const projects: Project[] = [
     category: 'personal',
     date: '02/2026',
     synopsis: {
-      es: 'Portfolio que transforma la narrativa de diseño en una experiencia técnica funcional.',
-      en: 'Portfolio that transforms the design narrative into a functional technical experience.',
+      es: 'Sistema personal diseñado y construido de principio a fin, desde el concepto hasta producción.',
+      en: 'A personal system designed and built from start to finish, from concept to production.',
     },
     challenge: {
-      es: 'La incapacidad de los portfolios estáticos para validar la viabilidad técnica y el pensamiento sistémico de un diseñador.',
-      en: 'The inability of static portfolios to validate the technical viability and systemic thinking of a designer.',
+      es: 'Crear un espacio donde el proceso de diseño sea tan visible como el resultado, para audiencias con expectativas completamente distintas.',
+      en: 'Creating a space where the design process is as visible as the result, for audiences with completely different expectations.',
     },
     role: 'AI Product Designer.',
     responsibilities: [
@@ -43,7 +43,7 @@ export const projects: Project[] = [
       { es: 'Optimización de rendimiento y accesibilidad.', en: 'Performance optimisation and accessibility.' },
     ],
     tools: ['Figma', 'React', 'TypeScript', 'Tailwind', 'Vite', 'Claude'],
-    status: 'Beta',
+    status: 'Live',
     resources: {
       github: 'https://github.com/AlejandroMorenoMartin/amm-os',
       live: 'https://alejandromorenomartin.com',
@@ -66,7 +66,7 @@ export const projects: Project[] = [
         },
       },
     ],
-    update: '04/26/2026',
+    update: '05/25/2026',
     manifesto: {
       es: 'El diseño de producto es la suma de la estrategia visual y la viabilidad técnica.',
       en: 'Product design is the sum of visual strategy and technical viability.',

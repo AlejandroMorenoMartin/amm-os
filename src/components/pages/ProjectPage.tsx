@@ -4,8 +4,8 @@ import { projects } from '../../data/projects';
 import { LinkExternal } from '../ui/LinkExternal';
 import { SectionLabel } from '../ui/SectionLabel';
 import { StatusChip } from '../ui/StatusChip';
+import { DeviceFrame } from '../ui/DeviceFrame';
 import { useT } from '../../i18n';
-import { useRef } from 'react';
 import { usePageTitle } from '../../hooks/usePageTitle';
 
 function FieldLabel({ children }: { children: React.ReactNode }) {
@@ -15,13 +15,14 @@ function FieldLabel({ children }: { children: React.ReactNode }) {
 
 export function ProjectPage() {
   const { slug } = useParams<{ slug: string }>();
-  const { lang, openImageModal } = useAppStore();
+  const { lang } = useAppStore();
   const { t } = useT();
-  const imgRef = useRef<HTMLImageElement>(null);
 
   const project = projects.find((p) => p.slug === slug);
   usePageTitle(project?.name);
   if (!project) return null;
+
+  const deviceType: 'laptop' | 'mobile' = ['sazon', 'forma'].includes(project.slug) ? 'mobile' : 'laptop';
 
   const sections: { key: string; label: string; content: string }[] = [
     { key: 'research',  label: t.project.sectionResearch,  content: project.research[lang] },
@@ -65,32 +66,17 @@ export function ProjectPage() {
           </ul>
         </div>
 
-        <button
-          className="photo-btn photo-btn--full btn-no-focus has-tooltip"
-          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
-          aria-label={t.project.openImage}
-          data-sound="interactive"
-          onClick={() => {
-            const el = imgRef.current;
-            openImageModal({
-              src: project.image,
-              title: `${project.name} — overview`,
-              width: el?.naturalWidth ?? 0,
-              height: el?.naturalHeight ?? 0,
-            });
-          }}
-        >
+        <DeviceFrame type={deviceType}>
           <img
-            ref={imgRef}
             src={project.image}
             alt={`${project.name} overview`}
-            className="photo-border w-full"
-            style={{ display: 'block' }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
           />
-          <span className="tooltip">{t.modal.open}</span>
-        </button>
+        </DeviceFrame>
       </div>
 
+
+      <hr style={{ border: 'none', borderTop: 'var(--border-dashed)', margin: 0 }} />
 
       {/* Bloque 2 — Narrativa */}
       <div className="flex flex-col" style={{ gap: 'var(--gap-page)' }}>
@@ -102,6 +88,8 @@ export function ProjectPage() {
         ))}
       </div>
 
+
+      <hr style={{ border: 'none', borderTop: 'var(--border-dashed)', margin: 0 }} />
 
       {/* Bloque 3 — Meta */}
       <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>

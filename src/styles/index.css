@@ -571,6 +571,158 @@ body::after {
   }
 }
 
+/* ── DeviceFrame ────────────────────────────────────── */
+
+/* Laptop */
+.device-laptop {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.device-laptop__lid {
+  width: 100%;
+  background: var(--color-zinc-900);
+  border: 0.5px solid var(--color-zinc-700);
+  padding: 8px 8px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+}
+
+.device-laptop__camera {
+  width: 4px;
+  height: 4px;
+  background: var(--color-zinc-600);
+  border-radius: 50%;
+  align-self: center;
+  flex-shrink: 0;
+}
+
+.device-laptop__screen {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: var(--color-background);
+  overflow: hidden;
+  position: relative;
+}
+
+.device-laptop__screen > * {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.device-laptop__base {
+  width: 108%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(to bottom, var(--color-zinc-800), var(--color-zinc-950));
+  border: 0.5px solid var(--color-zinc-700);
+  border-top: 0.5px solid var(--color-zinc-600);
+  padding: 3px 0 4px;
+}
+
+.device-laptop__latch {
+  width: 8%;
+  height: 3px;
+  background: var(--color-zinc-700);
+  border-radius: 0 0 2px 2px;
+}
+
+/* Mobile */
+.device-mobile {
+  width: 100%;
+  max-width: 324px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Botones laterales izquierda (volumen) */
+.device-mobile__btn-vol {
+  position: absolute;
+  left: -2px;
+  top: 22%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 1;
+}
+.device-mobile__btn-vol span {
+  display: block;
+  width: 2px;
+  height: 18px;
+  background: var(--color-zinc-700);
+  border-radius: 1px 0 0 1px;
+}
+
+/* Botón lateral derecha (power) */
+.device-mobile__btn-power {
+  position: absolute;
+  right: -2px;
+  top: 26%;
+  z-index: 1;
+}
+.device-mobile__btn-power span {
+  display: block;
+  width: 2px;
+  height: 24px;
+  background: var(--color-zinc-700);
+  border-radius: 0 1px 1px 0;
+}
+
+.device-mobile__shell {
+  background: var(--color-zinc-900);
+  border: 0.5px solid var(--color-zinc-700);
+  border-radius: 28px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.device-mobile__screen {
+  width: 100%;
+  aspect-ratio: 9 / 19.5;
+  background: var(--color-background);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.device-mobile__screen > * {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Cámara punch-hole — encima de la pantalla */
+.device-mobile__camera {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: var(--color-zinc-950);
+  border-radius: 50%;
+  z-index: 2;
+  border: 0.5px solid var(--color-zinc-800);
+}
+
+/* ── /DeviceFrame ───────────────────────────────────── */
+
 /* Scrollbar — webkit */
 ::-webkit-scrollbar { width: 2px; }
 ::-webkit-scrollbar-track { background: transparent; }

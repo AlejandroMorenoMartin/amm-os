@@ -75,7 +75,7 @@ export const en: Strings = {
     challenge: 'Challenge',
     role: 'Role',
     overview: 'Overview',
-    responsibilities: 'Responsibilities',
+    responsibilities: 'Scope',
     open: '[OPEN]',
     tooltipExpand: 'Expand project',
     tooltipCollapse: 'Collapse project',
@@ -267,7 +267,7 @@ export const en: Strings = {
   project: {
     resources: 'Resources',
     metrics: 'Metrics',
-    update: 'Last update',
+    update: 'Update',
     status: 'Status',
     tools: 'Tools',
     sectionResearch: 'RESEARCH',
