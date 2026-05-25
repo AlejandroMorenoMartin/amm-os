@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { useT } from '../../i18n';
 import { AccordionCard } from '../ui/AccordionCard';
 import { SectionLabel } from '../ui/SectionLabel';
+import { usePageTitle } from '../../hooks/usePageTitle';
 
 export function SkillsPage() {
+  usePageTitle('Skills');
   const { t } = useT();
   const [openKey, setOpenKey] = useState<string | null>(null);
   const toggle = (key: string) => setOpenKey((k) => (k === key ? null : key));

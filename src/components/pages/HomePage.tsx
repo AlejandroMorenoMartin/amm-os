@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { useT } from '../../i18n';
 import { useAppStore } from '../../store/useAppStore';
+import { usePageTitle } from '../../hooks/usePageTitle';
 import { LinkExternal } from '../ui/LinkExternal';
 import { SectionLabel } from '../ui/SectionLabel';
 import { TextBlock } from '../ui/TextBlock';
@@ -8,6 +9,7 @@ import { TextBlock } from '../ui/TextBlock';
 const EMAIL = 'alejandromorenomartin1990@gmail.com';
 
 export function HomePage() {
+  usePageTitle();
   const { t } = useT();
   const { openImageModal } = useAppStore();
   const [copied, setCopied] = useState(false);
@@ -54,10 +56,9 @@ export function HomePage() {
             </button>
           </div>
           <div className="profile-text flex flex-col" style={{ gap: 'var(--gap-section)' }}>
-            <span className="text-txt-base">{t.home.profileBio1}</span>
-            <span className="text-txt-base">{t.home.profileBio2}</span>
-            <span className="text-txt-base">{t.home.profileAvailability}</span>
-            <span className="text-txt-base">{t.home.profileValues}</span>
+            <span className="text-txt-base" dangerouslySetInnerHTML={{ __html: t.home.profileBio1 }} />
+            <span className="text-txt-base" dangerouslySetInnerHTML={{ __html: t.home.profileBio2 }} />
+            <span className="text-txt-base" dangerouslySetInnerHTML={{ __html: t.home.profileValues }} />
           </div>
         </div>
       </TextBlock>

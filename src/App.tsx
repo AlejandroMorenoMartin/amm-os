@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Shell } from './components/shell/Shell';
-import { BootPage } from './components/pages/BootPage';
 import { OnboardingPage } from './components/pages/OnboardingPage';
 import { HomePage } from './components/pages/HomePage';
 import { ProjectsPage } from './components/pages/ProjectsPage';
@@ -13,9 +12,9 @@ import { useAppStore } from './store/useAppStore';
 import { useArcadeControls } from './hooks/useArcadeControls';
 
 function AppRoutes() {
-  const { bootDone, completeBoot } = useAppStore();
-  const [showOnboarding, setShowOnboarding] = useState(false);
-  const [onboardingStep, setOnboardingStep] = useState<1 | 2>(1);
+  const { onboardingDone, completeOnboarding } = useAppStore();
+  const [showOnboarding, setShowOnboarding] = useState(!onboardingDone);
+  const [onboardingStep, setOnboardingStep] = useState<1 | 2 | 3>(1);
   const navigate = useNavigate();
   const { pathname } = useLocation();
   useArcadeControls();
@@ -24,22 +23,10 @@ function AppRoutes() {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [pathname]);
 
-  function handleBootComplete() {
-    completeBoot();
-    setShowOnboarding(true);
-  }
-
   function handleOnboardingComplete(path: string) {
+    completeOnboarding();
     setShowOnboarding(false);
     navigate(path);
-  }
-
-  if (!bootDone) {
-    return (
-      <Shell hideCtrl hideBottomBar>
-        <BootPage onComplete={handleBootComplete} />
-      </Shell>
-    );
   }
 
   if (showOnboarding) {

@@ -69,9 +69,8 @@ export function ImageModal() {
           bottom: '1rem',
           left: '50%',
           transform: 'translateX(-50%)',
-          width: '100%',
-          maxWidth: 'var(--shell-max-width)',
-          paddingInline: 'var(--shell-padding)',
+          width: 'var(--shell-max-width)',
+          maxWidth: '100%',
         }}
       >
         <div

@@ -11,7 +11,7 @@ export interface ImageModalState {
 }
 
 export interface AppStore {
-  bootDone: boolean;
+  onboardingDone: boolean;
   expandedProject: string | null;
   focusIndex: number;
   imageModal: ImageModalState | null;
@@ -19,7 +19,7 @@ export interface AppStore {
   soundEnabled: boolean;
   musicEnabled: boolean;
   volume: number;
-  completeBoot: () => void;
+  completeOnboarding: () => void;
   toggleProject: (slug: string) => void;
   setFocus: (index: number) => void;
   openImageModal: (data: ImageModalState) => void;
@@ -33,7 +33,7 @@ export interface AppStore {
 export const useAppStore = create<AppStore>()(
   persist(
     (set) => ({
-      bootDone: false,
+      onboardingDone: false,
       expandedProject: null,
       focusIndex: -1,
       imageModal: null,
@@ -42,7 +42,7 @@ export const useAppStore = create<AppStore>()(
       musicEnabled: true,
       volume: 0.2,
 
-      completeBoot: () => set({ bootDone: true }),
+      completeOnboarding: () => set({ onboardingDone: true }),
       toggleProject: (slug) =>
         set((s) => ({ expandedProject: s.expandedProject === slug ? null : slug })),
       setFocus: (index) => set({ focusIndex: index }),

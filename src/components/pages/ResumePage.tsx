@@ -4,8 +4,10 @@ import { SectionLabel } from '../ui/SectionLabel';
 import { LinkExternal } from '../ui/LinkExternal';
 import { AccordionCard } from '../ui/AccordionCard';
 import type { Strings } from '../../i18n/types';
+import { usePageTitle } from '../../hooks/usePageTitle';
 
 export function ResumePage() {
+  usePageTitle('Resume');
   const { t } = useT();
   const [openKey, setOpenKey] = useState<string | null>(null);
   const toggle = (key: string) => setOpenKey((k) => (k === key ? null : key));

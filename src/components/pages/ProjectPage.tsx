@@ -6,6 +6,7 @@ import { SectionLabel } from '../ui/SectionLabel';
 import { StatusChip } from '../ui/StatusChip';
 import { useT } from '../../i18n';
 import { useRef } from 'react';
+import { usePageTitle } from '../../hooks/usePageTitle';
 
 function FieldLabel({ children }: { children: React.ReactNode }) {
   return <span className="card-label" style={{ display: 'block' }}>{children}</span>;
@@ -19,6 +20,7 @@ export function ProjectPage() {
   const imgRef = useRef<HTMLImageElement>(null);
 
   const project = projects.find((p) => p.slug === slug);
+  usePageTitle(project?.name);
   if (!project) return null;
 
   const sections: { key: string; label: string; content: string }[] = [

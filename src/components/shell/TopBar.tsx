@@ -5,6 +5,7 @@ import { useAppStore } from '../../store/useAppStore';
 import { useSound } from '../../hooks/useSound';
 import { projects } from '../../data/projects';
 import { useT } from '../../i18n';
+import { ToggleSwitch } from '../ui/ToggleSwitch';
 
 interface TopBarProps {
   style?: React.CSSProperties;
@@ -160,29 +161,32 @@ export const TopBar = forwardRef<HTMLElement, TopBarProps>(function TopBar({ sty
               {/* Sound */}
               <div className="flex items-center" style={{ gap: 'var(--gap-section)' }}>
                 <span className="text-txt-base" style={{ flex: 1 }}>{t.onboarding.stepSound}</span>
-                <div style={{ display: 'flex', gap: 'var(--gap-block)' }}>
-                  <button onClick={handleToggleSound} className="btn-secondary font-mono" style={{ minWidth: '3.5rem', paddingInline: 0, display: 'flex', justifyContent: 'center', ...(soundEnabled ? { color: 'var(--color-blue-950)', borderColor: 'var(--color-blue-500)', background: 'var(--color-blue-500)' } : {}) }} aria-label={t.topbar.soundOn} data-sound="interactive">[ON]</button>
-                  <button onClick={handleToggleSound} className="btn-secondary font-mono" style={{ minWidth: '3.5rem', paddingInline: 0, display: 'flex', justifyContent: 'center', ...(!soundEnabled ? { color: 'var(--color-blue-950)', borderColor: 'var(--color-blue-500)', background: 'var(--color-blue-500)' } : {}) }} aria-label={t.topbar.soundOff} data-sound="interactive">[OFF]</button>
-                </div>
+                <ToggleSwitch
+                  options={[{ label: '[ON]', value: 'on' }, { label: '[OFF]', value: 'off' }]}
+                  value={soundEnabled ? 'on' : 'off'}
+                  onChange={(v) => { if ((v === 'on') !== soundEnabled) handleToggleSound(); }}
+                  ariaLabel={t.onboarding.stepSound}
+                />
               </div>
               {/* Music */}
               <div className="flex items-center" style={{ gap: 'var(--gap-section)' }}>
                 <span className="text-txt-base" style={{ flex: 1 }}>{t.onboarding.stepMusic}</span>
-                <div style={{ display: 'flex', gap: 'var(--gap-block)' }}>
-                  <button onClick={() => { if (!musicEnabled) toggleMusic(); }} className="btn-secondary font-mono" style={{ minWidth: '3.5rem', paddingInline: 0, display: 'flex', justifyContent: 'center', ...(musicEnabled ? { color: 'var(--color-blue-950)', borderColor: 'var(--color-blue-500)', background: 'var(--color-blue-500)' } : {}) }} aria-label={t.topbar.music} data-sound="interactive">[ON]</button>
-                  <button onClick={() => { if (musicEnabled) toggleMusic(); }} className="btn-secondary font-mono" style={{ minWidth: '3.5rem', paddingInline: 0, display: 'flex', justifyContent: 'center', ...(!musicEnabled ? { color: 'var(--color-blue-950)', borderColor: 'var(--color-blue-500)', background: 'var(--color-blue-500)' } : {}) }} aria-label={t.topbar.music} data-sound="interactive">[OFF]</button>
-                </div>
+                <ToggleSwitch
+                  options={[{ label: '[ON]', value: 'on' }, { label: '[OFF]', value: 'off' }]}
+                  value={musicEnabled ? 'on' : 'off'}
+                  onChange={(v) => { if ((v === 'on') !== musicEnabled) toggleMusic(); }}
+                  ariaLabel={t.onboarding.stepMusic}
+                />
               </div>
               {/* Language */}
               <div className="flex items-center" style={{ gap: 'var(--gap-section)' }}>
                 <span className="text-txt-base" style={{ flex: 1 }}>{t.onboarding.stepLang}</span>
-                <div style={{ display: 'flex', gap: 'var(--gap-block)' }}>
-                  {(['en', 'es'] as const).map((l) => (
-                    <button key={l} onClick={() => setLang(l)} className="btn-secondary font-mono" style={{ minWidth: '3.5rem', paddingInline: 0, display: 'flex', justifyContent: 'center', ...(lang === l ? { color: 'var(--color-blue-950)', borderColor: 'var(--color-blue-500)', background: 'var(--color-blue-500)' } : {}) }} aria-label={l.toUpperCase()} data-sound="interactive">
-                      [{l.toUpperCase()}]
-                    </button>
-                  ))}
-                </div>
+                <ToggleSwitch
+                  options={[{ label: '[EN]', value: 'en' }, { label: '[ES]', value: 'es' }]}
+                  value={lang}
+                  onChange={(v) => setLang(v)}
+                  ariaLabel={t.onboarding.stepLang}
+                />
               </div>
             </div>
           </div>

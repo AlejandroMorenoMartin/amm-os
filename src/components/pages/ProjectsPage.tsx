@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../../store/useAppStore';
 import { useT } from '../../i18n';
+import { usePageTitle } from '../../hooks/usePageTitle';
 import { projects } from '../../data/projects';
 import { ProjectRow } from '../ui/ProjectRow';
 import { SectionLabel } from '../ui/SectionLabel';
 
 export function ProjectsPage() {
+  usePageTitle('Lab');
   const { lang } = useAppStore();
   const { t } = useT();
   const navigate = useNavigate();

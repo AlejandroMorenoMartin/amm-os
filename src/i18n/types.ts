@@ -53,7 +53,6 @@ export interface Strings {
     location: string;
     profileBio1: string;
     profileBio2: string;
-    profileAvailability: string;
     profileValues: string;
     twitter: string;
     tooltipTwitter: string;
