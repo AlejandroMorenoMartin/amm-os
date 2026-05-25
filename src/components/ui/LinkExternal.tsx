@@ -18,7 +18,7 @@ export function LinkExternal({ href, children, tooltip }: LinkExternalProps) {
       data-sound="interactive"
       {...focusProps}
     >
-      {focused ? '> ' : ''}{children} ↗
+      {children} ↗
       {tooltip && <span className="tooltip">{tooltip}</span>}
     </a>
   );
