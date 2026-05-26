@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-import { useAppStore } from '../../store/useAppStore';
 import { projects } from '../../data/projects';
 import { LinkExternal } from '../ui/LinkExternal';
 import { SectionLabel } from '../ui/SectionLabel';
@@ -15,8 +14,7 @@ function FieldLabel({ children }: { children: React.ReactNode }) {
 
 export function ProjectPage() {
   const { slug } = useParams<{ slug: string }>();
-  const { lang } = useAppStore();
-  const { t } = useT();
+  const { t, lang } = useT();
 
   const project = projects.find((p) => p.slug === slug);
   usePageTitle(project?.name);

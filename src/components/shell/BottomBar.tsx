@@ -30,7 +30,7 @@ export const BottomBar = forwardRef<HTMLElement, BottomBarProps>(function Bottom
           ))}
         </div>
         <span className="pointer-fine-block ml-auto text-txt-xs" aria-hidden="true">
-          {'[←] [→] navegar · [Esc] cerrar'}
+          {t.nav.keyboardHint}
         </span>
       </div>
     </nav>

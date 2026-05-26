@@ -8,6 +8,7 @@ export interface Strings {
     tooltipTrabajo: string;
     tooltipCv: string;
     tooltipSkills: string;
+    keyboardHint: string;
   };
   boot: {
     line1: string;
@@ -31,6 +32,7 @@ export interface Strings {
     stepMusicOn: string;
     stepMusicOff: string;
     stepLang: string;
+    stepSkip: string;
     stepContinue: string;
     stepDestination: string;
     stepDesc: string;

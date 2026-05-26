@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAppStore } from '../../store/useAppStore';
+import { useT } from '../../i18n';
 
 function getSessionStamp(locale: string) {
   const now = new Date();
@@ -21,6 +22,7 @@ interface PreloadShellProps {
 
 export function PreloadShell({ children }: PreloadShellProps) {
   const lang = useAppStore((s) => s.lang);
+  const { t } = useT();
   const locale = lang === 'es' ? 'es-ES' : 'en-US';
   const [sessionDate, setSessionDate] = useState(() => getSessionStamp(locale));
   const [sessionTime, setSessionTime] = useState(() => getTimeStamp(locale));
@@ -39,7 +41,7 @@ export function PreloadShell({ children }: PreloadShellProps) {
       <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
         <p className="text-txt-s">{sessionDate}</p>
         <p className="text-txt-s" style={{ color: 'var(--color-zinc-500)' }}>{sessionTime}</p>
-        <p className="text-txt-s" style={{ color: 'var(--color-zinc-500)' }}>{lang === 'es' ? 'Madrid, España' : 'Madrid, Spain'}</p>
+        <p className="text-txt-s" style={{ color: 'var(--color-zinc-500)' }}>{t.home.location}</p>
       </div>
 
       {children}

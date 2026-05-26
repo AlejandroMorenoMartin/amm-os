@@ -121,7 +121,7 @@ export const TopBar = forwardRef<HTMLElement, TopBarProps>(function TopBar({ sty
           />
           <div
             ref={menuRef}
-            className="font-mono"
+            className="font-mono ctrl-modal"
             style={{
               position: 'fixed',
               top: dropdownPos.top,
@@ -136,7 +136,7 @@ export const TopBar = forwardRef<HTMLElement, TopBarProps>(function TopBar({ sty
               gap: 'var(--gap-section)',
             }}
           >
-            <span className="text-txt-l">CONTROLS</span>
+            <span className="text-txt-l">{t.topbar.controls.toUpperCase()}</span>
             <div className="flex flex-col" style={{ gap: 'var(--gap-card)' }}>
               {/* Volume */}
               <div className="flex items-stretch justify-between" style={{ gap: 'var(--gap-block)' }}>

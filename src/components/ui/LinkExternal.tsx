@@ -7,7 +7,7 @@ interface LinkExternalProps {
 }
 
 export function LinkExternal({ href, children, tooltip }: LinkExternalProps) {
-  const { focused, focusProps } = useFocused();
+  const { focusProps } = useFocused();
 
   return (
     <a

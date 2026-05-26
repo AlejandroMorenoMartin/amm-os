@@ -10,51 +10,13 @@ interface OnboardingPageProps {
   onStepChange: (step: 1 | 2 | 3) => void;
 }
 
-const systemLang = navigator.language.startsWith('es') ? 'es' : 'en';
 
-const STRINGS = {
-  es: {
-    sessionLabel: 'AMM-OS-V4 — SESIÓN INICIADA',
-    welcome: 'Estás accediendo a AMM-OS, el sistema personal de Alejandro Moreno.',
-    stepVolume: 'Selecciona el volumen',
-    stepSound: 'Selecciona el sonido',
-    stepMusic: 'Selecciona la música',
-    stepLang: 'Selecciona el idioma',
-    stepSkip: '[SALTAR]',
-    stepContinue: '[CONTINUAR]',
-    stepDestination: 'Selecciona tu destino',
-    stepDesc: 'El sistema tiene cuatro áreas. En Inicio encontrarás quién soy. En Lab, algunos de mis trabajos más recientes. En Habilidades, las habilidades y herramientas con las que opero. En CV, información sobre mi última experiencia profesional.',
-    navSkip: '[SALTAR]',
-  },
-  en: {
-    sessionLabel: 'AMM-OS-V4 — SESSION STARTED',
-    welcome: "You are accessing to AMM-OS, Alejandro Moreno's personal system.",
-    stepVolume: 'Select volume',
-    stepSound: 'Select sound',
-    stepMusic: 'Select music',
-    stepLang: 'Select language',
-    stepSkip: '[SKIP]',
-    stepContinue: '[CONTINUE]',
-    stepDestination: 'Select destination',
-    stepDesc: 'The system has four areas. In Home you will find who I am. In Lab, some of my most recent work. In Skills, the abilities and tools I work with. In Resume, information about my latest professional experience.',
-    navSkip: '[SKIP]',
-  },
-};
-
-const NAV_LINKS = {
-  es: [
-    { label: '[INICIO]',      path: '/',         dest: 'home' },
-    { label: '[LAB]',         path: '/projects', dest: 'projects' },
-    { label: '[CV]',          path: '/resume',   dest: 'resume' },
-    { label: '[HABILIDADES]', path: '/skills',   dest: 'skills' },
-  ],
-  en: [
-    { label: '[HOME]',   path: '/',         dest: 'home' },
-    { label: '[LAB]',    path: '/projects', dest: 'projects' },
-    { label: '[RESUME]', path: '/resume',   dest: 'resume' },
-    { label: '[SKILLS]', path: '/skills',   dest: 'skills' },
-  ],
-};
+const NAV_LINKS = [
+  { labelKey: 'home'    as const, path: '/'         },
+  { labelKey: 'trabajo' as const, path: '/projects' },
+  { labelKey: 'cv'      as const, path: '/resume'   },
+  { labelKey: 'skills'  as const, path: '/skills'   },
+];
 
 const BOOT_LINES = [
   'Loading AMM-OS v4.0 [OK]',
@@ -143,11 +105,10 @@ function activeStyle(condition: boolean): React.CSSProperties {
 }
 
 export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps) {
-  const { setLang, soundEnabled, toggleSound, musicEnabled, toggleMusic, volume, setVolume } = useAppStore();
+  const { lang, setLang, soundEnabled, toggleSound, musicEnabled, toggleMusic, volume, setVolume } = useAppStore();
   const { playClick } = useSound();
   const { t } = useT();
   const [step, setStep] = useState<1 | 2 | 3>(1);
-  const [selectedLang, setSelectedLang] = useState<'es' | 'en'>(systemLang);
 
   // Step 1 — boot lines
   const [visibleLines, setVisibleLines] = useState(0);
@@ -157,8 +118,6 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
 
   // Step 3 — desc typewriter
   const [phase3, setPhase3] = useState<Phase>('idle');
-
-  const s = STRINGS[selectedLang];
 
   function goToStep(next: 1 | 2 | 3) {
     setStep(next);
@@ -231,7 +190,7 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
     return () => window.removeEventListener('keydown', onKey);
   }, [step, onComplete]);
 
-  const welcomeText = useTypewriter(s.welcome, phase2 === 'typing', () => setPhase2('pausing'), playTyping);
+  const welcomeText = useTypewriter(t.onboarding.welcome, phase2 === 'typing', () => setPhase2('pausing'), playTyping);
   const cursor2 = useCursor(phase2 === 'typing');
 
   const descPlain = t.onboarding.stepDesc.replace(/<[^>]+>/g, '');
@@ -239,7 +198,6 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
   const cursor3 = useCursor(phase3 === 'typing');
 
   function handleLang(l: 'es' | 'en') {
-    setSelectedLang(l);
     setLang(l);
   }
 
@@ -273,8 +231,8 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
 
         <div className="onboarding-actions">
           <div className="onboarding-actions-inner">
-            <button type="button" onClick={() => onComplete('/')} className="btn-secondary font-mono" data-sound="interactive">{s.stepSkip}</button>
-            <button type="button" onClick={() => goToStep(2)} className="btn-secondary font-mono" style={{ color: 'var(--color-blue-500)', borderColor: 'var(--color-blue-500)' }} data-sound="interactive">{s.stepContinue}</button>
+            <button type="button" onClick={() => onComplete('/')} className="btn-secondary font-mono" data-sound="interactive">{t.onboarding.stepSkip}</button>
+            <button type="button" onClick={() => goToStep(2)} className="btn-secondary font-mono" style={{ color: 'var(--color-blue-500)', borderColor: 'var(--color-blue-500)' }} data-sound="interactive">{t.onboarding.stepContinue}</button>
           </div>
         </div>
 
@@ -290,7 +248,7 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
         <div className="flex flex-col" style={{ gap: 'var(--gap-page)' }}>
           {phase2 !== 'idle' && (
             <p className="text-txt-base">
-              {phase2 === 'pausing' || phase2 === 'done' ? s.welcome : welcomeText}
+              {phase2 === 'pausing' || phase2 === 'done' ? t.onboarding.welcome : welcomeText}
               {(phase2 === 'typing' || phase2 === 'pausing') && <span aria-hidden="true" style={{ color: 'var(--color-zinc-50)' }}>{cursor2}</span>}
             </p>
           )}
@@ -299,7 +257,7 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
             <div className="flex flex-col" style={{ gap: 'var(--gap-card)' }}>
               {/* Volume */}
               <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-                <p className="text-txt-s">{s.stepVolume}</p>
+                <p className="text-txt-s">{t.onboarding.stepVolume}</p>
                 <div style={{ width: 'calc(2 * 3.5rem + var(--gap-block))', height: '34.3px', display: 'flex', alignItems: 'center' }}>
                   <input
                     type="range"
@@ -308,7 +266,7 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
                     step={0.05}
                     value={volume}
                     onChange={(e) => setVolume(parseFloat(e.target.value))}
-                    aria-label={s.stepVolume}
+                    aria-label={t.onboarding.stepVolume}
                     className="volume-slider"
                     style={{
                       width: '100%',
@@ -320,34 +278,34 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
 
               {/* Sound */}
               <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-                <p className="text-txt-s">{s.stepSound}</p>
+                <p className="text-txt-s">{t.onboarding.stepSound}</p>
                 <ToggleSwitch
                   options={[{ label: '[ON]', value: 'on' }, { label: '[OFF]', value: 'off' }]}
                   value={soundEnabled ? 'on' : 'off'}
                   onChange={(v) => handleToggleSound(v === 'on')}
-                  ariaLabel={s.stepSound}
+                  ariaLabel={t.onboarding.stepSound}
                 />
               </div>
 
               {/* Music */}
               <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-                <p className="text-txt-s">{s.stepMusic}</p>
+                <p className="text-txt-s">{t.onboarding.stepMusic}</p>
                 <ToggleSwitch
                   options={[{ label: '[ON]', value: 'on' }, { label: '[OFF]', value: 'off' }]}
                   value={musicEnabled ? 'on' : 'off'}
                   onChange={(v) => handleToggleMusic(v === 'on')}
-                  ariaLabel={s.stepMusic}
+                  ariaLabel={t.onboarding.stepMusic}
                 />
               </div>
 
               {/* Language */}
               <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-                <p className="text-txt-s">{s.stepLang}</p>
+                <p className="text-txt-s">{t.onboarding.stepLang}</p>
                 <ToggleSwitch
                   options={[{ label: '[EN]', value: 'en' }, { label: '[ES]', value: 'es' }]}
-                  value={selectedLang}
+                  value={lang}
                   onChange={(v) => handleLang(v)}
-                  ariaLabel={s.stepLang}
+                  ariaLabel={t.onboarding.stepLang}
                 />
               </div>
             </div>
@@ -356,8 +314,8 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
 
         <div className="onboarding-actions">
           <div className="onboarding-actions-inner">
-            <button type="button" onClick={() => onComplete('/')} className="btn-secondary font-mono" data-sound="interactive">{s.stepSkip}</button>
-            <button type="button" onClick={() => goToStep(3)} className="btn-secondary font-mono" style={{ color: 'var(--color-blue-500)', borderColor: 'var(--color-blue-500)' }} data-sound="interactive">{s.stepContinue}</button>
+            <button type="button" onClick={() => onComplete('/')} className="btn-secondary font-mono" data-sound="interactive">{t.onboarding.stepSkip}</button>
+            <button type="button" onClick={() => goToStep(3)} className="btn-secondary font-mono" style={{ color: 'var(--color-blue-500)', borderColor: 'var(--color-blue-500)' }} data-sound="interactive">{t.onboarding.stepContinue}</button>
           </div>
         </div>
 
@@ -382,19 +340,18 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
 
         {phase3 === 'done' && (
           <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-            <p className="text-txt-s">{s.stepDestination}</p>
+            <p className="text-txt-s">{t.onboarding.stepDestination}</p>
             <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
-              {NAV_LINKS[selectedLang].map(({ label, path, dest }) => (
+              {NAV_LINKS.map(({ labelKey, path }) => (
                 <button
                   key={path}
                   type="button"
-                  data-destination={dest}
                   onClick={() => onComplete(path)}
                   className="btn-secondary btn-underline-hover font-mono"
-                  style={activeStyle(true)}
+                  style={{ ...activeStyle(true), flex: '1 1 auto' }}
                   data-sound="interactive"
                 >
-                  {label}
+                  {t.nav[labelKey]}
                 </button>
               ))}
             </div>
@@ -404,7 +361,7 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
 
       <div className="onboarding-actions">
         <div className="onboarding-actions-inner">
-          <button type="button" onClick={() => onComplete('/')} className="btn-secondary font-mono" data-sound="interactive">{s.navSkip}</button>
+          <button type="button" onClick={() => onComplete('/')} className="btn-secondary font-mono" data-sound="interactive">{t.onboarding.stepSkip}</button>
         </div>
       </div>
       <StepBar step={3} />

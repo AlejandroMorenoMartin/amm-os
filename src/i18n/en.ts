@@ -10,6 +10,7 @@ export const en: Strings = {
     tooltipTrabajo: 'View projects',
     tooltipCv: 'View resume',
     tooltipSkills: 'View skills',
+    keyboardHint: '[←] [→] navigate · [Esc] close',
   },
   boot: {
     line1: 'Loading AMM-OS v4.0 [OK]',
@@ -33,6 +34,7 @@ export const en: Strings = {
     stepMusicOn: '[ON]',
     stepMusicOff: '[OFF]',
     stepLang: 'Language',
+    stepSkip: '[SKIP]',
     stepContinue: '[CONTINUE]',
     stepDestination: 'Select your destination',
     stepDesc: 'The system has four areas. In <strong>Home</strong> you will find who I am. In <strong>Lab</strong>, some of my most recent work. In <strong>Skills</strong>, the abilities and tools I work with. In <strong>Resume</strong>, information about my latest professional experience.',

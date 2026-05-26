@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppStore } from '../../store/useAppStore';
 import { useT } from '../../i18n';
 import { usePageTitle } from '../../hooks/usePageTitle';
 import { projects } from '../../data/projects';
@@ -9,7 +8,6 @@ import { SectionLabel } from '../ui/SectionLabel';
 
 export function ProjectsPage() {
   usePageTitle('Lab');
-  const { lang } = useAppStore();
   const { t } = useT();
   const navigate = useNavigate();
   const [openSlug, setOpenSlug] = useState<string | null>(null);
@@ -24,21 +22,13 @@ export function ProjectsPage() {
         <SectionLabel>{title}</SectionLabel>
         <div className="projects-list flex flex-col" style={{ gap: 'var(--gap-card)' }}>
           {list.map((project) => (
-            <React.Fragment key={project.slug}>
-              <ProjectRow
-                project={project}
-                isExpanded={openSlug === project.slug}
-                lang={lang}
-                onToggle={toggle}
-                onOpen={(slug) => navigate(`/projects/${slug}`)}
-                challenge={t.trabajo.challenge}
-                role={t.trabajo.role}
-                responsibilities={t.trabajo.responsibilities}
-                metrics={t.project.metrics}
-                update={t.project.update}
-                overview={t.trabajo.overview}
-              />
-            </React.Fragment>
+            <ProjectRow
+              key={project.slug}
+              project={project}
+              isExpanded={openSlug === project.slug}
+              onToggle={toggle}
+              onOpen={(slug) => navigate(`/projects/${slug}`)}
+            />
           ))}
         </div>
       </div>

@@ -52,7 +52,7 @@ export function Shell({ children, hideBars = false, hideCtrl = false, hideBottom
             alignItems: hideBottomBar ? 'stretch' : undefined,
           }}
         >
-          <main className="w-full flex flex-col overflow-y-auto" style={{ maxWidth: 'var(--shell-max-width)', gap: 'var(--gap-page)', paddingInline: '0.75rem', height: hideBottomBar ? '100%' : undefined }}>
+          <main className="w-full flex flex-col" style={{ maxWidth: 'var(--shell-max-width)', gap: 'var(--gap-page)', paddingInline: '0.75rem', height: hideBottomBar ? '100%' : undefined }}>
             {children}
           </main>
         </div>
