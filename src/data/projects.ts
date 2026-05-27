@@ -1,3 +1,19 @@
+export interface Persona {
+  id: string;
+  role: { es: string; en: string };
+  context: { es: string; en: string };
+  goal: { es: string; en: string };
+  time: { es: string; en: string };
+}
+
+export interface Insight {
+  id: string;
+  source: { es: string; en: string };
+  quote?: { es: string; en: string };
+  finding: { es: string; en: string };
+  impact: { es: string; en: string };
+}
+
 export interface Project {
   slug: string;
   name: string;
@@ -16,6 +32,8 @@ export interface Project {
   manifesto: { es: string; en: string };
   image: string;
   research: { es: string; en: string };
+  personas?: Persona[];
+  insights?: Insight[];
   decisions: { es: string; en: string };
   system: { es: string; en: string };
   lessons: { es: string; en: string };
@@ -73,9 +91,91 @@ export const projects: Project[] = [
     },
     image: '/placeholder-image.webp',
     research: {
-      es: 'Identifiqué que los perfiles técnicos y de producto ignoran los portfolios que no demuestran una comprensión profunda de las limitaciones y posibilidades del código real. La terminal actúa como un filtro de afinidad.',
-      en: 'I identified that technical and product profiles ignore portfolios that don\'t demonstrate a deep understanding of real code constraints and possibilities. The terminal acts as an affinity filter.',
+      es: 'La fase de investigación se centró en validar el portfolio con tres perfiles distintos. <strong>Un VP de Diseño</strong> señalaba errores concretos en cada iteración. <strong>Una responsable de RRHH</strong> me mostró cómo piensa alguien que descarta perfiles en segundos. <strong>Un usuario sin experiencia técnica</strong> navegaba mientras yo observaba: cada fricción era una señal para simplificar.',
+      en: 'The research phase focused on validating the portfolio with three distinct profiles. <strong>A Design VP</strong> pointed out specific errors in each iteration. <strong>An HR professional</strong> showed me how someone who discards profiles in seconds actually thinks. <strong>A non-technical user</strong> navigated freely while I observed: every friction point was a signal to simplify.',
     },
+    personas: [
+      {
+        id: 'design-vp',
+        role: { es: 'VP de Diseño', en: 'VP of Design' },
+        context: {
+          es: 'Sector tecnológico. Contrata perfiles de diseño y producto a diario. Llega por referencia directa y revisa portfolios con criterio técnico y visual exigente.',
+          en: 'Technology sector. Hires design and product profiles daily. Arrives via direct referral and reviews portfolios with rigorous technical and visual criteria.',
+        },
+        goal: {
+          es: 'Validar que el candidato entiende las limitaciones del código real y puede tomar decisiones de diseño fundamentadas.',
+          en: 'Validate that the candidate understands real code constraints and can make grounded design decisions.',
+        },
+        time: { es: 'Sin límite establecido', en: 'No set time limit' },
+      },
+      {
+        id: 'hr-specialist',
+        role: { es: 'Responsable de RRHH Tech', en: 'Tech HR Specialist' },
+        context: {
+          es: 'Especializada en perfiles tecnológicos. Gestiona un volumen alto de candidatos y necesita identificar rápido si el perfil encaja con lo que busca la empresa.',
+          en: 'Specialises in tech profiles. Manages a high volume of candidates and needs to quickly identify whether the profile matches what the company is looking for.',
+        },
+        goal: {
+          es: 'Encontrar la información clave sin esfuerzo: experiencia, rol, resultados. Si no la ve en los primeros segundos, descarta.',
+          en: 'Find key information effortlessly: experience, role, results. If not visible within seconds, the profile is discarded.',
+        },
+        time: { es: '2 a 3 minutos', en: '2 to 3 minutes' },
+      },
+      {
+        id: 'non-technical',
+        role: { es: 'Usuario no técnico', en: 'Non-technical user' },
+        context: {
+          es: '70 años. Uso ocasional del ordenador y la tecnología. Ha probado el portfolio en laptop, tablet y móvil. Mirada limpia: sin filtros de diseño ni de producto.',
+          en: '70 years old. Occasional computer and technology user. Has tested the portfolio on laptop, tablet, and mobile. Clean perspective: no design or product filters.',
+        },
+        goal: {
+          es: 'Navegar sin perderse. Si encuentra la información que busca sin ayuda, el diseño funciona.',
+          en: 'Navigate without getting lost. If they find the information they need without help, the design works.',
+        },
+        time: { es: 'Sin límite, observación libre', en: 'No limit, free observation' },
+      },
+    ],
+    insights: [
+      {
+        id: 'insight-structure',
+        source: { es: 'VP de Diseño', en: 'Design VP' },
+
+        finding: {
+          es: 'Las primeras versiones tenían ruido visual: elementos sin jerarquía clara y espacios sin intención. El diseño no comunicaba criterio.',
+          en: 'Early versions had visual noise: elements without clear hierarchy and unintentional spacing. The design did not communicate judgment.',
+        },
+        impact: {
+          es: 'Rediseñé la jerarquía visual completa. Cada elemento tiene un nivel tipográfico, un color y un espacio asignado. Nada aparece sin razón.',
+          en: 'I redesigned the full visual hierarchy. Every element has an assigned typographic level, colour, and spacing. Nothing appears without reason.',
+        },
+      },
+      {
+        id: 'insight-information',
+        source: { es: 'Responsable de RRHH', en: 'HR Specialist' },
+
+        finding: {
+          es: 'El orden de la información no coincidía con lo que una persona de RRHH busca primero. Los datos clave estaban enterrados.',
+          en: 'The information order did not match what an HR professional looks for first. Key data was buried.',
+        },
+        impact: {
+          es: 'Reorganicé la arquitectura de información para que el rol, las responsabilidades y los resultados sean lo primero visible. El diseño memorable vino después.',
+          en: 'I reorganised the information architecture so that role, responsibilities, and results are the first thing visible. The memorable design came after.',
+        },
+      },
+      {
+        id: 'insight-usability',
+        source: { es: 'Usuario no técnico', en: 'Non-technical user' },
+
+        finding: {
+          es: 'Sin experiencia previa navegando portfolios, algunos flujos resultaban confusos. Puntos de fricción que yo no veía porque conocía el sistema.',
+          en: 'Without prior experience navigating portfolios, some flows were confusing. Friction points I could not see because I knew the system.',
+        },
+        impact: {
+          es: 'Simplifiqué la navegación y eliminé funciones que añadían complejidad sin aportar valor real. La usabilidad pasó a ser una condición de diseño, no un objetivo secundario.',
+          en: 'I simplified navigation and removed features that added complexity without real value. Usability became a design condition, not a secondary goal.',
+        },
+      },
+    ],
     decisions: {
       es: 'Opté por una arquitectura de información de 3 capas progresivas para evitar el agobio visual. Cada decisión técnica (como el uso de Turborepo) se tomó pensando en la escalabilidad futura de mis propios productos.',
       en: 'I opted for a 3-layer progressive information architecture to avoid visual overload. Every technical decision (such as using Turborepo) was made with the future scalability of my own products in mind.',

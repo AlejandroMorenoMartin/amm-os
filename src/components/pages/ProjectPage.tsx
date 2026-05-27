@@ -4,6 +4,8 @@ import { LinkExternal } from '../ui/LinkExternal';
 import { SectionLabel } from '../ui/SectionLabel';
 import { StatusChip } from '../ui/StatusChip';
 import { DeviceFrame } from '../ui/DeviceFrame';
+import { UserPersonaCard } from '../ui/UserPersonaCard';
+import { InsightCard } from '../ui/InsightCard';
 import { useT } from '../../i18n';
 import { usePageTitle } from '../../hooks/usePageTitle';
 
@@ -80,8 +82,28 @@ export function ProjectPage() {
       <div className="flex flex-col" style={{ gap: 'var(--gap-page)' }}>
         {sections.map((s) => (
           <div key={s.key} className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
-            <SectionLabel>{s.label}</SectionLabel>
-            <span className="text-txt-base">{s.content}</span>
+            <div className="flex flex-col" style={{ gap: '1rem' }}>
+              <SectionLabel>{s.label}</SectionLabel>
+              <span className="text-txt-base" dangerouslySetInnerHTML={{ __html: s.content }} />
+            </div>
+
+            {s.key === 'research' && project.personas && project.personas.length > 0 && (
+              <div className="flex flex-col" style={{ gap: 'var(--gap-card)' }}>
+                <span className="text-txt-base">[{t.research.personasLabel}]</span>
+                {project.personas.map((persona) => (
+                  <UserPersonaCard key={persona.id} persona={persona} />
+                ))}
+              </div>
+            )}
+
+            {s.key === 'research' && project.insights && project.insights.length > 0 && (
+              <div className="flex flex-col" style={{ gap: 'var(--gap-card)' }}>
+                <span className="text-txt-base">[{t.research.insightsLabel}]</span>
+                {project.insights.map((insight, i) => (
+                  <InsightCard key={insight.id} insight={insight} index={i} />
+                ))}
+              </div>
+            )}
           </div>
         ))}
       </div>

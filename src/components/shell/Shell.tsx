@@ -15,7 +15,7 @@ export function Shell({ children, hideBars = false, hideCtrl = false, hideBottom
   const topRef = useRef<HTMLElement>(null);
   const bottomRef = useRef<HTMLElement>(null);
   const [topH, setTopH] = useState(48);
-  const [bottomH, setBottomH] = useState(48);
+  const [bottomH, setBottomH] = useState(80);
 
   useSoundListeners();
   useMusic();

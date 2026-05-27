@@ -194,6 +194,16 @@ export interface Strings {
     lang2Name: string;
     lang2Level: string;
   };
+  research: {
+    role: string;
+    context: string;
+    goal: string;
+    time: string;
+    finding: string;
+    impact: string;
+    personasLabel: string;
+    insightsLabel: string;
+  };
   project: {
     resources: string;
     metrics: string;

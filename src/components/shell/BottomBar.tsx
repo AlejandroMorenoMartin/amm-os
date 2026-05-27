@@ -23,7 +23,7 @@ export const BottomBar = forwardRef<HTMLElement, BottomBarProps>(function Bottom
       className="fixed bottom-0 left-0 right-0 z-50 flex justify-center font-mono shell-bar-bottom"
       aria-label="Main navigation"
     >
-      <div className="w-full flex items-center" style={{ maxWidth: 'var(--shell-max-width)', paddingInline: 'var(--shell-padding)', paddingBlock: 'var(--shell-padding)' }}>
+      <div className="w-full flex items-center" style={{ maxWidth: 'var(--shell-max-width)', paddingInline: 'var(--shell-padding)', paddingTop: 'var(--shell-padding)', paddingBottom: 'calc(var(--shell-padding) + env(safe-area-inset-bottom, 0px))' }}>
         <div className="flex items-center gap-2 nav-touch">
           {navItems.map((item) => (
             <NavItem key={item.to} label={item.label} to={item.to} />

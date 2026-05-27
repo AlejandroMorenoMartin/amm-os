@@ -49,15 +49,15 @@
   --shell-max-width: 1080px;
   --shell-padding: 1rem;
   --shell-bar-offset: 48px;
-  --gap-page:    2rem;
-  --gap-section: 1.25rem;
+  --gap-page:    3rem;
+  --gap-section: 1.5rem;
   --gap-card:    0.5rem;
   --gap-block:   0.25rem;
 }
 @media (min-width: 768px) and (min-height: 500px) {
   :root {
-    --gap-page:    3rem;
-    --gap-section: 1.5rem;
+    --gap-page:    4rem;
+    --gap-section: 2rem;
   }
 }
 
@@ -272,7 +272,7 @@ strong { font-weight: 600; color: var(--color-zinc-200); }
 .status-chip--archived    { color: var(--color-zinc-700); border-color: var(--color-zinc-700); }
 
 /* Photo */
-.photo-border { border: var(--border-default); display: block; padding: 8px; background: var(--photo-bg); }
+.photo-border { border: 0.25px dotted var(--color-zinc-900); display: block; padding: 8px; background: var(--photo-bg); }
 @media (hover: hover) { .photo-btn:hover .photo-border { opacity: 0.9; } }
 
 /* photo-btn--full: 100% en mobile y desktop (proyectos) */
@@ -732,6 +732,98 @@ body::after {
 }
 
 /* ── /DeviceFrame ───────────────────────────────────── */
+
+/* ── Research artifacts ─────────────────────────────── */
+
+.artifact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap-card);
+}
+@media (min-width: 768px) and (min-height: 500px) {
+  .artifact-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.persona-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-card);
+  border: var(--border-default);
+  padding: 0.75rem;
+}
+@media (hover: hover) {
+  .persona-card:hover { background: var(--color-blue-900); }
+}
+
+.persona-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-block);
+}
+
+.persona-card__role {
+  color: inherit;
+}
+
+.persona-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-card);
+}
+
+.persona-card__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-block);
+}
+
+.insight-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-card);
+  border: var(--border-default);
+  padding: 0.75rem;
+}
+@media (hover: hover) {
+  .insight-card:hover { background: var(--color-blue-900); }
+}
+
+.insight-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-card);
+}
+
+.insight-card__number {
+  color: inherit;
+  flex-shrink: 0;
+}
+
+.insight-card__source {
+  flex: 1;
+}
+
+.insight-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-card);
+  flex: 1;
+}
+
+.insight-card__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-block);
+}
+
+.insight-card__impact {
+  color: var(--color-zinc-300);
+}
+
+/* ── /Research artifacts ────────────────────────────── */
 
 /* Scrollbar — webkit */
 ::-webkit-scrollbar { width: 2px; }
