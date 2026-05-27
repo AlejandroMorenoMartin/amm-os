@@ -45,13 +45,41 @@ export function Shell({ children, hideBars = false, hideCtrl = false, hideBottom
         </div>
       ) : (
         <div
-          className="flex-1 flex justify-center"
+          className="flex-1 flex justify-center relative"
           style={{
-            paddingTop: `calc(${topH}px + 1rem)`,
-            paddingBottom: (hideBottomBar || bottomSlot) ? '1rem' : `calc(${bottomH}px + 1rem)`,
+            paddingTop: `calc(${topH}px + 3rem)`,
+            paddingBottom: (hideBottomBar || bottomSlot) ? '3rem' : `calc(${bottomH}px + 3rem)`,
             alignItems: hideBottomBar ? 'stretch' : undefined,
           }}
         >
+          {/* Fade vignette — top */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'fixed',
+              top: topH,
+              left: 0,
+              right: 0,
+              height: '3rem',
+              background: 'linear-gradient(to bottom, var(--color-background) 0%, transparent 100%)',
+              pointerEvents: 'none',
+              zIndex: 40,
+            }}
+          />
+          {/* Fade vignette — bottom */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'fixed',
+              bottom: bottomH,
+              left: 0,
+              right: 0,
+              height: '3rem',
+              background: 'linear-gradient(to top, var(--color-background) 0%, transparent 100%)',
+              pointerEvents: 'none',
+              zIndex: 40,
+            }}
+          />
           <main className="w-full flex flex-col" style={{ maxWidth: 'var(--shell-max-width)', gap: 'var(--gap-page)', paddingInline: '0.75rem', height: hideBottomBar ? '100%' : undefined }}>
             {children}
           </main>
