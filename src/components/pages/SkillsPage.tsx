@@ -13,7 +13,7 @@ export function SkillsPage() {
   return (
     <article className="flex-1 font-mono flex flex-col" style={{ gap: 'var(--gap-page)' }}>
       {/* Technical */}
-      <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
+      <div className="flex flex-col" style={{ gap: 'var(--gap-label)' }}>
         <SectionLabel>{t.skills.sectionTechnical}</SectionLabel>
         <div className="flex flex-col" style={{ gap: 'var(--gap-card)' }}>
           <AccordionCard id="skill1" open={openKey === 'skill1'} onToggle={toggle} label={t.skills.skill1Label}>
@@ -76,7 +76,7 @@ export function SkillsPage() {
       </div>
 
       {/* Human */}
-      <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
+      <div className="flex flex-col" style={{ gap: 'var(--gap-label)' }}>
         <SectionLabel>{t.skills.sectionHuman}</SectionLabel>
         <div className="flex flex-col" style={{ gap: 'var(--gap-card)' }}>
           <AccordionCard id="skill4" open={openKey === 'skill4'} onToggle={toggle} label={t.skills.skill4Label}>

@@ -18,7 +18,7 @@ export function ProjectsPage() {
 
   function renderSection(list: typeof projects, title: string) {
     return (
-      <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
+      <div className="flex flex-col" style={{ gap: 'var(--gap-label)' }}>
         <SectionLabel>{title}</SectionLabel>
         <div className="projects-list flex flex-col" style={{ gap: 'var(--gap-card)' }}>
           {list.map((project) => (

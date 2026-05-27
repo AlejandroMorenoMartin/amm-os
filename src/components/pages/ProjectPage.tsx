@@ -82,7 +82,7 @@ export function ProjectPage() {
       <div className="flex flex-col" style={{ gap: 'var(--gap-page)' }}>
         {sections.map((s) => (
           <div key={s.key} className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
-            <div className="flex flex-col" style={{ gap: '1rem' }}>
+            <div className="flex flex-col" style={{ gap: 'var(--gap-label)' }}>
               <SectionLabel>{s.label}</SectionLabel>
               <span className="text-txt-base" dangerouslySetInnerHTML={{ __html: s.content }} />
             </div>

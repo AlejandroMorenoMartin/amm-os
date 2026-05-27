@@ -14,7 +14,7 @@ export function ResumePage() {
 
   return (
     <article className="flex-1 font-mono flex flex-col" style={{ gap: 'var(--gap-page)' }}>
-      <section className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
+      <section className="flex flex-col" style={{ gap: 'var(--gap-label)' }}>
         <SectionLabel>{t.cv.experiencia}</SectionLabel>
         <div className="flex flex-col" style={{ gap: 'var(--gap-card)' }}>
           <CVEntry t={t} prefix="exp1" open={openKey === 'exp1'} onToggle={toggle} />
@@ -24,7 +24,7 @@ export function ResumePage() {
         </div>
       </section>
 
-      <section className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
+      <section className="flex flex-col" style={{ gap: 'var(--gap-label)' }}>
         <SectionLabel>{t.cv.educacion}</SectionLabel>
         <div className="flex flex-col" style={{ gap: 'var(--gap-card)' }}>
           <EduEntry t={t} prefix="edu4" open={openKey === 'edu4'} onToggle={toggle} />

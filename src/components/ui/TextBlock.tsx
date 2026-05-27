@@ -4,7 +4,7 @@ interface TextBlockProps {
 
 export function TextBlock({ children }: TextBlockProps) {
   return (
-    <div className="flex flex-col items-start" style={{ gap: 'var(--gap-section)' }}>
+    <div className="flex flex-col items-start" style={{ gap: 'var(--gap-label)' }}>
       {children}
     </div>
   );

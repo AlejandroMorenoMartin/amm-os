@@ -51,6 +51,7 @@
   --shell-bar-offset: 48px;
   --gap-page:    3rem;
   --gap-section: 1.5rem;
+  --gap-label:   0.75rem;
   --gap-card:    0.5rem;
   --gap-block:   0.25rem;
 }
@@ -58,6 +59,7 @@
   :root {
     --gap-page:    4rem;
     --gap-section: 2rem;
+    --gap-label:   1rem;
   }
 }
 
@@ -220,17 +222,6 @@ strong { font-weight: 600; color: var(--color-zinc-200); }
 .shell-bar-top    { background: var(--color-background); border-bottom: var(--border-default); }
 .shell-bar-bottom { background: var(--color-background); border-top: var(--border-default); }
 
-/* Modal CTRL — centrado en mobile, dropdown en desktop */
-@media not all and (min-width: 768px) and (min-height: 500px) {
-  .ctrl-modal {
-    top: 50% !important;
-    right: auto !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%);
-    width: calc(100% - 2 * var(--shell-padding));
-    min-width: unset;
-  }
-}
 
 /* AccordionCard */
 .skill-card { background: var(--color-blue-950); border: 0.5px solid var(--color-blue-600); }
@@ -280,7 +271,7 @@ strong { font-weight: 600; color: var(--color-zinc-200); }
 
 /* photo-btn--half: 100% en mobile, 192px en desktop (about) */
 .photo-btn--half { display: block; width: 100%; }
-@media (min-width: 768px) and (min-height: 500px) { .photo-btn--half { width: 360px; max-width: none; } }
+@media (min-width: 768px) and (min-height: 500px) { .photo-btn--half { width: 270px; max-width: none; } }
 .desktop-block  { display: none; }
 .desktop-inline { display: none; }
 @media (min-width: 768px) and (min-height: 500px) { .desktop-block  { display: block; } }
