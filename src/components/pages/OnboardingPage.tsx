@@ -5,28 +5,13 @@ import { useT } from '../../i18n';
 import { PreloadShell } from '../shell/PreloadShell';
 import { ToggleSwitch } from '../ui/ToggleSwitch';
 
+export const ONBOARDING_STEP_COUNT = 4;
+
 interface OnboardingPageProps {
+  step: number;
+  onStepChange: (step: number) => void;
   onComplete: (path: string) => void;
-  onStepChange: (step: 1 | 2 | 3) => void;
 }
-
-
-const NAV_LINKS = [
-  { labelKey: 'home'    as const, path: '/'         },
-  { labelKey: 'trabajo' as const, path: '/projects' },
-  { labelKey: 'cv'      as const, path: '/resume'   },
-  { labelKey: 'skills'  as const, path: '/skills'   },
-];
-
-const BOOT_LINES = [
-  'Loading AMM-OS v4.0 [OK]',
-  'Loading lab/AMM-OS [OK]',
-  'Loading lab/Senzo-studio [OK]',
-  'Loading lab/Casa-del-aire [OK]',
-  'Loading lab/Sazon [OK]',
-  'Loading lab/Forma [OK]',
-  'Initializing AMM-OS v4.0 [OK]',
-];
 
 const CHAR_DELAY = 40;
 const IDLE_DELAY = 600;
@@ -75,68 +60,127 @@ function useCursor(active: boolean) {
   return visible ? '|' : ' ';
 }
 
-function StepBar({ step }: { step: 1 | 2 | 3 }) {
+function getSessionStamp() {
+  const now = new Date();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const year = now.getFullYear();
+  return `${month}/${day}/${year}`;
+}
+
+function getTimeStamp(locale: string) {
+  const now = new Date();
+  return now.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+}
+
+function SessionInfo() {
+  const lang = useAppStore((s) => s.lang);
+  const { t } = useT();
+  const locale = lang === 'es' ? 'es-ES' : 'en-US';
+  const [sessionDate] = useState(() => getSessionStamp());
+  const [sessionTime, setSessionTime] = useState(() => getTimeStamp(locale));
+
+  useEffect(() => {
+    const interval = setInterval(() => setSessionTime(getTimeStamp(locale)), 1000);
+    return () => clearInterval(interval);
+  }, [locale]);
+
   return (
-    <div
-      aria-hidden="true"
-      style={{
-        position: 'fixed',
-        bottom: '1rem',
-        left: 0,
-        right: 0,
-        display: 'flex',
-        justifyContent: 'center',
-        paddingInline: 'var(--shell-padding)',
-      }}
-    >
-      <div style={{ width: '100%', maxWidth: 'var(--shell-max-width)', display: 'flex', gap: 'var(--gap-block)' }}>
-        <div style={{ flex: 1, height: '8px', background: 'var(--color-zinc-300)' }} />
-        <div style={{ flex: 1, height: '8px', background: step >= 2 ? 'var(--color-zinc-300)' : 'var(--color-zinc-900)' }} />
-        <div style={{ flex: 1, height: '8px', background: step >= 3 ? 'var(--color-zinc-300)' : 'var(--color-zinc-900)' }} />
+    <div className="onboarding-session-info">
+      <p className="text-txt-s">{sessionDate}</p>
+      <p className="text-txt-s" style={{ color: 'var(--color-zinc-500)' }}>{sessionTime}</p>
+      <p className="text-txt-s" style={{ color: 'var(--color-zinc-500)' }}>{t.home.location}</p>
+    </div>
+  );
+}
+
+function ProgressBar({ step, onBack, backLabel }: { step: number; onBack?: () => void; backLabel: string }) {
+  const value = step / ONBOARDING_STEP_COUNT;
+  return (
+    <div className="flex items-center" style={{ gap: '1rem' }}>
+      {onBack && (
+        <button
+          type="button"
+          onClick={onBack}
+          className="btn-secondary has-tooltip"
+          aria-label={backLabel}
+          data-sound="interactive"
+        >
+          [&lt;]
+          <span className="tooltip tooltip--down">{backLabel}</span>
+        </button>
+      )}
+      <div className="onboarding-progress-track">
+        <div className="onboarding-progress-fill" style={{ width: `${value * 100}%` }} />
       </div>
     </div>
   );
 }
 
-function activeStyle(condition: boolean): React.CSSProperties {
-  return condition
-    ? { background: 'var(--color-blue-500)', color: 'var(--color-blue-950)', borderColor: 'var(--color-blue-500)' }
-    : {};
+function OnboardingHeader({ step, onBack, backLabel }: { step: number; onBack?: () => void; backLabel: string }) {
+  return (
+    <div className="flex flex-col" style={{ gap: 'var(--gap-section)' }}>
+      <SessionInfo />
+      <ProgressBar step={step} onBack={onBack} backLabel={backLabel} />
+    </div>
+  );
 }
 
-export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps) {
-  const { lang, setLang, soundEnabled, toggleSound, musicEnabled, toggleMusic, volume, setVolume } = useAppStore();
+function OptionGrid({ options, value, onChange }: { options: { value: string; label: string }[]; value: string | null; onChange: (v: string) => void }) {
+  return (
+    <div className="flex flex-col" style={{ gap: '0.5rem' }}>
+      {options.map((opt) => (
+        <button
+          key={opt.value}
+          type="button"
+          onClick={() => onChange(opt.value)}
+          className="onboarding-option"
+          aria-pressed={value === opt.value}
+          data-sound="interactive"
+        >
+          {opt.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+export function OnboardingPage({ step, onStepChange, onComplete }: OnboardingPageProps) {
+  const { lang, setLang, soundEnabled, toggleSound, musicEnabled, toggleMusic, volume, setVolume, onboardingAnswers, setOnboardingAnswer } = useAppStore();
   const { playClick } = useSound();
   const { t } = useT();
-  const [step, setStep] = useState<1 | 2 | 3>(1);
 
   // Step 1 — boot lines
   const [visibleLines, setVisibleLines] = useState(0);
   const [bootDone, setBootDone] = useState(false);
+
   // Step 2 — welcome typewriter
   const [phase2, setPhase2] = useState<Phase>('idle');
 
-  // Step 3 — desc typewriter
-  const [phase3, setPhase3] = useState<Phase>('idle');
+  const profile = onboardingAnswers.profile ?? null;
+  const goal = onboardingAnswers.goal ?? null;
 
-  function goToStep(next: 1 | 2 | 3) {
-    setStep(next);
+  function goToStep(next: number) {
     onStepChange(next);
+  }
+
+  function goBack() {
+    onStepChange(step - 1);
   }
 
   // Boot animation
   useEffect(() => {
     if (step !== 1) return;
-    const delay = 2500 / BOOT_LINES.length;
+    const delay = 2500 / 7;
     const timers: ReturnType<typeof setTimeout>[] = [];
-    BOOT_LINES.forEach((_, i) => {
+    for (let i = 0; i < 7; i++) {
       timers.push(setTimeout(() => {
         setVisibleLines(i + 1);
-        if (i === BOOT_LINES.length - 1) {
+        if (i === 6) {
           timers.push(setTimeout(() => setBootDone(true), 400));
         }
       }, delay * (i + 1)));
-    });
+    }
     return () => timers.forEach(clearTimeout);
   }, [step]);
 
@@ -146,7 +190,7 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
     function onKey(e: KeyboardEvent) {
       if (e.key !== 'Enter') return;
       if (!bootDone) {
-        setVisibleLines(BOOT_LINES.length);
+        setVisibleLines(7);
         setBootDone(true);
       } else {
         goToStep(2);
@@ -156,7 +200,7 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
     return () => window.removeEventListener('keydown', onKey);
   }, [step, bootDone]);
 
-  // Step 2 typewriter trigger
+  // Step 2 welcome typewriter trigger
   useEffect(() => {
     if (step !== 2) return;
     const timer = setTimeout(() => setPhase2('typing'), IDLE_DELAY);
@@ -169,19 +213,6 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
     return () => clearTimeout(timer);
   }, [phase2]);
 
-  // Step 3 typewriter trigger
-  useEffect(() => {
-    if (step !== 3) return;
-    const timer = setTimeout(() => setPhase3('typing'), IDLE_DELAY);
-    return () => clearTimeout(timer);
-  }, [step]);
-
-  useEffect(() => {
-    if (phase3 !== 'pausing') return;
-    const timer = setTimeout(() => setPhase3('done'), 600);
-    return () => clearTimeout(timer);
-  }, [phase3]);
-
   // Skip onboarding with Enter (step 2+)
   useEffect(() => {
     if (step === 1) return;
@@ -192,10 +223,6 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
 
   const welcomeText = useTypewriter(t.onboarding.welcome, phase2 === 'typing', () => setPhase2('pausing'), playTyping);
   const cursor2 = useCursor(phase2 === 'typing');
-
-  const descPlain = t.onboarding.stepDesc.replace(/<[^>]+>/g, '');
-  const descText = useTypewriter(descPlain, phase3 === 'typing', () => setPhase3('pausing'), playTyping);
-  const cursor3 = useCursor(phase3 === 'typing');
 
   function handleLang(l: 'es' | 'en') {
     setLang(l);
@@ -212,49 +239,60 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
     if (musicEnabled !== target) toggleMusic();
   }
 
+  function handleGoalComplete() {
+    const selected = t.onboarding.stepGoalOptions.find((opt) => opt.value === goal);
+    onComplete(selected?.path ?? '/');
+  }
+
   // ── Step 1: Boot ──────────────────────────────────────────────
   if (step === 1) {
     return (
       <PreloadShell>
-        <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-          {BOOT_LINES.slice(0, visibleLines).map((line, i) => {
-            const okIdx = line.lastIndexOf('[OK]');
-            const body = okIdx !== -1 ? line.slice(0, okIdx).trimEnd() : line;
-            const hasOk = okIdx !== -1;
-            return (
-              <p key={i} className="text-txt-s">
-                {body}{hasOk && <> <span className="text-txt-base">[OK]</span></>}
-              </p>
-            );
-          })}
+        <div className="flex flex-col" style={{ gap: 'var(--gap-page)' }}>
+          <OnboardingHeader step={step} backLabel={t.onboarding.stepBack} />
+
+          <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
+            {[t.boot.line1, t.boot.line2, t.boot.line3, t.boot.line4, t.boot.line5, t.boot.line6, t.boot.line7]
+              .slice(0, visibleLines)
+              .map((line, i) => {
+                const okIdx = line.lastIndexOf('[OK]');
+                const body = okIdx !== -1 ? line.slice(0, okIdx).trimEnd() : line;
+                const hasOk = okIdx !== -1;
+                return (
+                  <p key={i} className="text-txt-s">
+                    {body}{hasOk && <> <span className="text-txt-base">[OK]</span></>}
+                  </p>
+                );
+              })}
+          </div>
         </div>
 
         <div className="onboarding-actions">
           <div className="onboarding-actions-inner">
+            <button type="button" onClick={() => goToStep(2)} className="btn-nav btn-nav--active font-mono">{t.onboarding.stepContinue}</button>
             <button type="button" onClick={() => onComplete('/')} className="btn-secondary font-mono" data-sound="interactive">{t.onboarding.stepSkip}</button>
-            <button type="button" onClick={() => goToStep(2)} className="btn-secondary font-mono" style={{ color: 'var(--color-blue-500)', borderColor: 'var(--color-blue-500)' }} data-sound="interactive">{t.onboarding.stepContinue}</button>
           </div>
         </div>
-
-        <StepBar step={1} />
       </PreloadShell>
     );
   }
 
-  // ── Step 2: Controls ─────────────────────────────────────────
+  // ── Step 2: Welcome + Controls ─────────────────────────────────
   if (step === 2) {
     return (
       <PreloadShell>
         <div className="flex flex-col" style={{ gap: 'var(--gap-page)' }}>
-          {phase2 !== 'idle' && (
-            <p className="text-txt-base">
-              {phase2 === 'pausing' || phase2 === 'done' ? t.onboarding.welcome : welcomeText}
-              {(phase2 === 'typing' || phase2 === 'pausing') && <span aria-hidden="true" style={{ color: 'var(--color-zinc-50)' }}>{cursor2}</span>}
-            </p>
-          )}
+          <OnboardingHeader step={step} backLabel={t.onboarding.stepBack} />
+
+          <p className="text-txt-base">
+            {phase2 === 'pausing' || phase2 === 'done' ? t.onboarding.welcome : welcomeText}
+            {(phase2 === 'typing' || phase2 === 'pausing') && <span aria-hidden="true" style={{ color: 'var(--color-zinc-50)' }}>{cursor2}</span>}
+          </p>
 
           {phase2 === 'done' && (
             <div className="flex flex-col" style={{ gap: 'var(--gap-card)' }}>
+              <p className="text-txt-base">{t.onboarding.stepSetup}</p>
+
               {/* Volume */}
               <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
                 <p className="text-txt-s">{t.onboarding.stepVolume}</p>
@@ -314,57 +352,77 @@ export function OnboardingPage({ onComplete, onStepChange }: OnboardingPageProps
 
         <div className="onboarding-actions">
           <div className="onboarding-actions-inner">
+            <button type="button" onClick={() => goToStep(3)} className="btn-nav btn-nav--active font-mono">{t.onboarding.stepContinue}</button>
             <button type="button" onClick={() => onComplete('/')} className="btn-secondary font-mono" data-sound="interactive">{t.onboarding.stepSkip}</button>
-            <button type="button" onClick={() => goToStep(3)} className="btn-secondary font-mono" style={{ color: 'var(--color-blue-500)', borderColor: 'var(--color-blue-500)' }} data-sound="interactive">{t.onboarding.stepContinue}</button>
           </div>
         </div>
-
-        <StepBar step={2} />
       </PreloadShell>
     );
   }
 
-  // ── Step 3: Destination ───────────────────────────────────────
+  // ── Step 3: Profile ───────────────────────────────────────────
+  if (step === 3) {
+    return (
+      <PreloadShell>
+        <div className="flex flex-col" style={{ gap: 'var(--gap-page)' }}>
+          <OnboardingHeader step={step} onBack={goBack} backLabel={t.onboarding.stepBack} />
+
+          <div className="flex flex-col" style={{ gap: '1rem' }}>
+            <p className="text-txt-base">{t.onboarding.stepProfileTitle}</p>
+            <OptionGrid
+              options={t.onboarding.stepProfileOptions}
+              value={profile}
+              onChange={(v) => setOnboardingAnswer('profile', v)}
+            />
+          </div>
+        </div>
+
+        <div className="onboarding-actions">
+          <div className="onboarding-actions-inner">
+            <button
+              type="button"
+              onClick={() => goToStep(4)}
+              className="btn-nav btn-nav--active font-mono"
+              disabled={!profile}
+            >
+              {t.onboarding.stepContinue}
+            </button>
+            <button type="button" onClick={() => onComplete('/')} className="btn-secondary font-mono" data-sound="interactive">{t.onboarding.stepSkip}</button>
+          </div>
+        </div>
+      </PreloadShell>
+    );
+  }
+
+  // ── Step 4: Goal ───────────────────────────────────────────────
   return (
     <PreloadShell>
       <div className="flex flex-col" style={{ gap: 'var(--gap-page)' }}>
-        {phase3 !== 'idle' && phase3 !== 'done' && (
-          <p className="text-txt-base">
-            {descText}
-            {(phase3 === 'typing' || phase3 === 'pausing') && <span aria-hidden="true" style={{ color: 'var(--color-zinc-50)' }}>{cursor3}</span>}
-          </p>
-        )}
-        {phase3 === 'done' && (
-          <p className="text-txt-base" dangerouslySetInnerHTML={{ __html: t.onboarding.stepDesc }} />
-        )}
+        <OnboardingHeader step={step} onBack={goBack} backLabel={t.onboarding.stepBack} />
 
-        {phase3 === 'done' && (
-          <div className="flex flex-col" style={{ gap: 'var(--gap-block)' }}>
-            <p className="text-txt-s">{t.onboarding.stepDestination}</p>
-            <div className="flex flex-wrap" style={{ gap: 'var(--gap-block)' }}>
-              {NAV_LINKS.map(({ labelKey, path }) => (
-                <button
-                  key={path}
-                  type="button"
-                  onClick={() => onComplete(path)}
-                  className="btn-secondary btn-underline-hover font-mono"
-                  style={{ ...activeStyle(true), flex: '1 1 auto' }}
-                  data-sound="interactive"
-                >
-                  {t.nav[labelKey]}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
+        <div className="flex flex-col" style={{ gap: '1rem' }}>
+          <p className="text-txt-base">{t.onboarding.stepGoalTitle}</p>
+          <OptionGrid
+            options={t.onboarding.stepGoalOptions}
+            value={goal}
+            onChange={(v) => setOnboardingAnswer('goal', v)}
+          />
+        </div>
       </div>
 
       <div className="onboarding-actions">
         <div className="onboarding-actions-inner">
+          <button
+            type="button"
+            onClick={handleGoalComplete}
+            className="btn-nav btn-nav--active font-mono"
+            disabled={!goal}
+          >
+            {t.onboarding.stepContinue}
+          </button>
           <button type="button" onClick={() => onComplete('/')} className="btn-secondary font-mono" data-sound="interactive">{t.onboarding.stepSkip}</button>
         </div>
       </div>
-      <StepBar step={3} />
     </PreloadShell>
   );
 }

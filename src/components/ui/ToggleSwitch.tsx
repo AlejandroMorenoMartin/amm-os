@@ -8,9 +8,11 @@ interface ToggleSwitchProps<T extends string> {
   value: T;
   onChange: (value: T) => void;
   ariaLabel?: string;
+  activeColor?: string;
+  activeTextColor?: string;
 }
 
-export function ToggleSwitch<T extends string>({ options, value, onChange, ariaLabel }: ToggleSwitchProps<T>) {
+export function ToggleSwitch<T extends string>({ options, value, onChange, ariaLabel, activeColor = 'var(--color-blue-500)', activeTextColor = 'var(--color-blue-950)' }: ToggleSwitchProps<T>) {
   const [a, b] = options;
   return (
     <div
@@ -41,8 +43,8 @@ export function ToggleSwitch<T extends string>({ options, value, onChange, ariaL
               cursor: 'pointer',
               border: 'none',
               borderLeft: i === 1 ? 'var(--border-default)' : undefined,
-              background: active ? 'var(--color-blue-500)' : 'transparent',
-              color: active ? 'var(--color-blue-950)' : 'var(--color-zinc-400)',
+              background: active ? activeColor : 'transparent',
+              color: active ? activeTextColor : 'var(--color-zinc-400)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',

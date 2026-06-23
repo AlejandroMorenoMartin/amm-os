@@ -12,6 +12,7 @@ export interface ImageModalState {
 
 export interface AppStore {
   onboardingDone: boolean;
+  onboardingAnswers: Record<string, string>;
   expandedProject: string | null;
   focusIndex: number;
   imageModal: ImageModalState | null;
@@ -20,6 +21,7 @@ export interface AppStore {
   musicEnabled: boolean;
   volume: number;
   completeOnboarding: () => void;
+  setOnboardingAnswer: (questionKey: string, answerValue: string) => void;
   toggleProject: (slug: string) => void;
   setFocus: (index: number) => void;
   openImageModal: (data: ImageModalState) => void;
@@ -34,6 +36,7 @@ export const useAppStore = create<AppStore>()(
   persist(
     (set) => ({
       onboardingDone: false,
+      onboardingAnswers: {},
       expandedProject: null,
       focusIndex: -1,
       imageModal: null,
@@ -42,7 +45,9 @@ export const useAppStore = create<AppStore>()(
       musicEnabled: true,
       volume: 0.2,
 
-      completeOnboarding: () => set({ onboardingDone: true }),
+      completeOnboarding: () => set({ onboardingDone: true, onboardingAnswers: {} }),
+      setOnboardingAnswer: (questionKey, answerValue) =>
+        set((s) => ({ onboardingAnswers: { ...s.onboardingAnswers, [questionKey]: answerValue } })),
       toggleProject: (slug) =>
         set((s) => ({ expandedProject: s.expandedProject === slug ? null : slug })),
       setFocus: (index) => set({ focusIndex: index }),
@@ -58,14 +63,15 @@ export const useAppStore = create<AppStore>()(
     }),
     {
       name: 'amm-os-store',
-      version: 4,
+      version: 5,
       migrate: (persisted) => {
         const state = persisted as Partial<AppStore>;
-        return { lang: state.lang ?? 'es', volume: state.volume ?? 0.2 };
+        return { lang: state.lang ?? 'es', volume: state.volume ?? 0.2, onboardingAnswers: state.onboardingAnswers ?? {} };
       },
-      partialize: (s): Pick<AppStore, 'lang' | 'volume'> => ({
+      partialize: (s): Pick<AppStore, 'lang' | 'volume' | 'onboardingAnswers'> => ({
         lang: s.lang,
         volume: s.volume,
+        onboardingAnswers: s.onboardingAnswers,
       }),
     }
   )

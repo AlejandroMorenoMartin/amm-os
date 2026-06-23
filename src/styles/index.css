@@ -49,6 +49,7 @@
   --shell-max-width: 1080px;
   --shell-padding: 1rem;
   --shell-bar-offset: 48px;
+  --progress-bar-height: 12px;
   --gap-page:    3rem;
   --gap-section: 1.5rem;
   --gap-label:   0.75rem;
@@ -410,6 +411,7 @@ strong { font-weight: 600; color: var(--color-zinc-200); }
   color: var(--color-blue-950);
 }
 @media (hover: hover) { .btn-nav--active:hover { color: var(--color-blue-950); } }
+.btn-nav--active:disabled { opacity: 0.25; cursor: not-allowed; }
 @media (hover: hover) { .btn-underline-hover:hover { text-decoration: underline; } }
 
 /* btn-action — BtnControl + BtnOpen */
@@ -439,7 +441,7 @@ strong { font-weight: 600; color: var(--color-zinc-200); }
 /* onboarding actions — skip + continue row */
 .onboarding-actions {
   position: fixed;
-  bottom: calc(1rem + 8px + 1rem);
+  bottom: 1rem;
   left: 0;
   right: 0;
   display: flex;
@@ -450,10 +452,58 @@ strong { font-weight: 600; color: var(--color-zinc-200); }
   width: 100%;
   max-width: var(--shell-max-width);
   display: flex;
-  gap: var(--gap-block);
+  flex-direction: column;
+  gap: 0.5rem;
 }
-.onboarding-actions > .onboarding-actions-inner > button {
+
+/* onboarding option grid — profile/goal selection */
+.onboarding-option {
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 400;
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  background: transparent;
+  border: var(--border-default);
+  color: var(--color-zinc-400);
+}
+@media (hover: hover) {
+  .onboarding-option:hover {
+    background: var(--color-blue-900);
+  }
+}
+.onboarding-option[aria-pressed="true"] {
+  background: var(--color-blue-500);
+  border-color: var(--color-blue-500);
+  color: var(--color-blue-950);
+}
+
+/* onboarding session info — date / time / location row */
+.onboarding-session-info {
+  display: flex;
+  align-items: center;
+}
+.onboarding-session-info > * {
   flex: 1;
+}
+.onboarding-session-info > *:nth-child(2) {
+  text-align: center;
+}
+.onboarding-session-info > *:nth-child(3) {
+  text-align: right;
+}
+
+/* onboarding progress — track + fill */
+.onboarding-progress-track {
+  width: 100%;
+  height: var(--progress-bar-height);
+  background: var(--color-zinc-300);
+}
+.onboarding-progress-fill {
+  height: 100%;
+  background: var(--color-blue-500);
+  transition: width 300ms ease-out;
 }
 
 /* btn-secondary — skip, share, lang switcher */

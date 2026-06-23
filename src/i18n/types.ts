@@ -34,8 +34,11 @@ export interface Strings {
     stepLang: string;
     stepSkip: string;
     stepContinue: string;
-    stepDestination: string;
-    stepDesc: string;
+    stepBack: string;
+    stepProfileTitle: string;
+    stepProfileOptions: { value: string; label: string }[];
+    stepGoalTitle: string;
+    stepGoalOptions: { value: string; label: string; path: string }[];
   };
   home: {
     title: string;
