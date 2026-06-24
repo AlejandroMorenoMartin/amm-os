@@ -4,8 +4,9 @@ import { LinkExternal } from '../ui/LinkExternal';
 import { SectionLabel } from '../ui/SectionLabel';
 import { StatusChip } from '../ui/StatusChip';
 import { DeviceFrame } from '../ui/DeviceFrame';
-import { UserPersonaCard } from '../ui/UserPersonaCard';
-import { InsightCard } from '../ui/InsightCard';
+import { ResearchFindingCard } from '../ui/ResearchFindingCard';
+import { DecisionCard } from '../ui/DecisionCard';
+import { SystemShowcase } from '../ui/SystemShowcase';
 import { useT } from '../../i18n';
 import { usePageTitle } from '../../hooks/usePageTitle';
 
@@ -87,23 +88,25 @@ export function ProjectPage() {
               <span className="text-txt-base" dangerouslySetInnerHTML={{ __html: s.content }} />
             </div>
 
-            {s.key === 'research' && project.personas && project.personas.length > 0 && (
+            {s.key === 'research' && project.researchFindings && project.researchFindings.length > 0 && (
               <div className="flex flex-col" style={{ gap: 'var(--gap-card)' }}>
                 <span className="text-txt-base">[{t.research.personasLabel}]</span>
-                {project.personas.map((persona) => (
-                  <UserPersonaCard key={persona.id} persona={persona} />
+                {project.researchFindings.map((finding, i) => (
+                  <ResearchFindingCard key={finding.id} finding={finding} index={i} />
                 ))}
               </div>
             )}
 
-            {s.key === 'research' && project.insights && project.insights.length > 0 && (
+            {s.key === 'decisions' && project.researchFindings && project.researchFindings.length > 0 && (
               <div className="flex flex-col" style={{ gap: 'var(--gap-card)' }}>
-                <span className="text-txt-base">[{t.research.insightsLabel}]</span>
-                {project.insights.map((insight, i) => (
-                  <InsightCard key={insight.id} insight={insight} index={i} />
+                <span className="text-txt-base">[{t.research.decisionsLabel}]</span>
+                {project.researchFindings.map((finding, i) => (
+                  <DecisionCard key={finding.id} finding={finding} index={i} />
                 ))}
               </div>
             )}
+
+            {s.key === 'system' && project.slug === 'amm-os' && <SystemShowcase />}
           </div>
         ))}
       </div>

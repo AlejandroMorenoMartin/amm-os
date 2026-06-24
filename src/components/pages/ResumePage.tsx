@@ -27,10 +27,16 @@ export function ResumePage() {
       <section className="flex flex-col" style={{ gap: 'var(--gap-label)' }}>
         <SectionLabel>{t.cv.educacion}</SectionLabel>
         <div className="flex flex-col" style={{ gap: 'var(--gap-card)' }}>
+          <EduEntry t={t} prefix="edu3" open={openKey === 'edu3'} onToggle={toggle} />
+        </div>
+      </section>
+
+      <section className="flex flex-col" style={{ gap: 'var(--gap-label)' }}>
+        <SectionLabel>{t.cv.certificaciones}</SectionLabel>
+        <div className="flex flex-col" style={{ gap: 'var(--gap-card)' }}>
           <EduEntry t={t} prefix="edu4" open={openKey === 'edu4'} onToggle={toggle} />
           <EduEntry t={t} prefix="edu1" open={openKey === 'edu1'} onToggle={toggle} />
           <EduEntry t={t} prefix="edu2" open={openKey === 'edu2'} onToggle={toggle} />
-          <EduEntry t={t} prefix="edu3" open={openKey === 'edu3'} onToggle={toggle} />
         </div>
       </section>
     </article>

@@ -158,7 +158,9 @@ export function OnboardingPage({ step, onStepChange, onComplete }: OnboardingPag
   const [phase2, setPhase2] = useState<Phase>('idle');
 
   const profile = onboardingAnswers.profile ?? null;
+  const profileOther = onboardingAnswers.profileOther ?? '';
   const goal = onboardingAnswers.goal ?? null;
+  const profileReady = profile === 'other' ? profileOther.trim().length > 0 : !!profile;
 
   function goToStep(next: number) {
     onStepChange(next);
@@ -374,6 +376,17 @@ export function OnboardingPage({ step, onStepChange, onComplete }: OnboardingPag
               value={profile}
               onChange={(v) => setOnboardingAnswer('profile', v)}
             />
+            {profile === 'other' && (
+              <input
+                type="text"
+                value={profileOther}
+                onChange={(e) => setOnboardingAnswer('profileOther', e.target.value)}
+                placeholder={t.onboarding.stepProfileOtherPlaceholder}
+                aria-label={t.onboarding.stepProfileOtherPlaceholder}
+                className="onboarding-option onboarding-option-detail"
+                autoFocus
+              />
+            )}
           </div>
         </div>
 
@@ -383,7 +396,7 @@ export function OnboardingPage({ step, onStepChange, onComplete }: OnboardingPag
               type="button"
               onClick={() => goToStep(4)}
               className="btn-nav btn-nav--active font-mono"
-              disabled={!profile}
+              disabled={!profileReady}
             >
               {t.onboarding.stepContinue}
             </button>
@@ -399,6 +412,8 @@ export function OnboardingPage({ step, onStepChange, onComplete }: OnboardingPag
     <PreloadShell>
       <div className="flex flex-col" style={{ gap: 'var(--gap-page)' }}>
         <OnboardingHeader step={step} onBack={goBack} backLabel={t.onboarding.stepBack} />
+
+        <p className="text-txt-base" dangerouslySetInnerHTML={{ __html: t.onboarding.stepGoalIntro }} />
 
         <div className="flex flex-col" style={{ gap: '1rem' }}>
           <p className="text-txt-base">{t.onboarding.stepGoalTitle}</p>

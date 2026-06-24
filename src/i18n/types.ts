@@ -37,6 +37,8 @@ export interface Strings {
     stepBack: string;
     stepProfileTitle: string;
     stepProfileOptions: { value: string; label: string }[];
+    stepProfileOtherPlaceholder: string;
+    stepGoalIntro: string;
     stepGoalTitle: string;
     stepGoalOptions: { value: string; label: string; path: string }[];
   };
@@ -91,6 +93,7 @@ export interface Strings {
     title: string;
     experiencia: string;
     educacion: string;
+    certificaciones: string;
     labelPeriod: string;
     labelDescription: string;
     labelCompany: string;
@@ -201,11 +204,23 @@ export interface Strings {
     role: string;
     context: string;
     goal: string;
-    time: string;
     finding: string;
     impact: string;
     personasLabel: string;
-    insightsLabel: string;
+    decisionsLabel: string;
+  };
+  system: {
+    colorLabel: string;
+    typeLabel: string;
+    typeColClass: string;
+    typeColFont: string;
+    typeColSize: string;
+    typeColWeight: string;
+    typeColLineHeight: string;
+    typeColColor: string;
+    spacingLabel: string;
+    componentsLabel: string;
+    cursorLabel: string;
   };
   project: {
     resources: string;

@@ -1,17 +1,12 @@
-export interface Persona {
+export interface ResearchFinding {
   id: string;
   role: { es: string; en: string };
   context: { es: string; en: string };
   goal: { es: string; en: string };
-  time: { es: string; en: string };
-}
-
-export interface Insight {
-  id: string;
-  source: { es: string; en: string };
   quote?: { es: string; en: string };
   finding: { es: string; en: string };
   impact: { es: string; en: string };
+  visual?: string;
 }
 
 export interface Project {
@@ -32,8 +27,7 @@ export interface Project {
   manifesto: { es: string; en: string };
   image: string;
   research: { es: string; en: string };
-  personas?: Persona[];
-  insights?: Insight[];
+  researchFindings?: ResearchFinding[];
   decisions: { es: string; en: string };
   system: { es: string; en: string };
   lessons: { es: string; en: string };
@@ -42,7 +36,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     slug: 'amm-os',
-    name: 'AMM-OS',
+    name: '[AMM-OS]',
     category: 'personal',
     date: '02/2026',
     synopsis: {
@@ -91,98 +85,102 @@ export const projects: Project[] = [
     },
     image: '/placeholder-image.webp',
     research: {
-      es: 'La fase de investigación se centró en validar el portfolio con tres perfiles distintos. <strong>Un VP de Diseño</strong> señalaba errores concretos en cada iteración. <strong>Una responsable de RRHH</strong> me mostró cómo piensa alguien que descarta perfiles en segundos. <strong>Un usuario sin experiencia técnica</strong> navegaba mientras yo observaba: cada fricción era una señal para simplificar.',
-      en: 'The research phase focused on validating the portfolio with three distinct profiles. <strong>A Design VP</strong> pointed out specific errors in each iteration. <strong>An HR professional</strong> showed me how someone who discards profiles in seconds actually thinks. <strong>A non-technical user</strong> navigated freely while I observed: every friction point was a signal to simplify.',
+      es: 'Empecé revisando portfolios de otros profesionales, proyectos de diseño de producto y referencias de todo tipo para entender qué funciona y qué ideas podía adaptar. A partir de ahí construí las primeras versiones y las validé con personas reales de cuatro perfiles distintos: diseño, RRHH, desarrollo y usuarios sin experiencia técnica. Cada ronda de feedback cambiaba algo concreto del sistema.',
+      en: 'I started by reviewing other professionals\' portfolios, product design projects and all kinds of references to understand what works and which ideas I could adapt. From there I built the first versions and validated them with real people across four profiles: design, HR, development and non-technical users. Every round of feedback changed something concrete in the system.',
     },
-    personas: [
+    researchFindings: [
       {
         id: 'design-vp',
         role: { es: 'VP de Diseño', en: 'VP of Design' },
         context: {
-          es: 'Sector tecnológico. Contrata perfiles de diseño y producto a diario. Llega por referencia directa y revisa portfolios con criterio técnico y visual exigente.',
-          en: 'Technology sector. Hires design and product profiles daily. Arrives via direct referral and reviews portfolios with rigorous technical and visual criteria.',
+          es: 'Sector tecnológico. Revisa portfolios con criterio técnico y visual exigente.',
+          en: 'Tech sector. Reviews portfolios with demanding technical and visual criteria.',
         },
         goal: {
-          es: 'Validar que el candidato entiende las limitaciones del código real y puede tomar decisiones de diseño fundamentadas.',
-          en: 'Validate that the candidate understands real code constraints and can make grounded design decisions.',
+          es: 'Validar criterio de diseño y decisiones fundamentadas.',
+          en: 'Validate design judgment and grounded decisions.',
         },
-        time: { es: 'Sin límite establecido', en: 'No set time limit' },
+        finding: {
+          es: 'Ruido visual: elementos sin jerarquía clara, espacios sin intención.',
+          en: 'Visual noise: elements with no clear hierarchy, unintentional spacing.',
+        },
+        impact: {
+          es: 'Rediseñé la jerarquía visual completa. Cada elemento tiene nivel, color y espacio asignado.',
+          en: 'Redesigned the full visual hierarchy. Every element has an assigned level, colour and spacing.',
+        },
+        visual: 'https://placehold.co/640x360',
       },
       {
         id: 'hr-specialist',
         role: { es: 'Responsable de RRHH Tech', en: 'Tech HR Specialist' },
         context: {
-          es: 'Especializada en perfiles tecnológicos. Gestiona un volumen alto de candidatos y necesita identificar rápido si el perfil encaja con lo que busca la empresa.',
-          en: 'Specialises in tech profiles. Manages a high volume of candidates and needs to quickly identify whether the profile matches what the company is looking for.',
+          es: 'Alto volumen de candidatos. Decide en segundos si un perfil encaja.',
+          en: 'High candidate volume. Decides in seconds if a profile fits.',
         },
         goal: {
-          es: 'Encontrar la información clave sin esfuerzo: experiencia, rol, resultados. Si no la ve en los primeros segundos, descarta.',
-          en: 'Find key information effortlessly: experience, role, results. If not visible within seconds, the profile is discarded.',
+          es: 'Encontrar rol, experiencia y resultados sin esfuerzo.',
+          en: 'Find role, experience and results effortlessly.',
         },
-        time: { es: '2 a 3 minutos', en: '2 to 3 minutes' },
+        finding: {
+          es: 'La información clave estaba enterrada, no era lo primero visible.',
+          en: 'Key information was buried, not the first thing visible.',
+        },
+        impact: {
+          es: 'Reorganicé la arquitectura de información: rol, responsabilidades y resultados primero.',
+          en: 'Reorganised the information architecture: role, responsibilities and results first.',
+        },
+        visual: 'https://placehold.co/640x360',
+      },
+      {
+        id: 'developer',
+        role: { es: 'Desarrollador frontend', en: 'Frontend developer' },
+        context: {
+          es: 'Revisa arquitectura de componentes y decisiones técnicas.',
+          en: 'Reviews component architecture and technical decisions.',
+        },
+        goal: {
+          es: 'Comprobar que el sistema es mantenible.',
+          en: 'Check that the system is maintainable.',
+        },
+        finding: {
+          es: 'Componentes con responsabilidades mezcladas: layout, datos y estilo a la vez.',
+          en: 'Components mixed responsibilities: layout, data and styling at once.',
+        },
+        impact: {
+          es: 'Separé UI, datos en i18n y tokens en CSS. Cada pieza, una única responsabilidad.',
+          en: 'Separated UI, i18n data and CSS tokens. Each piece, a single responsibility.',
+        },
+        visual: 'https://placehold.co/640x360',
       },
       {
         id: 'non-technical',
         role: { es: 'Usuario no técnico', en: 'Non-technical user' },
         context: {
-          es: '70 años. Uso ocasional del ordenador y la tecnología. Ha probado el portfolio en laptop, tablet y móvil. Mirada limpia: sin filtros de diseño ni de producto.',
-          en: '70 years old. Occasional computer and technology user. Has tested the portfolio on laptop, tablet, and mobile. Clean perspective: no design or product filters.',
+          es: '70 años, uso ocasional del ordenador. Mirada limpia, sin filtros de diseño.',
+          en: '70 years old, occasional computer use. Clean perspective, no design filters.',
         },
         goal: {
-          es: 'Navegar sin perderse. Si encuentra la información que busca sin ayuda, el diseño funciona.',
-          en: 'Navigate without getting lost. If they find the information they need without help, the design works.',
+          es: 'Navegar sin perderse.',
+          en: 'Navigate without getting lost.',
         },
-        time: { es: 'Sin límite, observación libre', en: 'No limit, free observation' },
-      },
-    ],
-    insights: [
-      {
-        id: 'insight-structure',
-        source: { es: 'VP de Diseño', en: 'Design VP' },
-
         finding: {
-          es: 'Las primeras versiones tenían ruido visual: elementos sin jerarquía clara y espacios sin intención. El diseño no comunicaba criterio.',
-          en: 'Early versions had visual noise: elements without clear hierarchy and unintentional spacing. The design did not communicate judgment.',
+          es: 'La estética de terminal confundía al principio, sin contexto previo.',
+          en: 'The terminal aesthetic was confusing at first, with no prior context.',
         },
         impact: {
-          es: 'Rediseñé la jerarquía visual completa. Cada elemento tiene un nivel tipográfico, un color y un espacio asignado. Nada aparece sin razón.',
-          en: 'I redesigned the full visual hierarchy. Every element has an assigned typographic level, colour, and spacing. Nothing appears without reason.',
+          es: 'Añadí un onboarding que explica la navegación antes de entrar al sistema.',
+          en: 'Added an onboarding flow that explains navigation before entering the system.',
         },
-      },
-      {
-        id: 'insight-information',
-        source: { es: 'Responsable de RRHH', en: 'HR Specialist' },
-
-        finding: {
-          es: 'El orden de la información no coincidía con lo que una persona de RRHH busca primero. Los datos clave estaban enterrados.',
-          en: 'The information order did not match what an HR professional looks for first. Key data was buried.',
-        },
-        impact: {
-          es: 'Reorganicé la arquitectura de información para que el rol, las responsabilidades y los resultados sean lo primero visible. El diseño memorable vino después.',
-          en: 'I reorganised the information architecture so that role, responsibilities, and results are the first thing visible. The memorable design came after.',
-        },
-      },
-      {
-        id: 'insight-usability',
-        source: { es: 'Usuario no técnico', en: 'Non-technical user' },
-
-        finding: {
-          es: 'Sin experiencia previa navegando portfolios, algunos flujos resultaban confusos. Puntos de fricción que yo no veía porque conocía el sistema.',
-          en: 'Without prior experience navigating portfolios, some flows were confusing. Friction points I could not see because I knew the system.',
-        },
-        impact: {
-          es: 'Simplifiqué la navegación y eliminé funciones que añadían complejidad sin aportar valor real. La usabilidad pasó a ser una condición de diseño, no un objetivo secundario.',
-          en: 'I simplified navigation and removed features that added complexity without real value. Usability became a design condition, not a secondary goal.',
-        },
+        visual: 'https://placehold.co/640x360',
       },
     ],
     decisions: {
-      es: 'Opté por una arquitectura de información de 3 capas progresivas para evitar el agobio visual. Cada decisión técnica (como el uso de Turborepo) se tomó pensando en la escalabilidad futura de mis propios productos.',
-      en: 'I opted for a 3-layer progressive information architecture to avoid visual overload. Every technical decision (such as using Turborepo) was made with the future scalability of my own products in mind.',
+      es: 'Cada decisión de diseño responde a un hallazgo concreto de la investigación.',
+      en: 'Every design decision responds to a concrete research finding.',
     },
     system: {
-      es: 'Construcción de un lenguaje visual basado en la rejilla de la consola clásica, utilizando componentes atómicos en React y tipografías monoespaciadas para garantizar una estética coherente y un rendimiento extremo.',
-      en: 'Built a visual language based on the classic console grid, using atomic React components and monospaced typography to guarantee a coherent aesthetic and extreme performance.',
+      es: 'Un lenguaje visual basado en la rejilla de la consola clásica: tokens de color, tipografía monoespaciada y componentes atómicos.',
+      en: 'A visual language based on the classic console grid: colour tokens, monospaced typography and atomic components.',
     },
     lessons: {
       es: 'La primera versión era demasiado críptica. Aprendí que incluso en un entorno técnico, la usabilidad es innegociable. La v1.2 equilibra la nostalgia de la terminal con las convenciones modernas de UX.',
@@ -191,7 +189,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'senzo-studio',
-    name: 'Senzo-studio',
+    name: '[SENZO-STUDIO]',
     category: 'freelance',
     date: '01/2026',
     synopsis: {
@@ -258,7 +256,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'casa-del-aire',
-    name: 'Casa-del-aire',
+    name: '[CASA-DEL-AIRE]',
     category: 'freelance',
     date: '01/2026',
     synopsis: {
@@ -325,7 +323,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'sazon',
-    name: 'Sazon',
+    name: '[SAZON]',
     category: 'personal',
     date: '05/2026',
     synopsis: {
@@ -393,7 +391,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'forma',
-    name: 'Forma',
+    name: '[FORMA]',
     category: 'personal',
     date: '05/2026',
     synopsis: {
